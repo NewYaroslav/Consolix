@@ -1,0 +1,97 @@
+/// \mainpage Consolix Framework Documentation
+///
+/// ```
+///    █████████                                       ████   ███             
+///   ███░░░░░███                                     ░░███  ░░░              
+///  ███     ░░░   ██████  ████████    █████   ██████  ░███  ████  █████ █████
+/// ░███          ███░░███░░███░░███  ███░░   ███░░███ ░███ ░░███ ░░███ ░░███ 
+/// ░███         ░███ ░███ ░███ ░███ ░░█████ ░███ ░███ ░███  ░███  ░░░█████░  
+/// ░░███     ███░███ ░███ ░███ ░███  ░░░░███░███ ░███ ░███  ░███   ███░░░███ 
+///  ░░█████████ ░░██████  ████ █████ ██████ ░░██████  █████ █████ █████ █████
+///   ░░░░░░░░░   ░░░░░░  ░░░░ ░░░░░ ░░░░░░   ░░░░░░  ░░░░░ ░░░░░ ░░░░░ ░░░░░  
+/// ```
+///
+/// Welcome to the **Consolix Framework**, a versatile library designed to streamline the development of console-based applications. 
+/// Consolix provides core utilities, components, and abstractions that make building robust, maintainable applications faster and easier.
+///
+/// ## Features
+/// - **Component-Based Architecture:** Modular design with reusable components like logging, configuration management, and CLI parsing.
+/// - **Service Locator:** A flexible mechanism for global service registration and retrieval.
+/// - **Customizable Execution Loops:** Support for structured loops to suit a wide variety of application needs.
+/// - **Enhanced Logging:** Powered by LogIt, including console and file-based loggers.
+/// - **JSON Support with Comments:** Easily load and manage JSON configurations with comment support.
+/// - **Cross-Platform:** Seamlessly runs on Windows and POSIX-compatible systems. (For POSIX not fully tested)
+///
+/// ## Key Modules
+/// - **Core**:
+///   - ServiceLocator for global resource management.
+///   - Utilities for path handling, JSON processing, and more.
+///   - Application lifecycle management via AppComponentManager and ConsoleApplication.
+///
+/// - **Components**:
+///   - `LoggerComponent`: Centralized logging for console and file output.
+///   - `CliComponent`: Simplifies command-line argument handling.
+///   - `ConfigComponent`: Loads configuration from JSON files with support for comments.
+///   - `LogoComponent`: Displays a custom ASCII logo in the console.
+///   - `LoopComponent`: Implements customizable application loops.
+///
+/// - **Utilities**:
+///   - `path_utils.hpp`: Tools for file and directory path management.
+///   - `json_utils.hpp`: Helpers for parsing and cleaning JSON strings.
+///
+/// ## Example Usage
+///
+/// ```cpp
+/// #include <consolix/components.hpp>
+///
+/// int main(int argc, char* argv[]) {
+///     // Add logging functionality
+///     consolix::add<consolix::LoggerComponent>();
+///
+///     // Display the application logo
+///     consolix::add<consolix::LogoComponent>(consolix::TextColor::DarkYellow);
+///
+///     // Handle command-line arguments
+///     consolix::add<consolix::CliComponent>("MyApp", "Program description", [](auto& options) {
+///         options.add_options()("debug", "Enable debug mode");
+///     }, argc, argv);
+///
+///     // Load configuration from a JSON file
+///     consolix::add<consolix::ConfigComponent<MyConfig>>("config.json");
+///
+///     // Execute the main loop
+///     consolix::run([]() {
+///         CONSOLIX_STREAM() << "Executing main loop...";
+///     });
+/// }
+/// ```
+///
+/// ## Documentation Structure
+///
+/// ### Main Sections:
+/// 1. **General Guidance**
+///     - [Installation and Configuration](\ref setup)
+///     - [Usage Examples](\ref examples_page)
+///
+/// 2. **Modules and Components**
+///     - [Core Modules](\ref Core)
+///     - [Components](\ref Components)
+///
+/// 3. **Utilities**
+///    - [Path Utilities](\ref path_utils)
+///    - [JSON Utilities](\ref json_utils)
+///    - [Console Text Colors](\ref color_utils)
+///    - [Common Types and Enumerations](\ref common_types)
+///
+/// 4. **Project Overview**
+///     - [Project Structure](\ref project_structure)
+///
+/// ### Structure:
+/// - **Core** — foundational classes and utilities.
+/// - **Components** — modules implementing key application features.
+/// - **Utilities** — helper functions and modules.
+/// - **Interfaces** — interface classes defining the architecture of components.
+///
+/// ## License
+/// Consolix is distributed under the MIT License. For details, see the LICENSE file.
+///

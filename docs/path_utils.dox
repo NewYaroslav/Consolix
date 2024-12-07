@@ -1,0 +1,27 @@
+/// \page path_utils Path Utilities
+///
+/// # Path Utilities
+///
+/// This module provides functions for working with file and directory paths.
+/// It includes:
+/// - Retrieving the directory where the executable is located.
+/// - Creating directories recursively.
+/// - Constructing relative paths.
+///
+/// ## Key Functions:
+/// - `resolve_executable_path`: Returns the directory where the executable is located.
+/// - `make_relative`: Builds a path from a base directory to a target file.
+/// - `create_directories`: Creates directories for the specified path.
+///
+/// ## Example:
+/// ```cpp
+/// #include <consolix/utils/path_utils.hpp>
+///
+/// int main() {
+///     // Retrieve the directory of the executable
+///     std::string exe_path = consolix::resolve_executable_path();
+///     std::cout << "Executable Path: " << exe_path << std::endl;
+///
+///     return 0;
+/// }
+/// ```

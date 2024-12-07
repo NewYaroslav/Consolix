@@ -1,0 +1,59 @@
+/// \page project_structure Project Structure
+///
+/// The Consolix project is organized into the following primary modules:
+///
+/// ```plaintext
+/// consolix/
+/// │
+/// ├── core/                     # Core functionalities of the framework
+/// │   ├── ServiceLocator.hpp     # Global service locator
+/// │   ├── AppComponentManager.hpp # Application component manager
+/// │   ├── ConsoleApplication.hpp # Console application management
+/// │   ├── service_utils.hpp      # Utilities for working with the service locator
+/// │   └── application_utils.hpp  # Utilities for application management
+/// │
+/// ├── components/                # Component implementations
+/// │   ├── LoggerComponent.hpp    # Logger using LogIt
+/// │   ├── LogoComponent.hpp      # Displays application logo
+/// │   ├── BaseLoopComponent.hpp  # Base class for execution loops
+/// │   ├── LoopComponent.hpp      # Customizable execution loop component
+/// │   ├── CliComponent.hpp       # Command-line argument handling
+/// │   └── ConfigComponent.hpp    # JSON configuration management
+/// │
+/// ├── interfaces/                # Interfaces for core components
+/// │   ├── IAppComponent.hpp      # Application component interface
+/// │   └── IShutdownable.hpp      # Interface for shutdownable components
+/// │
+/// ├── utils/                     # Common utilities
+/// │   ├── enums.hpp              # Shared enumerations
+/// │   ├── types.hpp              # Common type aliases
+/// │   ├── json_utils.hpp         # JSON processing utilities
+/// │   ├── path_utils.hpp         # Path handling utilities
+/// │   ├── encoding_utils.hpp     # Character encoding utilities
+/// │   └── ColorManipulator.hpp   # Text color manipulation utilities
+/// │
+/// ├── config_macros.hpp          # Global configuration macros
+/// ├── interfaces.hpp             # Entry point for interfaces
+/// ├── utils.hpp                  # Entry point for utility modules
+/// ├── components.hpp             # Entry point for components
+/// ├── core.hpp                   # Entry point for core modules
+/// └── consolix.hpp               # Main entry point for the Consolix framework
+/// ```
+///
+/// ## Module Descriptions:
+/// - **core/**: Fundamental utilities and classes that form the backbone of the framework.
+/// - **components/**: Reusable modules that add specific functionality, such as logging and CLI handling.
+/// - **interfaces/**: Interfaces defining standard behaviors for framework components.
+/// - **utils/**: Helper functions and shared utilities for JSON, paths, encoding, and more.
+///
+/// ## How to Use:
+/// - To include the entire framework, use the main entry point:
+///   ```cpp
+///   #include <consolix/consolix.hpp>
+///   ```
+/// - To include specific functionality, use the respective module's entry point:
+///   ```cpp
+///   #include <consolix/core.hpp>
+///   #include <consolix/components.hpp>
+///   #include <consolix/utils.hpp>
+///   ```

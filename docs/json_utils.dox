@@ -1,0 +1,30 @@
+/// \page json_utils JSON Utilities
+///
+/// # JSON Utilities
+///
+/// This module provides functions for processing JSON strings.
+/// It supports:
+/// - Removing comments from JSON strings.
+/// - Handling JSON configurations with comments.
+///
+/// ## Key Functions:
+/// - `strip_json_comments`: Removes comments from a JSON string.
+/// - `check_escaped`: Checks if a character is escaped (used internally by `strip_json_comments`).
+///
+/// ## Example:
+/// ```cpp
+/// #include <consolix/utils/json_utils.hpp>
+///
+/// int main() {
+///     std::string raw_json = R"({
+///         "key": "value", // This is a comment
+///         /* Another comment */
+///         "key2": "value2"
+///     })";
+///
+///     std::string clean_json = consolix::strip_json_comments(raw_json);
+///     std::cout << "Clean JSON: " << clean_json << std::endl;
+///
+///     return 0;
+/// }
+/// ```

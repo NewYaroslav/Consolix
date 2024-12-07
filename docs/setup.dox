@@ -1,0 +1,47 @@
+/// \page setup Installation and Configuration
+/// 
+/// # Installation and Configuration
+/// 
+/// Consolix is a header-only library, meaning no compilation or building is required. 
+/// To use the library, simply add it to your project and configure the paths to the header files.
+/// 
+/// ## Steps for Configuration:
+/// 
+/// 1. **Download Consolix**
+///    - Place the `Consolix` folder in your project directory.
+/// 
+/// 2. **Add paths to header files**
+///    - Set the path `Consolix/include` in your compiler settings.
+/// 
+/// 3. **Include Consolix headers**
+///    - Include the main library using:
+///      ```cpp
+///      #include <consolix/consolix.hpp>
+///      ```
+///    - This header includes all necessary "Entry point" files required for Consolix.
+/// 
+/// ## Managing Dependencies
+/// Consolix supports integration with external libraries through macros.
+/// You can enable or disable dependencies by defining the respective macros before including Consolix:
+/// 
+/// ### Available Macros:
+/// | Macro                     | Description                                  | Default Value |
+/// |---------------------------|----------------------------------------------|---------------|
+/// | `CONSOLIX_USE_LOGIT`      | Enables the use of the LogIt library         | `1`           |
+/// | `CONSOLIX_USE_CXXOPTS`    | Enables the use of the cxxopts library       | `1`           |
+/// | `CONSOLIX_USE_JSON`       | Enables the use of nlohmann/json library     | `1`           |
+/// 
+/// ### Configuration Example:
+/// ```cpp
+/// // Disable LogIt and JSON, but use cxxopts
+/// #define CONSOLIX_USE_LOGIT 0
+/// #define CONSOLIX_USE_JSON 0
+/// #define CONSOLIX_USE_CXXOPTS 1
+/// 
+/// #include <consolix/consolix.hpp>
+/// ```
+/// 
+/// ## Included Dependencies
+/// - [LogIt](https://github.com/NewYaroslav/log-it-cpp) — for logging management.
+/// - [cxxopts](https://github.com/jarro2783/cxxopts) — for handling command-line arguments.
+/// - [nlohmann/json](https://github.com/nlohmann/json) — for working with JSON.

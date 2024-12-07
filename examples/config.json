@@ -1,0 +1,10 @@
+// Test configuration file
+{
+    "text": "Hello, world!",               /* Text to display on the screen */
+    "items": ["first", "second", "banana"], // List of items to display on the screen
+    "period": 1000,                        # Period for displaying text on the screen in milliseconds
+    "debug_mode": true                     # Debug mode
+    /*
+     *
+     */
+} /* End of configuration */

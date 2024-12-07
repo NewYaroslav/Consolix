@@ -1,0 +1,130 @@
+/// \page examples_page Usage Examples
+/// 
+/// # Usage Examples
+/// 
+/// This page demonstrates how to use various features of the Consolix framework.
+/// It covers key components and utilities with practical examples.
+/// 
+/// ## Basic Setup
+/// Here's how to initialize and use Consolix in a simple console application:
+///
+/// ```cpp
+/// #define CONSOLIX_USE_LOGIT 1
+/// #include <consolix/consolix.hpp>
+///
+/// int main(int argc, char* argv[]) {
+///     // Initialize logger
+///     consolix::add<consolix::LoggerComponent>();
+///
+///     // Display the application logo
+///     consolix::add<consolix::LogoComponent>(consolix::TextColor::DarkYellow);
+///
+///     // Handle command-line arguments
+///     consolix::add<consolix::CliComponent>("MyApp", "Program description", [](auto& options) {
+///         options.add_options()("debug", "Enable debug mode");
+///     }, argc, argv);
+///
+///     // Load configuration from a JSON file
+///     consolix::add<consolix::ConfigComponent<MyConfig>>("config.json");
+///
+///     // Execute the main loop
+///     consolix::run([]() {
+///         CONSOLIX_STREAM() << "Executing main loop...";
+///     });
+/// }
+/// ```
+/// 
+/// ## Using the ServiceLocator
+/// The `ServiceLocator` provides global access to shared resources:
+/// ```cpp
+/// #include <consolix/core.hpp>
+///
+/// int main() {
+///     // Register a service
+///     consolix::register_service<std::string>([]() {
+///         return std::make_shared<std::string>("Hello, Consolix!");
+///     });
+///
+///     // Check and access the service
+///     if (consolix::has_service<std::string>()) {
+///         auto& message = consolix::get_service<std::string>();
+///         std::cout << message << std::endl;
+///     }
+/// }
+/// ```
+/// 
+/// ## JSON Configuration Management
+/// Load and manage application configuration from a JSON file:
+/// ```cpp
+/// #include <consolix/components.hpp>
+///
+/// struct AppConfig {
+///     std::string app_name;
+///     int max_connections;
+/// };
+///
+/// NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AppConfig, app_name, max_connections)
+///
+/// int main() {
+///     // Load configuration from a JSON file
+///     consolix::add<consolix::ConfigComponent<AppConfig>>("config.json");
+///
+///     // Access the configuration
+///     auto& config = consolix::get_service<AppConfig>();
+///     std::cout << "App Name: " << config.app_name << "\n";
+///     std::cout << "Max Connections: " << config.max_connections << "\n";
+/// }
+/// ```
+/// 
+/// ## Custom Loop Example
+/// Define and use a custom execution loop:
+/// ```cpp
+/// #include <consolix/components.hpp>
+///
+/// int main() {
+///     consolix::add<consolix::LoopComponent>(
+///         []() -> bool {
+///             std::cout << "Initialization complete.\n";
+///             return true;
+///         },
+///         []() {
+///             std::cout << "Executing loop iteration.\n";
+///             std::this_thread::sleep_for(std::chrono::seconds(1));
+///         },
+///         [](int signal) {
+///             std::cout << "Shutting down on signal: " << signal << "\n";
+///         }
+///     );
+///
+///     consolix::run();
+/// }
+/// ```
+/// 
+/// ## Logging with LogIt
+/// Use the integrated `LoggerComponent` to manage logging:
+/// ```cpp
+/// #define CONSOLIX_USE_LOGIT 1
+/// #include <consolix/consolix.hpp>
+///
+/// int main() {
+///     consolix::add<consolix::LoggerComponent>();
+///
+///     CONSOLIX_STREAM() << "This is an informational message.";
+///     LOGIT_PRINT_ERROR("This is an error message.");
+///
+///     return 0;
+/// }
+/// ```
+/// 
+/// ## Working with Path Utilities
+/// Resolve paths relative to the executable directory:
+/// ```cpp
+/// #include <consolix/utils.hpp>
+///
+/// int main() {
+///     std::string relative_path = "config/settings.json";
+///     std::string absolute_path = consolix::resolve_to_executable_dir(relative_path);
+///
+///     std::cout << "Absolute Path: " << absolute_path << std::endl;
+/// }
+/// ```

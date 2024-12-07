@@ -1,0 +1,54 @@
+/// \page color_utils Console Color Utilities
+///
+/// # Console Color Utilities
+///
+/// This module provides utilities for managing text colors in the console.
+/// It includes functions for styling text output in the console using color codes.
+///
+/// ## Key Functions:
+/// - `consolix::color`: Sets the text color for console output.
+///
+/// ## ColorManipulator Class:
+/// The `ColorManipulator` class enables color support for Windows consoles.
+/// It is utilized by the `CONSOLIX_STREAM` macro to provide colorized console output.
+///
+/// ## Supported Colors:
+/// The text colors are defined in the `TextColor` enumeration:
+///
+/// ```cpp
+/// enum class TextColor {
+///     Black,
+///     DarkRed,
+///     DarkGreen,
+///     DarkYellow,
+///     DarkBlue,
+///     DarkMagenta,
+///     DarkCyan,
+///     LightGray,
+///     DarkGray,
+///     Red,
+///     Green,
+///     Yellow,
+///     Blue,
+///     Magenta,
+///     Cyan,
+///     White,
+/// };
+/// ```
+///
+/// ### ANSI Escape Code Conversion:
+/// Colors are converted to ANSI escape codes using the function:
+///
+/// ```cpp
+/// const char* to_c_str(const TextColor& color);
+/// ```
+/// This allows seamless integration with Linux and macOS terminals by embedding
+/// ANSI escape codes into the output string.
+///
+/// ### Windows Console Color Conversion:
+/// On Windows, colors are converted to console attributes using:
+///
+/// ```cpp
+/// WORD to_windows_color(const TextColor& color);
+/// ```
+/// This enables color rendering in Windows terminals by setting the console text attributes.
