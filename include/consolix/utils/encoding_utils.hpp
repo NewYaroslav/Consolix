@@ -113,6 +113,18 @@ namespace consolix {
         return utf8String;
     }
 
+    /// \brief Converts a UTF-8 string to a UTF-16 wide string.
+    /// \param utf8 The UTF-8 encoded string.
+    /// \return The converted UTF-16 string.
+    std::wstring utf8_to_utf16(const std::string& utf8) noexcept {
+        int n_len = MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, NULL, 0);
+        if (n_len == 0) return {};
+
+        std::wstring utf16_string(n_len, L'\0');
+        MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, utf16_string.data(), n_len);
+        return utf16_string;
+    }
+
 } // namespace consolix
 
 #endif

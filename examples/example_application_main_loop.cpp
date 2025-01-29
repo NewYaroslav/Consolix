@@ -75,12 +75,17 @@ public:
 }; // CustomLoop
 
 int main(int argc, char* argv[]) {
+    // Set the console title to the application name
+    consolix::add<consolix::TitleComponent>(u8"Consolix - консольное приложение");
+
     // Initialize the logger. This must be the first component.
     consolix::add<consolix::LoggerComponent>();
 
     // Initialize command-line argument handler. Depends on LoggerComponent.
     consolix::add<consolix::CliComponent>(
-            "Consolix", "Test program",
+            "Consolix",
+            "A demonstration program showcasing the features of the Consolix library, "
+            "including logging, configuration management, and command-line argument parsing.",
             [](consolix::CliOptions& options){
         options.add_options()
         ("c,config", "Path to the configuration file", cxxopts::value<std::string>())

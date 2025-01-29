@@ -27,8 +27,8 @@ namespace consolix {
     public:
 
         /// \brief Constructs a `CliComponent` with automatic service registration.
-        /// \param name The name of the program.
-        /// \param description The description of the program.
+        /// \param name Name displayed in `--help` (does not affect the actual program name).
+        /// \param description Brief description displayed in the help message.
         /// \param creator A function to initialize command-line options.
         CliComponent(
                 const std::string& name,
@@ -41,8 +41,8 @@ namespace consolix {
         }
 
         /// \brief Constructs a `CliComponent` with pre-parsed arguments.
-        /// \param name The name of the program.
-        /// \param description The description of the program.
+        /// \param name Name displayed in `--help` (does not affect the actual program name).
+        /// \param description Brief description displayed in the help message.
         /// \param creator A function to initialize command-line options.
         /// \param argc The number of command-line arguments.
         /// \param argv The command-line argument values.
@@ -133,7 +133,7 @@ namespace consolix {
             try {
                 auto &options = get_service<CliOptions>();
                 if (!m_creator) {
-                    throw std::runtime_error("Creator function is null");
+                    throw std::runtime_error("CLI options creator function is null. Ensure you provide a valid function to initialize CLI options.");
                 }
                 m_creator(options);
 #               if defined(_WIN32) || defined(_WIN64)
@@ -145,10 +145,10 @@ namespace consolix {
 #               endif
             } catch (const std::exception& e) {
 #               if CONSOLIX_USE_LOGIT == 1
-                LOGIT_PRINT_ERROR("?: ", e.what());
+                LOGIT_PRINT_ERROR("CLI component initialization failed: ", e.what());
                 throw;
 #               else
-                CONSOLIX_STREAM() << "?: " << e.what() << std::endl;
+                CONSOLIX_STREAM() << "Error initializing CLI component: " << e.what() << std::endl;
                 throw;
 #               endif
             }
@@ -166,13 +166,12 @@ namespace consolix {
         void process() override {}
 
     private:
-        int m_argc = 0;
-        std::vector<const char*> m_argv_c;
-        std::function<void(CliOptions&)> m_creator;
-        std::atomic<bool> m_is_init{false}; ///<
+        int m_argc = 0;                             ///< The number of command-line arguments passed to the program.
+        std::vector<const char*> m_argv_c;          ///< A copy of command-line arguments in `const char*` format, compatible with cxxopts.
+        std::function<void(CliOptions&)> m_creator; ///< A function to initialize and configure command-line options.
+        std::atomic<bool> m_is_init{false};         ///< Initialization flag. `true` if the component is successfully initialized.
 
 #       if defined(_WIN32) || defined(_WIN64)
-
         /// \brief Parse arguments using Windows API.
         void parse_windows() {
             int argc = 0;

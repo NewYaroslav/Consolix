@@ -21,9 +21,9 @@
 namespace consolix {
     namespace fs = std::filesystem;
 
-    /// \brief Retrieves the directory of the executable file.
-    /// \return A string containing the directory path of the executable.
-    std::string get_exec_dir() {
+    /// \brief Retrieves the full path of the executable.
+    /// \return A string containing the full path of the executable.
+    std::string get_exec_path() {
 #       ifdef _WIN32
         std::vector<wchar_t> buffer(MAX_PATH);
         HMODULE hModule = GetModuleHandle(NULL);
@@ -40,10 +40,6 @@ namespace consolix {
         }
 
         std::wstring exe_path(buffer.begin(), buffer.begin() + size);
-        std::wstring::size_type pos = exe_path.find_last_of(L"\\/");
-        if (pos != std::wstring::npos) {
-            exe_path = exe_path.substr(0, pos);
-        }
         return std::filesystem::path(exe_path).string();
 #       else
         char result[PATH_MAX];
@@ -52,12 +48,14 @@ namespace consolix {
             throw std::runtime_error("Failed to get executable path.");
         }
         std::string exe_path(result, count);
-        std::string::size_type pos = exe_path.find_last_of("\\/");
-        if (pos != std::string::npos) {
-            exe_path = exe_path.substr(0, pos);
-        }
         return exe_path;
 #       endif
+    }
+
+    /// \brief Retrieves the directory of the executable file.
+    /// \return A string containing the directory path of the executable.
+    std::string get_exec_dir() {
+        return std::filesystem::path(get_exec_path()).parent_path().string();
     }
 
     /// \brief Extracts the file name from a full file path.

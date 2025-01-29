@@ -42,7 +42,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = LogIt++
+PROJECT_NAME           = Consolix
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -951,7 +951,15 @@ WARN_LOGFILE           =
 
 INPUT                  = ./include \
                          ./examples \
-                         ./docs/mainpage.dox
+                         ./docs/mainpage.dox \
+                         ./docs/color_utils.dox \
+                         ./docs/common_types.dox \
+                         ./docs/examples.dox \
+                         ./docs/json_utils.dox \
+                         ./docs/path_utils.dox \
+                         ./docs/project_structure.dox \
+                         ./docs/setup.dox \
+                         ./tests/test_strip_json_comments.cpp
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
