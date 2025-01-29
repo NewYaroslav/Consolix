@@ -13,6 +13,7 @@
 /// │   └── application_utils.hpp  # Utilities for application management
 /// │
 /// ├── components/                # Component implementations
+/// │   ├── TitleComponent.hpp     # Manages the console window title. 
 /// │   ├── LoggerComponent.hpp    # Logger using LogIt
 /// │   ├── LogoComponent.hpp      # Displays application logo
 /// │   ├── BaseLoopComponent.hpp  # Base class for execution loops

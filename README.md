@@ -15,13 +15,16 @@
 
 ## Features
 
-- **Component-Based Architecture**: Easy-to-integrate modules like logging, configuration management, and command-line argument parsing.
-- **Global Service Locator**: A convenient mechanism for dependency and service management.
-- **Customizable Execution Loops**: Support for structured loops to execute user-defined tasks.
-- **Enhanced Logging**: Integration with [LogIt](https://github.com/NewYaroslav/log-it-cpp).
-- **JSON Support with Comments**: Load JSON configurations with comments using [nlohmann/json](https://github.com/nlohmann/json).
-- **Cross-Platform**: Works on Windows and POSIX-compatible systems. *(POSIX is not fully tested)*.
-- **C++17 Compatibility**: Requires a C++17-compliant compiler (GCC 7.1+, Clang 5.0+, MSVC 15.3+).
+- **Component-based architecture:** Easy-to-integrate modules like logging, configuration management, and command-line argument parsing.
+- **Global Service Locator:** A convenient mechanism for dependency and service management.
+- **UTF-8 support:**
+	- The program title (`TitleComponent`) supports `UTF-8` text, with automatic conversion to `UTF-16` on Windows and the use of `ANSI escape` sequences on POSIX systems.
+	- Console output (`LoggerComponent`) supports `UTF-8` with automatic conversion to `CP866` on Windows for compatibility with legacy encodings.
+- **Customizable execution loops:** Support for structured loops to execute user-defined tasks.
+- **Advanced logging:** Integration with [LogIt](https://github.com/NewYaroslav/log-it-cpp).
+- **JSON with comments support:** Load JSON configurations with comments using [nlohmann/json](https://github.com/nlohmann/json).
+- **Cross-Platform:** Works on Windows and POSIX-compatible systems. *(POSIX is not fully tested)*.
+- **C++17 Compatibility:** Requires a C++17-compliant compiler (GCC 7.1+, Clang 5.0+, MSVC 15.3+).
 
 ## Installation
 
@@ -42,7 +45,7 @@
    #include <consolix/consolix.hpp>
    ```
 
-4. Dependencies
+### Dependencies
 
 Consolix supports integration with external libraries via macros that can be enabled or disabled as needed:
 
@@ -86,6 +89,9 @@ nlohmann-json/include
 #include <consolix/components.hpp>
 
 int main(int argc, char* argv[]) {
+    // Set the console title to the application name
+    consolix::add<consolix::TitleComponent>(u8"Consolix - консольное приложение");
+    
     // Add logging functionality
     consolix::add<consolix::LoggerComponent>();
 
@@ -112,24 +118,25 @@ int main(int argc, char* argv[]) {
 ## Modules
 
 ### Core Modules
-- **ServiceLocator**: Manage global services.
-- **ConsoleApplication**: Framework for managing console applications.
+- **ServiceLocator:** Manage global services.
+- **ConsoleApplication:** Framework for managing console applications.
 
 ### Components
-- **LoggerComponent**: Centralized logging.
-- **CliComponent**: Simplified command-line argument handling.
-- **ConfigComponent**: Work with JSON configurations, including comments.
-- **LogoComponent**: Render ASCII logos.
-- **LoopComponent**: Support for user-defined execution loops.
+- **TitleComponent:** Manages the console window title. Supports UTF-8. 
+- **LoggerComponent:** Centralized logging. Supports UTF-8 with conversion to CP866.
+- **CliComponent:** Simplified command-line argument handling.
+- **ConfigComponent:** Work with JSON configurations, including comments.
+- **LogoComponent:** Render ASCII logos.
+- **LoopComponent:** Support for user-defined execution loops.
 
 ### Utilities
-- **path_utils.hpp**: Work with file and directory paths.
-- **json_utils.hpp**: Remove comments and handle JSON data.
-- **ColorManipulator.hpp**: Style console text output.
+- **path_utils.hpp:** Work with file and directory paths.
+- **json_utils.hpp:** Remove comments and handle JSON data.
+- **ColorManipulator.hpp:** Style console text output.
 
 ## Documentation
 
-The complete documentation is available [here](#). It includes installation instructions, module descriptions, usage examples, and more.
+The complete documentation is available [here](https://newyaroslav.github.io/Consolix/). It includes installation instructions, module descriptions, usage examples, and more.
 
 ## License
 

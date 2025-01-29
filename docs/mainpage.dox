@@ -29,6 +29,7 @@
 ///   - Application lifecycle management via AppComponentManager and ConsoleApplication.
 ///
 /// - **Components**:
+///   - `TitleComponent`: Manages the console window title. 
 ///   - `LoggerComponent`: Centralized logging for console and file output.
 ///   - `CliComponent`: Simplifies command-line argument handling.
 ///   - `ConfigComponent`: Loads configuration from JSON files with support for comments.

@@ -4,14 +4,25 @@
 
 /// \file MultiStream.hpp
 /// \brief MultiStream class for unified log output handling.
+///
+/// This class provides platform-independent handling of multi-target log streams.
+/// It supports UTF-8 output for consoles and integrates with LogIt (if enabled).
+/// On Windows, it converts UTF-8 strings to CP866 for compatibility with legacy console encoding,
+/// while on Linux/macOS, it directly outputs UTF-8 strings with ANSI color codes.
 
 #include <sstream>
 
 namespace consolix {
 
     /// \class MultiStream
-    /// \brief A class for handling multi-target log streams.
-    /// Supports LogIt integration (if enabled) and platform-specific console handling.
+	/// \brief A class for handling multi-target log streams.
+	///
+	/// MultiStream ensures consistent and platform-independent logging output:
+	/// - On **Windows**, UTF-8 strings are automatically converted to CP866 to support legacy console encoding.
+	/// - On **Linux/macOS**, UTF-8 strings are directly output to the console.
+	/// - Supports ANSI color codes for enhanced readability.
+	/// - Integrates with LogIt logging library for advanced log management (if enabled).
+	/// - Supports LogIt integration (if enabled) and platform-specific console handling.
     class MultiStream {
     public:
 
