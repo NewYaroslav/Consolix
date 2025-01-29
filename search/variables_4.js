@@ -11,5 +11,6 @@ var searchData=
   ['m_5fon_5fshutdown_8',['m_on_shutdown',['../classconsolix_1_1LoopComponent.html#ad55f894b1cc202571ae5a82d6a83b65c',1,'consolix::LoopComponent']]],
   ['m_5frunning_9',['m_running',['../classconsolix_1_1ConsoleApplication.html#a31bc197116f4d6b16fe962c042f0ec49',1,'consolix::ConsoleApplication']]],
   ['m_5fservices_10',['m_services',['../classconsolix_1_1ServiceLocator.html#a39a8c7866179a6e91254779b14ce2592',1,'consolix::ServiceLocator']]],
-  ['m_5fstream_11',['m_stream',['../classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0',1,'consolix::MultiStream']]]
+  ['m_5fstream_11',['m_stream',['../classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0',1,'consolix::MultiStream']]],
+  ['m_5ftitle_12',['m_title',['../classconsolix_1_1TitleComponent.html#a63acd730886e35c2cee6ebb4f0640ddc',1,'consolix::TitleComponent']]]
 ];

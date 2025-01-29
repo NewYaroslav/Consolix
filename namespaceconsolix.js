@@ -11,6 +11,7 @@ var namespaceconsolix =
     [ "LoopComponent", "classconsolix_1_1LoopComponent.html", "classconsolix_1_1LoopComponent" ],
     [ "MultiStream", "classconsolix_1_1MultiStream.html", "classconsolix_1_1MultiStream" ],
     [ "ServiceLocator", "classconsolix_1_1ServiceLocator.html", "classconsolix_1_1ServiceLocator" ],
+    [ "TitleComponent", "classconsolix_1_1TitleComponent.html", "classconsolix_1_1TitleComponent" ],
     [ "TextColor", "namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027", [
       [ "Black", "namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027ae90dfb84e30edf611e326eeb04d680de", null ],
       [ "DarkRed", "namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a8746d21f8164452063398744f06307dd", null ],
@@ -36,6 +37,7 @@ var namespaceconsolix =
     [ "color", "namespaceconsolix.html#a094ffa94e032d6125545025f2bc0336a", null ],
     [ "create_directories", "namespaceconsolix.html#af8d1b3c47332e45cd038278d328d170c", null ],
     [ "get_exec_dir", "namespaceconsolix.html#a24c619434302d9b3c91e3404ca7c21a0", null ],
+    [ "get_exec_path", "namespaceconsolix.html#a60d68eb9b9b345ac5f1e62b3b036b4bd", null ],
     [ "get_file_name", "namespaceconsolix.html#adcd8d5f28f635079c5438715448c6ab0", null ],
     [ "get_service", "namespaceconsolix.html#a61af25052ab8dc59230fd8311b5e7626", null ],
     [ "has_service", "namespaceconsolix.html#a9244ec6fc9ae28a16c78badc9ba880d8", null ],

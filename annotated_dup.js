@@ -11,7 +11,8 @@ var annotated_dup =
       [ "LogoComponent", "classconsolix_1_1LogoComponent.html", "classconsolix_1_1LogoComponent" ],
       [ "LoopComponent", "classconsolix_1_1LoopComponent.html", "classconsolix_1_1LoopComponent" ],
       [ "MultiStream", "classconsolix_1_1MultiStream.html", "classconsolix_1_1MultiStream" ],
-      [ "ServiceLocator", "classconsolix_1_1ServiceLocator.html", "classconsolix_1_1ServiceLocator" ]
+      [ "ServiceLocator", "classconsolix_1_1ServiceLocator.html", "classconsolix_1_1ServiceLocator" ],
+      [ "TitleComponent", "classconsolix_1_1TitleComponent.html", "classconsolix_1_1TitleComponent" ]
     ] ],
     [ "AppConfig", "structAppConfig.html", "structAppConfig" ],
     [ "CustomLoop", "classCustomLoop.html", "classCustomLoop" ]

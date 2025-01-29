@@ -6,5 +6,6 @@ var group__Components =
     [ "ConfigComponent.hpp", "ConfigComponent_8hpp.html", null ],
     [ "LoggerComponent.hpp", "LoggerComponent_8hpp.html", null ],
     [ "LogoComponent.hpp", "LogoComponent_8hpp.html", null ],
-    [ "LoopComponent.hpp", "LoopComponent_8hpp.html", null ]
+    [ "LoopComponent.hpp", "LoopComponent_8hpp.html", null ],
+    [ "TitleComponent.hpp", "TitleComponent_8hpp.html", null ]
 ];

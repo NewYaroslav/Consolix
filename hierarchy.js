@@ -9,7 +9,8 @@ var hierarchy =
         [ "CustomLoop", "classCustomLoop.html", null ]
       ] ],
       [ "consolix::LogoComponent", "classconsolix_1_1LogoComponent.html", null ],
-      [ "consolix::LoopComponent", "classconsolix_1_1LoopComponent.html", null ]
+      [ "consolix::LoopComponent", "classconsolix_1_1LoopComponent.html", null ],
+      [ "consolix::TitleComponent", "classconsolix_1_1TitleComponent.html", null ]
     ] ],
     [ "IApplicationComponent", null, [
       [ "consolix::LoggerComponent", "classconsolix_1_1LoggerComponent.html", null ]
