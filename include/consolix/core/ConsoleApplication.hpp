@@ -227,23 +227,21 @@ namespace consolix {
             LOGIT_PRINT_FATAL("Unhandled exception: ", e.what());
             cleanup(-1);
             LOGIT_WAIT();
-            std::exit(-1);
-#           else
-            cleanup(-1);
-            std::exit(-1);
-#           endif
-        }
 
-        /// \brief Handles fatal exceptions without an exception object.
-        /// Useful for unknown or non-standard errors.
-        void handle_fatal_exception() {
-#           if CONSOLIX_USE_LOGIT == 1
-            LOGIT_PRINT_FATAL("Unhandled unknown exception occurred.");
-            cleanup(-1);
-            LOGIT_WAIT();
+#           if CONSOLIX_WAIT_ON_ERROR == 1
+            CONSOLIX_STREAM() << "Press Enter to exit..." << std::endl;
+            std::cin.get();
+#           endif
+
             std::exit(-1);
 #           else
             cleanup(-1);
+
+#           if CONSOLIX_WAIT_ON_ERROR == 1
+            CONSOLIX_STREAM() << "Press Enter to exit..." << std::endl;
+            std::cin.get();
+#           endif
+
             std::exit(-1);
 #           endif
         }

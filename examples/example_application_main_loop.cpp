@@ -70,7 +70,7 @@ public:
     /// \brief Called during application shutdown.
     /// \param signal The shutdown signal.
     void on_shutdown(int signal) override {
-        CONSOLIX_STREAM() << "Exit, signal: " << signal;
+        CONSOLIX_STREAM() << "Application is shutting down. Received signal: " << signal;
     }
 }; // CustomLoop
 

@@ -119,4 +119,13 @@
 #define CONSOLIX_DEFAULT_COLOR consolix::TextColor::LightGray
 #endif
 
+/// \def CONSOLIX_WAIT_ON_ERROR
+/// \brief Enables or disables waiting for user input before exiting on a fatal error.
+/// \details Set to `1` to wait for Enter after a fatal error (useful for debugging),
+/// or `0` to exit immediately.
+/// \default `0`
+#ifndef CONSOLIX_WAIT_ON_ERROR
+#define CONSOLIX_WAIT_ON_ERROR 0
+#endif
+
 #endif // _CONSOLIX_CONFIG_MACROS_HPP_INCLUDED
