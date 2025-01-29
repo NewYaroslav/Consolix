@@ -124,7 +124,7 @@ $(function(){initNavTree('MultiStream_8hpp.html',''); initResizable(true); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classconsolix_1_1MultiStream.html">consolix::MultiStream</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class for handling multi-target log streams. Supports LogIt integration (if enabled) and platform-specific console handling.  <a href="classconsolix_1_1MultiStream.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class for handling multi-target log streams.  <a href="classconsolix_1_1MultiStream.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -140,6 +140,7 @@ Macros</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>MultiStream class for unified log output handling. </p>
+<p>This class provides platform-independent handling of multi-target log streams. It supports UTF-8 output for consoles and integrates with LogIt (if enabled). On Windows, it converts UTF-8 strings to CP866 for compatibility with legacy console encoding, while on Linux/macOS, it directly outputs UTF-8 strings with ANSI color codes. </p>
 
 <p class="definition">Definition in file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>

@@ -114,175 +114,175 @@ $(function(){initNavTree('MultiStream_8hpp_source.html',''); initResizable(true)
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef _CONSOLIX_MULTI_STREAM_HPP_INCLUDED</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="MultiStream_8hpp.html#af94042d5e1e4f17d495c5fd853372650">    3</a></span><span class="preprocessor">#define _CONSOLIX_MULTI_STREAM_HPP_INCLUDED</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceconsolix.html">consolix</a> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
-<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html">   15</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#if     CONSOLIX_USE_LOGIT == 1</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a>()</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            : m_level(logit::LogLevel::LOG_LVL_TRACE), m_file(__FILE__),</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            m_line(__LINE__),</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            m_function(logit::make_relative(__FILE__, LOGIT_BASE_PATH)) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        }</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a>(</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            logit::LogLevel level,</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            <span class="keyword">const</span> std::string&amp; file,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordtype">int</span> line,</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keyword">const</span> std::string&amp; function)</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            : m_level(level), m_file(file), m_line(line), m_function(function) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#       else</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">   41</a></span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#       endif</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
-<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#a844875728cfb7611c7a8c4e9e3fb363d">   46</a></span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#a844875728cfb7611c7a8c4e9e3fb363d">~MultiStream</a>() {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#           if defined(_WIN32) || defined(_WIN64)</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keyword">auto</span> str = utf8_to_cp866(<a class="code hl_variable" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a>.str());</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#           else</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keyword">auto</span> str = <a class="code hl_variable" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a>.str();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#           endif </span><span class="comment">// if defined(_WIN32) || defined(_WIN64)</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#           if CONSOLIX_USE_LOGIT == 1</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keywordflow">if</span> (LOGIT_IS_SINGLE_MODE(CONSOLIX_LOGIT_CONSOLE_INDEX)) {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                LOGIT_STREAM_TRACE_TO(CONSOLIX_LOGIT_CONSOLE_INDEX) &lt;&lt; str;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_LOGGER_INDEX) &lt;&lt; str;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#           else</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#           if defined(_WIN32) || defined(_WIN64)</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            handle_ansi_colors_windows(str);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#           else</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <a class="code hl_function" href="classconsolix_1_1MultiStream.html#adfa22e79dcd09565dca5bdc785e84016">flush_to_console</a>(str);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#           endif </span><span class="comment">// if defined(_WIN32) || defined(_WIN64)</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#           endif </span><span class="comment">// if CONSOLIX_USE_LOGIT == 1</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceconsolix.html">consolix</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html">   26</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#if     CONSOLIX_USE_LOGIT == 1</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a>()</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            : m_level(logit::LogLevel::LOG_LVL_TRACE), m_file(__FILE__),</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            m_line(__LINE__),</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            m_function(logit::make_relative(__FILE__, LOGIT_BASE_PATH)) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a>(</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            logit::LogLevel level,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keyword">const</span> std::string&amp; file,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keywordtype">int</span> line,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keyword">const</span> std::string&amp; function)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            : m_level(level), m_file(file), m_line(line), m_function(function) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#       else</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">   52</a></span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#       endif</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#a844875728cfb7611c7a8c4e9e3fb363d">   57</a></span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#a844875728cfb7611c7a8c4e9e3fb363d">~MultiStream</a>() {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#           if defined(_WIN32) || defined(_WIN64)</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keyword">auto</span> str = utf8_to_cp866(<a class="code hl_variable" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a>.str());</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#           else</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keyword">auto</span> str = <a class="code hl_variable" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a>.str();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#           endif </span><span class="comment">// if defined(_WIN32) || defined(_WIN64)</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#           if CONSOLIX_USE_LOGIT == 1</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keywordflow">if</span> (LOGIT_IS_SINGLE_MODE(CONSOLIX_LOGIT_CONSOLE_INDEX)) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                LOGIT_STREAM_TRACE_TO(CONSOLIX_LOGIT_CONSOLE_INDEX) &lt;&lt; str;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_LOGGER_INDEX) &lt;&lt; str;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#           else</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#           if defined(_WIN32) || defined(_WIN64)</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            handle_ansi_colors_windows(str);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#           else</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <a class="code hl_function" href="classconsolix_1_1MultiStream.html#adfa22e79dcd09565dca5bdc785e84016">flush_to_console</a>(str);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#           endif </span><span class="comment">// if defined(_WIN32) || defined(_WIN64)</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#           endif </span><span class="comment">// if CONSOLIX_USE_LOGIT == 1</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        }</div>
 </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#a58d7d762e6e9e086164febcd7ac1b8c5">   74</a></span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a>&amp; <a class="code hl_function" href="classconsolix_1_1MultiStream.html#a58d7d762e6e9e086164febcd7ac1b8c5">operator&lt;&lt;</a>(<span class="keyword">const</span> T&amp; value) {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <a class="code hl_variable" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a> &lt;&lt; value;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#a58d7d762e6e9e086164febcd7ac1b8c5">   85</a></span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a>&amp; <a class="code hl_function" href="classconsolix_1_1MultiStream.html#a58d7d762e6e9e086164febcd7ac1b8c5">operator&lt;&lt;</a>(<span class="keyword">const</span> T&amp; value) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <a class="code hl_variable" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a> &lt;&lt; value;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        }</div>
 </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
-<div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#a78f7e28958b4ab6d96299d6bdec0e0ba">   82</a></span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a>&amp; <a class="code hl_function" href="classconsolix_1_1MultiStream.html#a78f7e28958b4ab6d96299d6bdec0e0ba">operator&lt;&lt;</a>(std::ostream&amp; (*manip)(std::ostream&amp;)) {</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <a class="code hl_variable" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a> &lt;&lt; manip;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        }</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
+<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#a78f7e28958b4ab6d96299d6bdec0e0ba">   93</a></span>        <a class="code hl_function" href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">MultiStream</a>&amp; <a class="code hl_function" href="classconsolix_1_1MultiStream.html#a78f7e28958b4ab6d96299d6bdec0e0ba">operator&lt;&lt;</a>(std::ostream&amp; (*manip)(std::ostream&amp;)) {</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <a class="code hl_variable" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a> &lt;&lt; manip;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
 </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">   88</a></span>        std::ostringstream  <a class="code hl_variable" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a>;       </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#if     CONSOLIX_USE_LOGIT == 1</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        logit::LogLevel     m_level;        </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        std::string         m_file;         </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordtype">int</span>                 m_line;         </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        std::string         m_function;     </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#       endif</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
-<div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#adfa22e79dcd09565dca5bdc785e84016">   99</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classconsolix_1_1MultiStream.html#adfa22e79dcd09565dca5bdc785e84016">flush_to_console</a>(<span class="keyword">const</span> std::string&amp; message)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            <span class="keywordflow">if</span> (!message.empty()) {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                <span class="keywordflow">if</span> (message.back() == <span class="charliteral">&#39;\n&#39;</span>) {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                    std::cout &lt;&lt; message;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                    std::cout &lt;&lt; message &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                }</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">   99</a></span>        std::ostringstream  <a class="code hl_variable" href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a>;       </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#if     CONSOLIX_USE_LOGIT == 1</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        logit::LogLevel     m_level;        </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        std::string         m_file;         </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordtype">int</span>                 m_line;         </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        std::string         m_function;     </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#       endif</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span></div>
+<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="classconsolix_1_1MultiStream.html#adfa22e79dcd09565dca5bdc785e84016">  110</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classconsolix_1_1MultiStream.html#adfa22e79dcd09565dca5bdc785e84016">flush_to_console</a>(<span class="keyword">const</span> std::string&amp; message)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="keywordflow">if</span> (!message.empty()) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                <span class="keywordflow">if</span> (message.back() == <span class="charliteral">&#39;\n&#39;</span>) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                    std::cout &lt;&lt; message;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                    std::cout &lt;&lt; message &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        }</div>
 </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#       if CONSOLIX_USE_LOGIT == 0 &amp;&amp; (defined(_WIN32) || defined(_WIN64))</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordtype">void</span> handle_ansi_colors_windows(<span class="keyword">const</span> std::string&amp; message)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            std::string::size_type start = 0;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            std::string::size_type pos = 0;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            HANDLE handle_stdout = GetStdHandle(STD_OUTPUT_HANDLE);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            <span class="keywordflow">while</span> ((pos = message.find(<span class="stringliteral">&quot;\033[&quot;</span>, start)) != std::string::npos) {</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                <span class="comment">// Output the part of the string before the ANSI code</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                <span class="keywordflow">if</span> (pos &gt; start) {</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                    std::cout &lt;&lt; message.substr(start, pos - start);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>                }</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                <span class="comment">// Find the end of the ANSI code</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                std::string::size_type end_pos = message.find(<span class="charliteral">&#39;m&#39;</span>, pos);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                <span class="keywordflow">if</span> (end_pos != std::string::npos) {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                    <span class="comment">// Extract the ANSI code</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                    std::string ansi_code = message.substr(pos + 2, end_pos - pos - 2);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                    apply_color_from_ansi_code(ansi_code, handle_stdout);</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                    <span class="comment">// Update position</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                    start = end_pos + 1;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                }</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            }</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <span class="comment">// Output any remaining part of the message</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="keywordflow">if</span> (start &lt; message.size()) {</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                std::cout &lt;&lt; message.substr(start);</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>            }</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            <span class="keywordflow">if</span> (!message.empty()) std::cout &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="comment">// Reset the console color to default</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            SetConsoleTextAttribute(handle_stdout, to_windows_color(<a class="code hl_define" href="config__macros_8hpp.html#ab84f17bf9f3f6ab81962f5b0980f508f">CONSOLIX_DEFAULT_COLOR</a>));</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        }</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span></div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <span class="keywordtype">void</span> apply_color_from_ansi_code(<span class="keyword">const</span> std::string&amp; ansi_code, HANDLE handle_stdout)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            WORD color_value = to_windows_color(<a class="code hl_define" href="config__macros_8hpp.html#ab84f17bf9f3f6ab81962f5b0980f508f">CONSOLIX_DEFAULT_COLOR</a>); <span class="comment">// Default color</span></div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <span class="keyword">const</span> <span class="keywordtype">int</span> code = std::stoi(ansi_code);</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <span class="keywordflow">switch</span> (code) {</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                <span class="keywordflow">case</span> 30: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027ae90dfb84e30edf611e326eeb04d680de">TextColor::Black</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                <span class="keywordflow">case</span> 31: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a8746d21f8164452063398744f06307dd">TextColor::DarkRed</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                <span class="keywordflow">case</span> 32: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027af780aab6295a2f368ac69a514f8b4605">TextColor::DarkGreen</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                <span class="keywordflow">case</span> 33: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a42d873bb34e1055e40aad0ec45039e8b">TextColor::DarkYellow</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                <span class="keywordflow">case</span> 34: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a877716336e4eb22ac67faaa9c2b86635">TextColor::DarkBlue</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                <span class="keywordflow">case</span> 35: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027adf1b1322cf6703efd9885b0651ddb57a">TextColor::DarkMagenta</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                <span class="keywordflow">case</span> 36: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a85b1ae66e65b490f35c5e8b725e7049f">TextColor::DarkCyan</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                <span class="keywordflow">case</span> 37: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027afb55202637692de4a494e9ade4cff2dd">TextColor::LightGray</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                <span class="keywordflow">case</span> 90: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a91e93fc984985226ad4d319a4e4134ab">TextColor::DarkGray</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                <span class="keywordflow">case</span> 91: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027aee38e4d5dd68c4e440825018d549cb47">TextColor::Red</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                <span class="keywordflow">case</span> 92: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027ad382816a3cbeed082c9e216e7392eed1">TextColor::Green</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                <span class="keywordflow">case</span> 93: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a51e6cd92b6c45f9affdc158ecca2b8b8">TextColor::Yellow</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                <span class="keywordflow">case</span> 94: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a9594eec95be70e7b1710f730fdda33d9">TextColor::Blue</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                <span class="keywordflow">case</span> 95: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027ab91cc2c1416fcca942b61c7ac5b1a9ac">TextColor::Magenta</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                <span class="keywordflow">case</span> 96: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a023c239d2f2538f140a20e72c7b73f20">TextColor::Cyan</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                <span class="keywordflow">case</span> 97: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a25a81701fbfa4a1efdf660a950c1d006">TextColor::White</a>); <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                    <span class="comment">// Unknown code, use default color</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            };</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            <span class="comment">// Set the console text attribute to the desired color</span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            SetConsoleTextAttribute(handle_stdout, color_value);</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        }</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="preprocessor">#       endif</span></div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    }; <span class="comment">// MultiStream</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#       if CONSOLIX_USE_LOGIT == 0 &amp;&amp; (defined(_WIN32) || defined(_WIN64))</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordtype">void</span> handle_ansi_colors_windows(<span class="keyword">const</span> std::string&amp; message)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            std::string::size_type start = 0;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            std::string::size_type pos = 0;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            HANDLE handle_stdout = GetStdHandle(STD_OUTPUT_HANDLE);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <span class="keywordflow">while</span> ((pos = message.find(<span class="stringliteral">&quot;\033[&quot;</span>, start)) != std::string::npos) {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                <span class="comment">// Output the part of the string before the ANSI code</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                <span class="keywordflow">if</span> (pos &gt; start) {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                    std::cout &lt;&lt; message.substr(start, pos - start);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                <span class="comment">// Find the end of the ANSI code</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                std::string::size_type end_pos = message.find(<span class="charliteral">&#39;m&#39;</span>, pos);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                <span class="keywordflow">if</span> (end_pos != std::string::npos) {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                    <span class="comment">// Extract the ANSI code</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                    std::string ansi_code = message.substr(pos + 2, end_pos - pos - 2);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                    apply_color_from_ansi_code(ansi_code, handle_stdout);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                    <span class="comment">// Update position</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                    start = end_pos + 1;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                }</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            }</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="comment">// Output any remaining part of the message</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            <span class="keywordflow">if</span> (start &lt; message.size()) {</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                std::cout &lt;&lt; message.substr(start);</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            }</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            <span class="keywordflow">if</span> (!message.empty()) std::cout &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="comment">// Reset the console color to default</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            SetConsoleTextAttribute(handle_stdout, to_windows_color(<a class="code hl_define" href="config__macros_8hpp.html#ab84f17bf9f3f6ab81962f5b0980f508f">CONSOLIX_DEFAULT_COLOR</a>));</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        }</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordtype">void</span> apply_color_from_ansi_code(<span class="keyword">const</span> std::string&amp; ansi_code, HANDLE handle_stdout)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            WORD color_value = to_windows_color(<a class="code hl_define" href="config__macros_8hpp.html#ab84f17bf9f3f6ab81962f5b0980f508f">CONSOLIX_DEFAULT_COLOR</a>); <span class="comment">// Default color</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            <span class="keyword">const</span> <span class="keywordtype">int</span> code = std::stoi(ansi_code);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            <span class="keywordflow">switch</span> (code) {</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                <span class="keywordflow">case</span> 30: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027ae90dfb84e30edf611e326eeb04d680de">TextColor::Black</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                <span class="keywordflow">case</span> 31: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a8746d21f8164452063398744f06307dd">TextColor::DarkRed</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                <span class="keywordflow">case</span> 32: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027af780aab6295a2f368ac69a514f8b4605">TextColor::DarkGreen</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                <span class="keywordflow">case</span> 33: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a42d873bb34e1055e40aad0ec45039e8b">TextColor::DarkYellow</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                <span class="keywordflow">case</span> 34: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a877716336e4eb22ac67faaa9c2b86635">TextColor::DarkBlue</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                <span class="keywordflow">case</span> 35: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027adf1b1322cf6703efd9885b0651ddb57a">TextColor::DarkMagenta</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                <span class="keywordflow">case</span> 36: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a85b1ae66e65b490f35c5e8b725e7049f">TextColor::DarkCyan</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                <span class="keywordflow">case</span> 37: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027afb55202637692de4a494e9ade4cff2dd">TextColor::LightGray</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>                <span class="keywordflow">case</span> 90: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a91e93fc984985226ad4d319a4e4134ab">TextColor::DarkGray</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                <span class="keywordflow">case</span> 91: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027aee38e4d5dd68c4e440825018d549cb47">TextColor::Red</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                <span class="keywordflow">case</span> 92: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027ad382816a3cbeed082c9e216e7392eed1">TextColor::Green</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                <span class="keywordflow">case</span> 93: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a51e6cd92b6c45f9affdc158ecca2b8b8">TextColor::Yellow</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>                <span class="keywordflow">case</span> 94: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a9594eec95be70e7b1710f730fdda33d9">TextColor::Blue</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                <span class="keywordflow">case</span> 95: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027ab91cc2c1416fcca942b61c7ac5b1a9ac">TextColor::Magenta</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                <span class="keywordflow">case</span> 96: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a023c239d2f2538f140a20e72c7b73f20">TextColor::Cyan</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                <span class="keywordflow">case</span> 97: color_value = to_windows_color(<a class="code hl_enumvalue" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a25a81701fbfa4a1efdf660a950c1d006">TextColor::White</a>); <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                    <span class="comment">// Unknown code, use default color</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            };</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <span class="comment">// Set the console text attribute to the desired color</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            SetConsoleTextAttribute(handle_stdout, color_value);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        }</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="preprocessor">#       endif</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    }; <span class="comment">// MultiStream</span></div>
 </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>}; <span class="comment">// namespace consolix</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="preprocessor">#endif </span><span class="comment">// _CONSOLIX_MULTI_STREAM_HPP_INCLUDED</span></div>
-<div class="ttc" id="aclassconsolix_1_1MultiStream_html_a58d7d762e6e9e086164febcd7ac1b8c5"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#a58d7d762e6e9e086164febcd7ac1b8c5">consolix::MultiStream::operator&lt;&lt;</a></div><div class="ttdeci">MultiStream &amp; operator&lt;&lt;(const T &amp;value)</div><div class="ttdoc">Overloaded operator&lt;&lt; for adding content to the stream.</div><div class="ttdef"><b>Definition</b> <a href="#l00074">MultiStream.hpp:74</a></div></div>
-<div class="ttc" id="aclassconsolix_1_1MultiStream_html_a78f7e28958b4ab6d96299d6bdec0e0ba"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#a78f7e28958b4ab6d96299d6bdec0e0ba">consolix::MultiStream::operator&lt;&lt;</a></div><div class="ttdeci">MultiStream &amp; operator&lt;&lt;(std::ostream &amp;(*manip)(std::ostream &amp;))</div><div class="ttdoc">Overloaded operator&lt;&lt; for manipulators (e.g., std::endl).</div><div class="ttdef"><b>Definition</b> <a href="#l00082">MultiStream.hpp:82</a></div></div>
-<div class="ttc" id="aclassconsolix_1_1MultiStream_html_a844875728cfb7611c7a8c4e9e3fb363d"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#a844875728cfb7611c7a8c4e9e3fb363d">consolix::MultiStream::~MultiStream</a></div><div class="ttdeci">~MultiStream()</div><div class="ttdoc">Destructor to flush the accumulated log content.</div><div class="ttdef"><b>Definition</b> <a href="#l00046">MultiStream.hpp:46</a></div></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>}; <span class="comment">// namespace consolix</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="preprocessor">#endif </span><span class="comment">// _CONSOLIX_MULTI_STREAM_HPP_INCLUDED</span></div>
+<div class="ttc" id="aclassconsolix_1_1MultiStream_html_a58d7d762e6e9e086164febcd7ac1b8c5"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#a58d7d762e6e9e086164febcd7ac1b8c5">consolix::MultiStream::operator&lt;&lt;</a></div><div class="ttdeci">MultiStream &amp; operator&lt;&lt;(const T &amp;value)</div><div class="ttdoc">Overloaded operator&lt;&lt; for adding content to the stream.</div><div class="ttdef"><b>Definition</b> <a href="#l00085">MultiStream.hpp:85</a></div></div>
+<div class="ttc" id="aclassconsolix_1_1MultiStream_html_a78f7e28958b4ab6d96299d6bdec0e0ba"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#a78f7e28958b4ab6d96299d6bdec0e0ba">consolix::MultiStream::operator&lt;&lt;</a></div><div class="ttdeci">MultiStream &amp; operator&lt;&lt;(std::ostream &amp;(*manip)(std::ostream &amp;))</div><div class="ttdoc">Overloaded operator&lt;&lt; for manipulators (e.g., std::endl).</div><div class="ttdef"><b>Definition</b> <a href="#l00093">MultiStream.hpp:93</a></div></div>
+<div class="ttc" id="aclassconsolix_1_1MultiStream_html_a844875728cfb7611c7a8c4e9e3fb363d"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#a844875728cfb7611c7a8c4e9e3fb363d">consolix::MultiStream::~MultiStream</a></div><div class="ttdeci">~MultiStream()</div><div class="ttdoc">Destructor to flush the accumulated log content.</div><div class="ttdef"><b>Definition</b> <a href="#l00057">MultiStream.hpp:57</a></div></div>
 <div class="ttc" id="aclassconsolix_1_1MultiStream_html_ac330b502fea5d742a6bf6988210d4086"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086">consolix::MultiStream::MultiStream</a></div><div class="ttdeci">MultiStream()=default</div><div class="ttdoc">Default constructor for MultiStream without LogIt integration.</div></div>
-<div class="ttc" id="aclassconsolix_1_1MultiStream_html_ac8eefd02baa12100562b5d7d12b99cf0"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">consolix::MultiStream::m_stream</a></div><div class="ttdeci">std::ostringstream m_stream</div><div class="ttdoc">Internal stream for accumulating log content.</div><div class="ttdef"><b>Definition</b> <a href="#l00088">MultiStream.hpp:88</a></div></div>
-<div class="ttc" id="aclassconsolix_1_1MultiStream_html_adfa22e79dcd09565dca5bdc785e84016"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#adfa22e79dcd09565dca5bdc785e84016">consolix::MultiStream::flush_to_console</a></div><div class="ttdeci">void flush_to_console(const std::string &amp;message) const</div><div class="ttdoc">Flush the accumulated message to the console on non-Windows platforms.</div><div class="ttdef"><b>Definition</b> <a href="#l00099">MultiStream.hpp:99</a></div></div>
+<div class="ttc" id="aclassconsolix_1_1MultiStream_html_ac8eefd02baa12100562b5d7d12b99cf0"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#ac8eefd02baa12100562b5d7d12b99cf0">consolix::MultiStream::m_stream</a></div><div class="ttdeci">std::ostringstream m_stream</div><div class="ttdoc">Internal stream for accumulating log content.</div><div class="ttdef"><b>Definition</b> <a href="#l00099">MultiStream.hpp:99</a></div></div>
+<div class="ttc" id="aclassconsolix_1_1MultiStream_html_adfa22e79dcd09565dca5bdc785e84016"><div class="ttname"><a href="classconsolix_1_1MultiStream.html#adfa22e79dcd09565dca5bdc785e84016">consolix::MultiStream::flush_to_console</a></div><div class="ttdeci">void flush_to_console(const std::string &amp;message) const</div><div class="ttdoc">Flush the accumulated message to the console on non-Windows platforms.</div><div class="ttdef"><b>Definition</b> <a href="#l00110">MultiStream.hpp:110</a></div></div>
 <div class="ttc" id="aconfig__macros_8hpp_html_ab84f17bf9f3f6ab81962f5b0980f508f"><div class="ttname"><a href="config__macros_8hpp.html#ab84f17bf9f3f6ab81962f5b0980f508f">CONSOLIX_DEFAULT_COLOR</a></div><div class="ttdeci">#define CONSOLIX_DEFAULT_COLOR</div><div class="ttdoc">Default text color for console output.</div><div class="ttdef"><b>Definition</b> <a href="config__macros_8hpp_source.html#l00119">config_macros.hpp:119</a></div></div>
 <div class="ttc" id="anamespaceconsolix_html"><div class="ttname"><a href="namespaceconsolix.html">consolix</a></div><div class="ttdoc">&lt; Utility modules and helpers.</div><div class="ttdef"><b>Definition</b> <a href="BaseLoopComponent_8hpp_source.html#l00013">BaseLoopComponent.hpp:13</a></div></div>
 <div class="ttc" id="anamespaceconsolix_html_a20f98e5aa9f209dc251ceceb8cad2027a023c239d2f2538f140a20e72c7b73f20"><div class="ttname"><a href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a023c239d2f2538f140a20e72c7b73f20">consolix::TextColor::Cyan</a></div><div class="ttdeci">@ Cyan</div><div class="ttdef"><b>Definition</b> <a href="enums_8hpp_source.html#l00035">enums.hpp:35</a></div></div>

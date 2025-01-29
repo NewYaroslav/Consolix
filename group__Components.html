@@ -149,7 +149,18 @@ Files</h2></td></tr>
 <h3><a class="anchor" id="autotoc_md0"></a>
 Main Components:</h3>
 <ul>
-<li><b>LoggerComponent</b>: Configures and manages logging functionality.</li>
+<li><b>TitleComponent</b>: Manages the console window title across platforms.<ul>
+<li>Supports UTF-8 titles by converting them to UTF-16 on Windows.</li>
+<li>On Linux/macOS, uses ANSI escape sequences for setting the title.</li>
+</ul>
+</li>
+<li><b>LoggerComponent</b>: Configures and manages logging functionality.<ul>
+<li>Uses <code>MultiStream</code> to provide consistent logging across platforms.</li>
+<li>Supports UTF-8 output, with automatic conversion to CP866 on Windows for compatibility with legacy consoles.</li>
+<li>Supports ANSI color codes for enhanced readability.</li>
+<li>Integrates with LogIt (if enabled) for structured and multi-stream logging.</li>
+</ul>
+</li>
 <li><b>LogoComponent</b>: Displays the application logo in the console.</li>
 <li><b>CliComponent</b>: Handles command-line arguments using the cxxopts library.</li>
 <li><b>ConfigComponent</b>: Loads and manages configuration from JSON files.</li>
@@ -163,10 +174,23 @@ Key Features:</h3>
 <li>Convenient handling of command-line arguments.</li>
 <li>Lightweight JSON configuration management, including support for comments.</li>
 <li>Support for custom execution loops using either a base class or the LoopComponent.</li>
+<li>UTF-8 support for program titles on all platforms:<ul>
+<li>Automatically converted to UTF-16 on Windows for proper Unicode rendering.</li>
+<li>Displayed via ANSI escape sequences on Linux/macOS.</li>
+</ul>
+</li>
+<li>UTF-8 console output:<ul>
+<li>Uses <code>MultiStream</code> for consistent handling of log messages.</li>
+<li>On Windows, UTF-8 is automatically converted to CP866 for legacy console compatibility.</li>
+<li>Supports ANSI color sequences for improved readability.</li>
+</ul>
+</li>
+<li>Integrates with LogIt (if enabled) for structured and multi-stream logging.</li>
 </ul>
 <h3><a class="anchor" id="autotoc_md2"></a>
 Included Headers:</h3>
 <ul>
+<li><code><a class="el" href="TitleComponent_8hpp.html" title="Component for managing console window titles in a platform-independent way.">components/TitleComponent.hpp</a></code></li>
 <li><code><a class="el" href="LoggerComponent_8hpp.html" title="Logger component for managing application logging with LogIt.">components/LoggerComponent.hpp</a></code></li>
 <li><code><a class="el" href="LogoComponent_8hpp.html" title="Defines a component for displaying a customizable ASCII logo.">components/LogoComponent.hpp</a></code></li>
 <li><code><a class="el" href="CliComponent_8hpp.html" title="Component for handling command-line arguments using cxxopts library.">components/CliComponent.hpp</a></code></li>
