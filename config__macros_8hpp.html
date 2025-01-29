@@ -158,6 +158,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ab84f17bf9f3f6ab81962f5b0980f508f" id="r_ab84f17bf9f3f6ab81962f5b0980f508f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab84f17bf9f3f6ab81962f5b0980f508f">CONSOLIX_DEFAULT_COLOR</a>&#160;&#160;&#160;<a class="el" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027afb55202637692de4a494e9ade4cff2dd">consolix::TextColor::LightGray</a></td></tr>
 <tr class="memdesc:ab84f17bf9f3f6ab81962f5b0980f508f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default text color for console output.  <br /></td></tr>
 <tr class="separator:ab84f17bf9f3f6ab81962f5b0980f508f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c2aa07b29b2966e512d19a3b06572e0" id="r_a7c2aa07b29b2966e512d19a3b06572e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c2aa07b29b2966e512d19a3b06572e0">CONSOLIX_WAIT_ON_ERROR</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a7c2aa07b29b2966e512d19a3b06572e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables waiting for user input before exiting on a fatal error.  <br /></td></tr>
+<tr class="separator:a7c2aa07b29b2966e512d19a3b06572e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Configuration macros for the Consolix framework. </p>
@@ -419,6 +422,25 @@ Usage:</h3>
 <p>Set to <code>1</code> to enable LogIt, or <code>0</code> to disable it. \default <code>0</code> </p>
 
 <p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00031">31</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7c2aa07b29b2966e512d19a3b06572e0" name="a7c2aa07b29b2966e512d19a3b06572e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c2aa07b29b2966e512d19a3b06572e0">&#9670;&#160;</a></span>CONSOLIX_WAIT_ON_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CONSOLIX_WAIT_ON_ERROR&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables or disables waiting for user input before exiting on a fatal error. </p>
+<p>Set to <code>1</code> to wait for Enter after a fatal error (useful for debugging), or <code>0</code> to exit immediately. \default <code>0</code> </p>
+
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00128">128</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>

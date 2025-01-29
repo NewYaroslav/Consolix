@@ -8,7 +8,6 @@ var classconsolix_1_1ConsoleApplication =
     [ "add", "classconsolix_1_1ConsoleApplication.html#a0ebe897909053568522931d591f7486a", null ],
     [ "cleanup", "classconsolix_1_1ConsoleApplication.html#aa1261842bfc5dbfa3abd85a72832b6e6", null ],
     [ "get_instance", "classconsolix_1_1ConsoleApplication.html#a7710332ed4fecadcc4ba0dab8e6d2bf6", null ],
-    [ "handle_fatal_exception", "classconsolix_1_1ConsoleApplication.html#a21b8fe5ed4dbe4fc53b9c1748a3975b0", null ],
     [ "handle_fatal_exception", "classconsolix_1_1ConsoleApplication.html#afe030b5964bde4dca3763b355c786f52", null ],
     [ "handle_signal", "classconsolix_1_1ConsoleApplication.html#ae5c73a8214117d0bda057ec8a8be12e7", null ],
     [ "init", "classconsolix_1_1ConsoleApplication.html#ad8b950b18b07fe369e23f07906e003d0", null ],

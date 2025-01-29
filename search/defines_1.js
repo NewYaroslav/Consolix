@@ -13,5 +13,6 @@ var searchData=
   ['consolix_5funique_5ffile_5flogger_5fpath_10',['CONSOLIX_UNIQUE_FILE_LOGGER_PATH',['../config__macros_8hpp.html#a643a693c954dcf845975b8d4ab95f665',1,'config_macros.hpp']]],
   ['consolix_5fuse_5fcxxopts_11',['CONSOLIX_USE_CXXOPTS',['../config__macros_8hpp.html#a9d914f68b81e5966ef42ee2d64269408',1,'config_macros.hpp']]],
   ['consolix_5fuse_5fjson_12',['CONSOLIX_USE_JSON',['../config__macros_8hpp.html#a57c0a36583c244db28894fea9deef003',1,'config_macros.hpp']]],
-  ['consolix_5fuse_5flogit_13',['CONSOLIX_USE_LOGIT',['../LogoComponent_8hpp.html#abc86d8e297b196d80003a22d12ae36cf',1,'CONSOLIX_USE_LOGIT:&#160;LogoComponent.hpp'],['../config__macros_8hpp.html#abc86d8e297b196d80003a22d12ae36cf',1,'CONSOLIX_USE_LOGIT:&#160;config_macros.hpp']]]
+  ['consolix_5fuse_5flogit_13',['CONSOLIX_USE_LOGIT',['../LogoComponent_8hpp.html#abc86d8e297b196d80003a22d12ae36cf',1,'CONSOLIX_USE_LOGIT:&#160;LogoComponent.hpp'],['../config__macros_8hpp.html#abc86d8e297b196d80003a22d12ae36cf',1,'CONSOLIX_USE_LOGIT:&#160;config_macros.hpp']]],
+  ['consolix_5fwait_5fon_5ferror_14',['CONSOLIX_WAIT_ON_ERROR',['../config__macros_8hpp.html#a7c2aa07b29b2966e512d19a3b06572e0',1,'config_macros.hpp']]]
 ];

@@ -46,11 +46,12 @@ var searchData=
   ['consolix_5fuse_5fcxxopts_43',['CONSOLIX_USE_CXXOPTS',['../config__macros_8hpp.html#a9d914f68b81e5966ef42ee2d64269408',1,'config_macros.hpp']]],
   ['consolix_5fuse_5fjson_44',['CONSOLIX_USE_JSON',['../config__macros_8hpp.html#a57c0a36583c244db28894fea9deef003',1,'config_macros.hpp']]],
   ['consolix_5fuse_5flogit_45',['CONSOLIX_USE_LOGIT',['../LogoComponent_8hpp.html#abc86d8e297b196d80003a22d12ae36cf',1,'CONSOLIX_USE_LOGIT:&#160;LogoComponent.hpp'],['../config__macros_8hpp.html#abc86d8e297b196d80003a22d12ae36cf',1,'CONSOLIX_USE_LOGIT:&#160;config_macros.hpp']]],
-  ['conversion_3a_46',['Conversion:',['../color_utils.html#autotoc_md23',1,'ANSI Escape Code Conversion:'],['../color_utils.html#autotoc_md24',1,'Windows Console Color Conversion:']]],
-  ['core_47',['Core',['../group__Core.html',1,'']]],
-  ['core_2ehpp_48',['core.hpp',['../core_8hpp.html',1,'']]],
-  ['create_5fdirectories_49',['create_directories',['../namespaceconsolix.html#af8d1b3c47332e45cd038278d328d170c',1,'consolix']]],
-  ['custom_20loop_20example_50',['Custom Loop Example',['../examples_page.html#autotoc_md33',1,'']]],
-  ['customloop_51',['CustomLoop',['../classCustomLoop.html',1,'']]],
-  ['cyan_52',['Cyan',['../namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a023c239d2f2538f140a20e72c7b73f20',1,'consolix']]]
+  ['consolix_5fwait_5fon_5ferror_46',['CONSOLIX_WAIT_ON_ERROR',['../config__macros_8hpp.html#a7c2aa07b29b2966e512d19a3b06572e0',1,'config_macros.hpp']]],
+  ['conversion_3a_47',['Conversion:',['../color_utils.html#autotoc_md23',1,'ANSI Escape Code Conversion:'],['../color_utils.html#autotoc_md24',1,'Windows Console Color Conversion:']]],
+  ['core_48',['Core',['../group__Core.html',1,'']]],
+  ['core_2ehpp_49',['core.hpp',['../core_8hpp.html',1,'']]],
+  ['create_5fdirectories_50',['create_directories',['../namespaceconsolix.html#af8d1b3c47332e45cd038278d328d170c',1,'consolix']]],
+  ['custom_20loop_20example_51',['Custom Loop Example',['../examples_page.html#autotoc_md33',1,'']]],
+  ['customloop_52',['CustomLoop',['../classCustomLoop.html',1,'']]],
+  ['cyan_53',['Cyan',['../namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a023c239d2f2538f140a20e72c7b73f20',1,'consolix']]]
 ];

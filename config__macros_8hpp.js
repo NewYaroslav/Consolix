@@ -12,5 +12,6 @@ var config__macros_8hpp =
     [ "CONSOLIX_UNIQUE_FILE_LOGGER_PATH", "config__macros_8hpp.html#a643a693c954dcf845975b8d4ab95f665", null ],
     [ "CONSOLIX_USE_CXXOPTS", "config__macros_8hpp.html#a9d914f68b81e5966ef42ee2d64269408", null ],
     [ "CONSOLIX_USE_JSON", "config__macros_8hpp.html#a57c0a36583c244db28894fea9deef003", null ],
-    [ "CONSOLIX_USE_LOGIT", "config__macros_8hpp.html#abc86d8e297b196d80003a22d12ae36cf", null ]
+    [ "CONSOLIX_USE_LOGIT", "config__macros_8hpp.html#abc86d8e297b196d80003a22d12ae36cf", null ],
+    [ "CONSOLIX_WAIT_ON_ERROR", "config__macros_8hpp.html#a7c2aa07b29b2966e512d19a3b06572e0", null ]
 ];
