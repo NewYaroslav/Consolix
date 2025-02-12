@@ -9,7 +9,6 @@ var NAVTREEINDEX0 =
 "ColorManipulator_8hpp_source.html":[11,0,2,0,3,0],
 "ConfigComponent_8hpp.html":[8,0,3],
 "ConsoleApplication_8hpp.html":[8,1,3],
-"Example-example.html":[12,0],
 "IAppComponent_8hpp.html":[11,0,2,0,2,0],
 "IAppComponent_8hpp.html#a03f2671a6b5889c44f7ae7d1bb37b4b7":[11,0,2,0,2,0,1],
 "IAppComponent_8hpp_source.html":[11,0,2,0,2,0],
@@ -22,7 +21,7 @@ var NAVTREEINDEX0 =
 "MultiStream_8hpp.html":[11,0,2,0,0,0,0],
 "MultiStream_8hpp.html#af94042d5e1e4f17d495c5fd853372650":[11,0,2,0,0,0,0,1],
 "MultiStream_8hpp_source.html":[11,0,2,0,0,0,0],
-"ServiceLocator_8hpp.html":[8,1,5],
+"ServiceLocator_8hpp.html":[8,1,6],
 "TitleComponent_8hpp.html":[8,0,7],
 "annotated.html":[10,0],
 "application__utils_8hpp.html":[8,1,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX0 =
 "classconsolix_1_1ServiceLocator.html#a3ccbd3b3012d444bcee7bff8be630f3f":[10,0,0,10,7],
 "classconsolix_1_1ServiceLocator.html#a5139a78a1d086f4ccd9d1b0321ce18e3":[9,0,0,10,8],
 "classconsolix_1_1ServiceLocator.html#a5139a78a1d086f4ccd9d1b0321ce18e3":[10,0,0,10,8],
-"classconsolix_1_1ServiceLocator.html#aa02a8ea8ed8ed7fe20f8f7139e267503":[9,0,0,10,6]
+"classconsolix_1_1ServiceLocator.html#aa02a8ea8ed8ed7fe20f8f7139e267503":[9,0,0,10,6],
+"classconsolix_1_1ServiceLocator.html#aa02a8ea8ed8ed7fe20f8f7139e267503":[10,0,0,10,6]
 };

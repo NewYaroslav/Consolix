@@ -128,7 +128,7 @@ Files</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Common utility modules and helpers in Consolix. </p>
 <p>The Utilities group includes a variety of modules that provide helper functions, type definitions, and features to simplify application development with Consolix. These utilities cover JSON manipulation, path handling, enumeration definitions, encoding transformations, and more.</p>
-<h3><a class="anchor" id="autotoc_md10"></a>
+<h3><a class="anchor" id="autotoc_md12"></a>
 Included Modules:</h3>
 <ul>
 <li><b>Enumerations (<code><a class="el" href="enums_8hpp.html" title="Contains enumerations and utility functions for text colors.">utils/enums.hpp</a></code>)</b>: Centralized definitions of shared constants and flags.</li>
@@ -138,7 +138,7 @@ Included Modules:</h3>
 <li><b>JSON Utilities (<code><a class="el" href="json__utils_8hpp.html" title="Utilities for working with JSON strings, including removing comments.">utils/json_utils.hpp</a></code>)</b>: Helpers for processing and manipulating JSON strings.</li>
 <li><b>Encoding Utilities (<code><a class="el" href="encoding__utils_8hpp.html" title="Utilities for working with character encodings and string transformations.">utils/encoding_utils.hpp</a></code>)</b>: Tools for working with character encoding transformations.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md11"></a>
+<h3><a class="anchor" id="autotoc_md13"></a>
 Example Usage:</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="utils_8hpp.html">consolix/utils.hpp</a>&gt;</span></div>
 <div class="line"> </div>
@@ -169,7 +169,7 @@ Example Usage:</h3>
 <div class="ttc" id="aLoggerComponent_8hpp_html_a188cf759d4bc30f22194e6ab319df750"><div class="ttname"><a href="LoggerComponent_8hpp.html#a188cf759d4bc30f22194e6ab319df750">CONSOLIX_STREAM</a></div><div class="ttdeci">#define CONSOLIX_STREAM()</div><div class="ttdoc">Fallback for general logging.</div><div class="ttdef"><b>Definition</b> <a href="LoggerComponent_8hpp_source.html#l00214">LoggerComponent.hpp:214</a></div></div>
 <div class="ttc" id="anamespaceconsolix_html_a06af929a9275c39404c2a5fe1748c833"><div class="ttname"><a href="namespaceconsolix.html#a06af929a9275c39404c2a5fe1748c833">consolix::strip_json_comments</a></div><div class="ttdeci">*The resulting JSON string may optionally retain whitespace or newlines *where the comments were removed **param json_string The JSON string to process *param with_whitespace If comments are replaced with equivalent whitespace *If comments are removed without leaving whitespace *param preserve_newlines If true and with_whitespace is newline characters *in comments are preserved all characters in the *comments are replaced with whitespace *return A JSON string with comments removed *std::string strip_json_comments(const std::string &amp;json_string, bool with_whitespace=false, bool preserve_newlines=true)</div><div class="ttdef"><b>Definition</b> <a href="json__utils_8hpp_source.html#l00039">json_utils.hpp:39</a></div></div>
 <div class="ttc" id="anamespaceconsolix_html_a094ffa94e032d6125545025f2bc0336a"><div class="ttname"><a href="namespaceconsolix.html#a094ffa94e032d6125545025f2bc0336a">consolix::color</a></div><div class="ttdeci">ColorManipulator color(TextColor color)</div><div class="ttdoc">Creates a color manipulator for use in output streams.</div><div class="ttdef"><b>Definition</b> <a href="ColorManipulator_8hpp_source.html#l00052">ColorManipulator.hpp:52</a></div></div>
-<div class="ttc" id="anamespaceconsolix_html_a20f98e5aa9f209dc251ceceb8cad2027ad382816a3cbeed082c9e216e7392eed1"><div class="ttname"><a href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027ad382816a3cbeed082c9e216e7392eed1">consolix::TextColor::Green</a></div><div class="ttdeci">@ Green</div><div class="ttdef"><b>Definition</b> <a href="enums_8hpp_source.html#l00031">enums.hpp:31</a></div></div>
+<div class="ttc" id="anamespaceconsolix_html_a20f98e5aa9f209dc251ceceb8cad2027ad382816a3cbeed082c9e216e7392eed1"><div class="ttname"><a href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027ad382816a3cbeed082c9e216e7392eed1">consolix::TextColor::Green</a></div><div class="ttdeci">@ Green</div><div class="ttdef"><b>Definition</b> <a href="enums_8hpp_source.html#l00028">enums.hpp:28</a></div></div>
 <div class="ttc" id="atest__strip__json__comments_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="test__strip__json__comments_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition</b> <a href="test__strip__json__comments_8cpp_source.html#l00032">test_strip_json_comments.cpp:32</a></div></div>
 <div class="ttc" id="autils_8hpp_html"><div class="ttname"><a href="utils_8hpp.html">utils.hpp</a></div><div class="ttdoc">Entry point for including utility headers for Consolix.</div></div>
 </div><!-- fragment --> </div><!-- contents -->

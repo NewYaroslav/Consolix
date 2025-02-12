@@ -22,9 +22,10 @@ var searchData=
   ['_5fconsolix_5floop_5fcomponent_5fhpp_5fincluded_19',['_CONSOLIX_LOOP_COMPONENT_HPP_INCLUDED',['../LoopComponent_8hpp.html#ac196151c15abea8f5fcf4e19316de201',1,'LoopComponent.hpp']]],
   ['_5fconsolix_5fmulti_5fstream_5fhpp_5fincluded_20',['_CONSOLIX_MULTI_STREAM_HPP_INCLUDED',['../MultiStream_8hpp.html#af94042d5e1e4f17d495c5fd853372650',1,'MultiStream.hpp']]],
   ['_5fconsolix_5fpath_5futils_5fhpp_5fincluded_21',['_CONSOLIX_PATH_UTILS_HPP_INCLUDED',['../path__utils_8hpp.html#aaafbac7b0a0e85f34090eafe41c3f68a',1,'path_utils.hpp']]],
-  ['_5fconsolix_5fservice_5flocator_5fhpp_5fincluded_22',['_CONSOLIX_SERVICE_LOCATOR_HPP_INCLUDED',['../ServiceLocator_8hpp.html#a96e352d35c8d0e70494386cf97425e86',1,'ServiceLocator.hpp']]],
-  ['_5fconsolix_5fservice_5futils_5fhpp_5fincluded_23',['_CONSOLIX_SERVICE_UTILS_HPP_INCLUDED',['../service__utils_8hpp.html#a3b1a3cd6e0cfe9005a516f6b7874c434',1,'service_utils.hpp']]],
-  ['_5fconsolix_5ftitle_5fcomponent_5fhpp_5fincluded_24',['_CONSOLIX_TITLE_COMPONENT_HPP_INCLUDED',['../TitleComponent_8hpp.html#a91f4c465696c95ea7a772b94343584f5',1,'TitleComponent.hpp']]],
-  ['_5fconsolix_5ftypes_5fhpp_5fincluded_25',['_CONSOLIX_TYPES_HPP_INCLUDED',['../types_8hpp.html#ab75593c72f442dbb8beb95a3e280df24',1,'types.hpp']]],
-  ['_5fconsolix_5futils_5fhpp_5fincluded_26',['_CONSOLIX_UTILS_HPP_INCLUDED',['../utils_8hpp.html#a83202d2a7505b095a9eca43a99758ccb',1,'utils.hpp']]]
+  ['_5fconsolix_5fplatform_5fincludes_5fhpp_5fincluded_22',['_CONSOLIX_PLATFORM_INCLUDES_HPP_INCLUDED',['../platform__includes_8hpp.html#a96be91b096762c18f6cfceaa43f95606',1,'platform_includes.hpp']]],
+  ['_5fconsolix_5fservice_5flocator_5fhpp_5fincluded_23',['_CONSOLIX_SERVICE_LOCATOR_HPP_INCLUDED',['../ServiceLocator_8hpp.html#a96e352d35c8d0e70494386cf97425e86',1,'ServiceLocator.hpp']]],
+  ['_5fconsolix_5fservice_5futils_5fhpp_5fincluded_24',['_CONSOLIX_SERVICE_UTILS_HPP_INCLUDED',['../service__utils_8hpp.html#a3b1a3cd6e0cfe9005a516f6b7874c434',1,'service_utils.hpp']]],
+  ['_5fconsolix_5ftitle_5fcomponent_5fhpp_5fincluded_25',['_CONSOLIX_TITLE_COMPONENT_HPP_INCLUDED',['../TitleComponent_8hpp.html#a91f4c465696c95ea7a772b94343584f5',1,'TitleComponent.hpp']]],
+  ['_5fconsolix_5ftypes_5fhpp_5fincluded_26',['_CONSOLIX_TYPES_HPP_INCLUDED',['../types_8hpp.html#ab75593c72f442dbb8beb95a3e280df24',1,'types.hpp']]],
+  ['_5fconsolix_5futils_5fhpp_5fincluded_27',['_CONSOLIX_UTILS_HPP_INCLUDED',['../utils_8hpp.html#a83202d2a7505b095a9eca43a99758ccb',1,'utils.hpp']]]
 ];

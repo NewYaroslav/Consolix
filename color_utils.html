@@ -110,18 +110,18 @@ $(function(){initNavTree('color_utils.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">Console Color Utilities</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md19"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md21"></a>
 Console Color Utilities</h1>
 <p>This module provides utilities for managing text colors in the console. It includes functions for styling text output in the console using color codes.</p>
-<h2><a class="anchor" id="autotoc_md20"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 Key Functions:</h2>
 <ul>
 <li><code><a class="el" href="namespaceconsolix.html#a094ffa94e032d6125545025f2bc0336a" title="Creates a color manipulator for use in output streams.">consolix::color</a></code>: Sets the text color for console output.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md23"></a>
 ColorManipulator Class:</h2>
 <p>The <code>ColorManipulator</code> class enables color support for Windows consoles. It is utilized by the <code>CONSOLIX_STREAM</code> macro to provide colorized console output.</p>
-<h2><a class="anchor" id="autotoc_md22"></a>
+<h2><a class="anchor" id="autotoc_md24"></a>
 Supported Colors:</h2>
 <p>The text colors are defined in the <code>TextColor</code> enumeration:</p>
 <div class="fragment"><div class="line"><span class="keyword">enum class</span> TextColor {</div>
@@ -142,12 +142,12 @@ Supported Colors:</h2>
 <div class="line">    Cyan,</div>
 <div class="line">    White,</div>
 <div class="line">};</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md23"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md25"></a>
 ANSI Escape Code Conversion:</h3>
 <p>Colors are converted to ANSI escape codes using the function:</p>
 <div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span>* to_c_str(<span class="keyword">const</span> TextColor&amp; color);</div>
 </div><!-- fragment --><p> This allows seamless integration with Linux and macOS terminals by embedding ANSI escape codes into the output string.</p>
-<h3><a class="anchor" id="autotoc_md24"></a>
+<h3><a class="anchor" id="autotoc_md26"></a>
 Windows Console Color Conversion:</h3>
 <p>On Windows, colors are converted to console attributes using:</p>
 <div class="fragment"><div class="line">WORD to_windows_color(<span class="keyword">const</span> TextColor&amp; color);</div>

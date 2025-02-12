@@ -155,7 +155,27 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Utility functions for working with the <code>ServiceLocator</code>. </p>
-
+<h3><a class="anchor" id="autotoc_md11"></a>
+Example usage of the ServiceLocator.</h3>
+<div class="fragment"><div class="line"><a class="code hl_function" href="namespaceconsolix.html#a5343def4943412d22c34f9f6d0a54052">consolix::register_service&lt;CliOptions&gt;</a>([]() {</div>
+<div class="line">    <span class="keywordflow">return</span> std::make_shared&lt;CliOptions&gt;(<span class="stringliteral">&quot;AppName&quot;</span>, <span class="stringliteral">&quot;Description&quot;</span>);</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">auto</span>&amp; options = <a class="code hl_function" href="namespaceconsolix.html#a61af25052ab8dc59230fd8311b5e7626">consolix::get_service&lt;CliOptions&gt;</a>();</div>
+<div class="line">options.add_options()(<span class="stringliteral">&quot;debug&quot;</span>, <span class="stringliteral">&quot;Enable debugging&quot;</span>, cxxopts::value&lt;bool&gt;()-&gt;default_value(<span class="stringliteral">&quot;false&quot;</span>));</div>
+<div class="line"> </div>
+<div class="line"><a class="code hl_function" href="namespaceconsolix.html#a5343def4943412d22c34f9f6d0a54052">consolix::register_service&lt;std::string&gt;</a>([]() {</div>
+<div class="line">    <span class="keywordflow">return</span> std::make_shared&lt;std::string&gt;(<span class="stringliteral">&quot;Hello, World!&quot;</span>);</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="namespaceconsolix.html#a9244ec6fc9ae28a16c78badc9ba880d8">consolix::has_service&lt;std::string&gt;</a>()) {</div>
+<div class="line">    <span class="keyword">auto</span>&amp; message = <a class="code hl_function" href="namespaceconsolix.html#a61af25052ab8dc59230fd8311b5e7626">consolix::get_service&lt;std::string&gt;</a>();</div>
+<div class="line">    std::cout &lt;&lt; message &lt;&lt; std::endl;</div>
+<div class="line">}</div>
+<div class="ttc" id="anamespaceconsolix_html_a5343def4943412d22c34f9f6d0a54052"><div class="ttname"><a href="namespaceconsolix.html#a5343def4943412d22c34f9f6d0a54052">consolix::register_service</a></div><div class="ttdeci">void register_service()</div><div class="ttdoc">Registers a resource with default construction globally. Registers a resource or service using defaul...</div><div class="ttdef"><b>Definition</b> <a href="service__utils_8hpp_source.html#l00042">service_utils.hpp:42</a></div></div>
+<div class="ttc" id="anamespaceconsolix_html_a61af25052ab8dc59230fd8311b5e7626"><div class="ttname"><a href="namespaceconsolix.html#a61af25052ab8dc59230fd8311b5e7626">consolix::get_service</a></div><div class="ttdeci">T &amp; get_service()</div><div class="ttdoc">Retrieves a resource globally. Retrieves a reference to a globally registered resource from the Servi...</div><div class="ttdef"><b>Definition</b> <a href="service__utils_8hpp_source.html#l00051">service_utils.hpp:51</a></div></div>
+<div class="ttc" id="anamespaceconsolix_html_a9244ec6fc9ae28a16c78badc9ba880d8"><div class="ttname"><a href="namespaceconsolix.html#a9244ec6fc9ae28a16c78badc9ba880d8">consolix::has_service</a></div><div class="ttdeci">bool has_service()</div><div class="ttdoc">Checks if a resource is registered globally.</div><div class="ttdef"><b>Definition</b> <a href="service__utils_8hpp_source.html#l00059">service_utils.hpp:59</a></div></div>
+</div><!-- fragment --> 
 <p class="definition">Definition in file <a class="el" href="service__utils_8hpp_source.html">service_utils.hpp</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a3b1a3cd6e0cfe9005a516f6b7874c434" name="a3b1a3cd6e0cfe9005a516f6b7874c434"></a>
