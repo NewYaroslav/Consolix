@@ -5,6 +5,21 @@
 /// \file application_utils.hpp
 /// \brief Utility functions for managing application lifecycle and components.
 /// \ingroup Core
+/// ### Example usage of application utilities.
+///
+/// ```cpp
+/// // Add logo component to display the application logo at startup.
+/// consolix::add<consolix::LogoComponent>(consolix::TextColor::DarkYellow);
+///
+/// // Load configuration from a JSON file.
+/// consolix::add<consolix::ConfigComponent<AppConfig>>("config.json", "config");
+///
+/// // Add the custom loop component.
+/// consolix::add<CustomLoop>();
+///
+/// // Start the application and run all components.
+/// consolix::run();
+/// ```
 
 namespace consolix {
 
@@ -64,22 +79,6 @@ namespace consolix {
     inline void stop() {
         ConsoleApplication::get_instance().stop();
     }
-
-    /// \example Example usage of application utilities.
-    ///
-    /// ```cpp
-    /// // Add logo component to display the application logo at startup.
-    /// consolix::add<consolix::LogoComponent>(consolix::TextColor::DarkYellow);
-    ///
-    /// // Load configuration from a JSON file.
-    /// consolix::add<consolix::ConfigComponent<AppConfig>>("config.json", "config");
-    ///
-    /// // Add the custom loop component.
-    /// consolix::add<CustomLoop>();
-    ///
-    /// // Start the application and run all components.
-    /// consolix::run();
-    /// ```
 
 }; // namespace consolix
 

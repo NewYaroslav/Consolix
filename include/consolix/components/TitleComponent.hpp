@@ -7,12 +7,6 @@
 /// \ingroup Components
 
 #include <string>
-#if defined(_WIN32) || defined(_WIN64)
-#include <windows.h>
-#else
-#include <iostream>
-#endif
-
 
 namespace consolix {
 

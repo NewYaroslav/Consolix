@@ -5,6 +5,24 @@
 /// \file service_utils.hpp
 /// \brief Utility functions for working with the `ServiceLocator`.
 /// \ingroup Core
+/// ### Example usage of the ServiceLocator.
+/// ```cpp
+/// consolix::register_service<CliOptions>([]() {
+///     return std::make_shared<CliOptions>("AppName", "Description");
+/// });
+///
+/// auto& options = consolix::get_service<CliOptions>();
+/// options.add_options()("debug", "Enable debugging", cxxopts::value<bool>()->default_value("false"));
+///
+/// consolix::register_service<std::string>([]() {
+///     return std::make_shared<std::string>("Hello, World!");
+/// });
+///
+/// if (consolix::has_service<std::string>()) {
+///     auto& message = consolix::get_service<std::string>();
+///     std::cout << message << std::endl;
+/// }
+/// ```
 
 namespace consolix {
 
@@ -47,25 +65,6 @@ namespace consolix {
     inline void clear_all() {
         ServiceLocator::get_instance().clear_all();
     }
-
-    /// \example Example usage of the ServiceLocator.
-    /// ```cpp
-    /// consolix::register_service<CliOptions>([]() {
-    ///     return std::make_shared<CliOptions>("AppName", "Description");
-    /// });
-    ///
-    /// auto& options = consolix::get_service<CliOptions>();
-    /// options.add_options()("debug", "Enable debugging", cxxopts::value<bool>()->default_value("false"));
-    ///
-    /// consolix::register_service<std::string>([]() {
-    ///     return std::make_shared<std::string>("Hello, World!");
-    /// });
-    ///
-    /// if (consolix::has_service<std::string>()) {
-    ///     auto& message = consolix::get_service<std::string>();
-    ///     std::cout << message << std::endl;
-    /// }
-    /// ```
 
 }; // namespace consolix
 

@@ -89,6 +89,7 @@
 #include "interfaces.hpp"                   ///< Core interfaces for component interaction.
 
 // Service management utilities required by LoggerComponent, CliComponent, ConfigComponent
+#include "core/platform_includes.hpp"       ///< Platform-specific includes and definitions.
 #include "core/ServiceLocator.hpp"          ///< Service locator for managing shared resources.
 #include "core/service_utils.hpp"           ///< Utility functions for working with services.
 

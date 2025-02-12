@@ -6,9 +6,6 @@
 /// \brief Contains enumerations and utility functions for text colors.
 
 #include <array>
-#if defined(_WIN32) || defined(_WIN64)
-#include <windows.h>
-#endif
 
 namespace consolix {
 

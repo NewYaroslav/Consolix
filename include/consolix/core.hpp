@@ -35,6 +35,7 @@
 /// - `core/application_utils.hpp`
 ///
 /// ### Example Usage:
+///
 /// ```cpp
 /// #define CONSOLIX_USE_LOGIT 1
 /// #include <consolix/core.hpp>
@@ -69,6 +70,7 @@
 #include "interfaces.hpp"               ///< Interfaces defining the base structure of components.
 #include "utils.hpp"                    ///< General utilities for the framework.
 #include "components.hpp"               ///< Predefined application components.
+#include "core/platform_includes.hpp"   ///< Platform-specific includes and definitions.
 #include "core/ServiceLocator.hpp"      ///< Singleton for managing globally accessible services.
 #include "core/service_utils.hpp"       ///< Helper functions for working with services.
 #include "core/AppComponentManager.hpp" ///< Manager for application components and their lifecycle.

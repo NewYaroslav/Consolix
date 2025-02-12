@@ -25,6 +25,7 @@
 /// - **Encoding Utilities (`utils/encoding_utils.hpp`)**: Tools for working with character encoding transformations.
 ///
 /// ### Example Usage:
+///
 /// ```cpp
 /// #include <consolix/utils.hpp>
 ///
@@ -55,6 +56,7 @@
 /// ```
 
 #include "config_macros.hpp"          ///< Global configuration macros for Consolix.
+#include "core/platform_includes.hpp" ///< Platform-specific includes and definitions.
 #include "utils/enums.hpp"            ///< Enumerations for shared constants.
 #include "utils/types.hpp"            ///< Common type definitions and aliases.
 #include "utils/ColorManipulator.hpp" ///< Stream-based text color manipulation utilities.

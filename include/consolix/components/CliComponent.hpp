@@ -8,10 +8,6 @@
 
 #if CONSOLIX_USE_CXXOPTS == 1
 
-#if defined(_WIN32) || defined(_WIN64)
-#include <windows.h>
-#endif
-
 #include <cxxopts.hpp>
 #include <string>
 #include <memory>

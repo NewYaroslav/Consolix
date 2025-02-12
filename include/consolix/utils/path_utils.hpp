@@ -9,15 +9,6 @@
 #include <vector>
 #include <filesystem>
 
-#ifdef _WIN32
-#include <direct.h>
-#include <windows.h>
-#else
-#include <unistd.h>
-#include <limits.h>
-#include <sys/stat.h>
-#endif
-
 namespace consolix {
     namespace fs = std::filesystem;
 

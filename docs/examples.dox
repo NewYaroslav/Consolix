@@ -1,4 +1,5 @@
 /// \page examples_page Usage Examples
+/// \brief Examples of using Consolix framework.
 /// 
 /// # Usage Examples
 /// 
@@ -36,6 +37,7 @@
 /// 
 /// ## Using the ServiceLocator
 /// The `ServiceLocator` provides global access to shared resources:
+///
 /// ```cpp
 /// #include <consolix/core.hpp>
 ///
@@ -55,6 +57,7 @@
 /// 
 /// ## JSON Configuration Management
 /// Load and manage application configuration from a JSON file:
+///
 /// ```cpp
 /// #include <consolix/components.hpp>
 ///
@@ -78,6 +81,7 @@
 /// 
 /// ## Custom Loop Example
 /// Define and use a custom execution loop:
+///
 /// ```cpp
 /// #include <consolix/components.hpp>
 ///
@@ -102,6 +106,7 @@
 /// 
 /// ## Logging with LogIt
 /// Use the integrated `LoggerComponent` to manage logging:
+///
 /// ```cpp
 /// #define CONSOLIX_USE_LOGIT 1
 /// #include <consolix/consolix.hpp>
@@ -118,6 +123,7 @@
 /// 
 /// ## Working with Path Utilities
 /// Resolve paths relative to the executable directory:
+///
 /// ```cpp
 /// #include <consolix/utils.hpp>
 ///

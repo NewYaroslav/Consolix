@@ -9,12 +9,6 @@
 #include <iostream>
 #include <string>
 
-#if defined(_WIN32) || defined(_WIN64)
-#include <windows.h>
-#else
-#include <unistd.h>
-#endif
-
 /// \brief Enables or disables LogIt for logo rendering.
 #ifndef CONSOLIX_USE_LOGIT
 #define CONSOLIX_USE_LOGIT 0

@@ -1,5 +1,7 @@
 #include <consolix/core.hpp>
 
+/// \example example_application_main_loop.cpp
+
 /// \brief Application configuration structure.
 ///
 /// Defines the configurable parameters for the application, loaded from
