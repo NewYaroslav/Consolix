@@ -146,12 +146,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a70d4c982a192c6a7be178a4324dc49f6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a70d4c982a192c6a7be178a4324dc49f6">run</a> (IterationAction iteration_action)</td></tr>
 <tr class="memdesc:a70d4c982a192c6a7be178a4324dc49f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the application with a custom loop action.  <br /></td></tr>
 <tr class="separator:a70d4c982a192c6a7be178a4324dc49f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1261842bfc5dbfa3abd85a72832b6e6" id="r_aa1261842bfc5dbfa3abd85a72832b6e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1261842bfc5dbfa3abd85a72832b6e6">cleanup</a> (int signal)</td></tr>
-<tr class="memdesc:aa1261842bfc5dbfa3abd85a72832b6e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up the application and shuts down all components.  <br /></td></tr>
-<tr class="separator:aa1261842bfc5dbfa3abd85a72832b6e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade308c149829dfa0820f625702cb3fa9" id="r_ade308c149829dfa0820f625702cb3fa9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade308c149829dfa0820f625702cb3fa9">stop</a> ()</td></tr>
 <tr class="memdesc:ade308c149829dfa0820f625702cb3fa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the application's main loop.  <br /></td></tr>
 <tr class="separator:ade308c149829dfa0820f625702cb3fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff65ed89e8acb1de04bd966e86cc9a51" id="r_aff65ed89e8acb1de04bd966e86cc9a51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff65ed89e8acb1de04bd966e86cc9a51">shutdown</a> (int signal)</td></tr>
+<tr class="separator:aff65ed89e8acb1de04bd966e86cc9a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -164,6 +163,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a298542991c6ed0bf81df37935b95ace7" id="r_a298542991c6ed0bf81df37935b95ace7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a298542991c6ed0bf81df37935b95ace7">setup_signal_handlers</a> ()</td></tr>
 <tr class="memdesc:a298542991c6ed0bf81df37935b95ace7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up signal handlers for graceful application termination.  <br /></td></tr>
 <tr class="separator:a298542991c6ed0bf81df37935b95ace7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9631baca0c79dacd6a0b68601399706f" id="r_a9631baca0c79dacd6a0b68601399706f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9631baca0c79dacd6a0b68601399706f">cleanup</a> (int exit_code, bool wait_for_press=<a class="el" href="namespaceconsolix.html#af910df9ae4316cbaaf65cbaf094b489f">false</a>)</td></tr>
+<tr class="memdesc:a9631baca0c79dacd6a0b68601399706f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up the application and shuts down all components.  <br /></td></tr>
+<tr class="separator:a9631baca0c79dacd6a0b68601399706f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe030b5964bde4dca3763b355c786f52" id="r_afe030b5964bde4dca3763b355c786f52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe030b5964bde4dca3763b355c786f52">handle_fatal_exception</a> (const std::exception &amp;e)</td></tr>
+<tr class="memdesc:afe030b5964bde4dca3763b355c786f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles fatal exceptions by logging the error and terminating the application.  <br /></td></tr>
+<tr class="separator:afe030b5964bde4dca3763b355c786f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9108849068eab3f2c041c69f92fa774f" id="r_a9108849068eab3f2c041c69f92fa774f"><td class="memTemplParams" colspan="2">template&lt;typename IterationAction&gt; </td></tr>
 <tr class="memitem:a9108849068eab3f2c041c69f92fa774f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9108849068eab3f2c041c69f92fa774f">lifecycle_loop</a> (IterationAction iteration_action)</td></tr>
 <tr class="memdesc:a9108849068eab3f2c041c69f92fa774f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main lifecycle loop with a custom action.  <br /></td></tr>
@@ -171,9 +176,6 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a68ce0d209e09058e5cf0a75abe373761" id="r_a68ce0d209e09058e5cf0a75abe373761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68ce0d209e09058e5cf0a75abe373761">lifecycle_loop</a> ()</td></tr>
 <tr class="memdesc:a68ce0d209e09058e5cf0a75abe373761"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main lifecycle loop.  <br /></td></tr>
 <tr class="separator:a68ce0d209e09058e5cf0a75abe373761"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe030b5964bde4dca3763b355c786f52" id="r_afe030b5964bde4dca3763b355c786f52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe030b5964bde4dca3763b355c786f52">handle_fatal_exception</a> (const std::exception &amp;e)</td></tr>
-<tr class="memdesc:afe030b5964bde4dca3763b355c786f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles fatal exceptions by logging the error and terminating the application.  <br /></td></tr>
-<tr class="separator:afe030b5964bde4dca3763b355c786f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a623f8cf657e42c71450c881eee5307c3" id="r_a623f8cf657e42c71450c881eee5307c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a623f8cf657e42c71450c881eee5307c3">ConsoleApplication</a> ()=default</td></tr>
 <tr class="separator:a623f8cf657e42c71450c881eee5307c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab46cc3c3e72f3b387c9726ef3c58c2a6" id="r_ab46cc3c3e72f3b387c9726ef3c58c2a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab46cc3c3e72f3b387c9726ef3c58c2a6">~ConsoleApplication</a> ()=default</td></tr>
@@ -189,20 +191,29 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a5123bc6d24e5a4a3ebab65837c151e45" id="r_a5123bc6d24e5a4a3ebab65837c151e45"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5123bc6d24e5a4a3ebab65837c151e45">signal_handler</a> (int signal)</td></tr>
-<tr class="memdesc:a5123bc6d24e5a4a3ebab65837c151e45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles POSIX signals.  <br /></td></tr>
-<tr class="separator:a5123bc6d24e5a4a3ebab65837c151e45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5c73a8214117d0bda057ec8a8be12e7" id="r_ae5c73a8214117d0bda057ec8a8be12e7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5c73a8214117d0bda057ec8a8be12e7">handle_signal</a> (const char *signal_name, int signal)</td></tr>
-<tr class="memdesc:ae5c73a8214117d0bda057ec8a8be12e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs and handles POSIX signals.  <br /></td></tr>
-<tr class="separator:ae5c73a8214117d0bda057ec8a8be12e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3735e241554233506258e839cae7135" id="r_ad3735e241554233506258e839cae7135"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3735e241554233506258e839cae7135">on_exit_handler</a> ()</td></tr>
+<tr class="memdesc:ad3735e241554233506258e839cae7135"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called upon normal program termination.  <br /></td></tr>
+<tr class="separator:ad3735e241554233506258e839cae7135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fd328e8f7994a16593d4909aaadb81f" id="r_a7fd328e8f7994a16593d4909aaadb81f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fd328e8f7994a16593d4909aaadb81f">signal_handler</a> (int exit_code)</td></tr>
+<tr class="memdesc:a7fd328e8f7994a16593d4909aaadb81f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a POSIX signal and delegates to signal handler.  <br /></td></tr>
+<tr class="separator:a7fd328e8f7994a16593d4909aaadb81f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f3172c19377be6a14d89fac140be883" id="r_a9f3172c19377be6a14d89fac140be883"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f3172c19377be6a14d89fac140be883">handle_signal</a> (const char *signal_name, int exit_code)</td></tr>
+<tr class="memdesc:a9f3172c19377be6a14d89fac140be883"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs and processes a POSIX signal by initiating application cleanup.  <br /></td></tr>
+<tr class="separator:a9f3172c19377be6a14d89fac140be883"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a071b9bed683e7c73b1f4da8424191efe" id="r_a071b9bed683e7c73b1f4da8424191efe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classconsolix_1_1AppComponentManager.html">AppComponentManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a071b9bed683e7c73b1f4da8424191efe">m_manager</a></td></tr>
 <tr class="separator:a071b9bed683e7c73b1f4da8424191efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c11836a56bc36e7a2bc1d83433035d2" id="r_a7c11836a56bc36e7a2bc1d83433035d2"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c11836a56bc36e7a2bc1d83433035d2">m_init</a> {<a class="el" href="namespaceconsolix.html#af910df9ae4316cbaaf65cbaf094b489f">false</a>}</td></tr>
+<tr class="separator:a7c11836a56bc36e7a2bc1d83433035d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31bc197116f4d6b16fe962c042f0ec49" id="r_a31bc197116f4d6b16fe962c042f0ec49"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31bc197116f4d6b16fe962c042f0ec49">m_running</a> {<a class="el" href="namespaceconsolix.html#af910df9ae4316cbaaf65cbaf094b489f">false</a>}</td></tr>
 <tr class="memdesc:a31bc197116f4d6b16fe962c042f0ec49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether the loop is running.  <br /></td></tr>
 <tr class="separator:a31bc197116f4d6b16fe962c042f0ec49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a151f4e1c74392feff93b426a17bff213" id="r_a151f4e1c74392feff93b426a17bff213"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a151f4e1c74392feff93b426a17bff213">m_stopping</a> {<a class="el" href="namespaceconsolix.html#af910df9ae4316cbaaf65cbaf094b489f">false</a>}</td></tr>
+<tr class="separator:a151f4e1c74392feff93b426a17bff213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a272dc64fd57d7f190d4494fb3e5c8250" id="r_a272dc64fd57d7f190d4494fb3e5c8250"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a272dc64fd57d7f190d4494fb3e5c8250">m_cleanup</a> {<a class="el" href="namespaceconsolix.html#af910df9ae4316cbaaf65cbaf094b489f">false</a>}</td></tr>
+<tr class="separator:a272dc64fd57d7f190d4494fb3e5c8250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Singleton class to manage the lifecycle of a console application. </p>
@@ -391,8 +402,8 @@ template&lt;typename Component, typename... Args&gt; </div>
 
 </div>
 </div>
-<a id="aa1261842bfc5dbfa3abd85a72832b6e6" name="aa1261842bfc5dbfa3abd85a72832b6e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1261842bfc5dbfa3abd85a72832b6e6">&#9670;&#160;</a></span>cleanup()</h2>
+<a id="a9631baca0c79dacd6a0b68601399706f" name="a9631baca0c79dacd6a0b68601399706f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9631baca0c79dacd6a0b68601399706f">&#9670;&#160;</a></span>cleanup()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -403,13 +414,17 @@ template&lt;typename Component, typename... Args&gt; </div>
         <tr>
           <td class="memname">void consolix::ConsoleApplication::cleanup </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>signal</em></span></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>exit_code</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>wait_for_press</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespaceconsolix.html#af910df9ae4316cbaaf65cbaf094b489f">false</a></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -417,12 +432,13 @@ template&lt;typename Component, typename... Args&gt; </div>
 <p>Cleans up the application and shuts down all components. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">signal</td><td>The signal indicating the reason for cleanup. </td></tr>
+    <tr><td class="paramname">exit_code</td><td>Exit code indicating the reason for cleanup. </td></tr>
+    <tr><td class="paramname">wait_for_press</td><td>Flag indicating if the program should wait for a key press before exiting. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00095">95</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00133">133</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -487,12 +503,12 @@ template&lt;typename Component, typename... Args&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00225">225</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00167">167</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae5c73a8214117d0bda057ec8a8be12e7" name="ae5c73a8214117d0bda057ec8a8be12e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5c73a8214117d0bda057ec8a8be12e7">&#9670;&#160;</a></span>handle_signal()</h2>
+<a id="a9f3172c19377be6a14d89fac140be883" name="a9f3172c19377be6a14d89fac140be883"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f3172c19377be6a14d89fac140be883">&#9670;&#160;</a></span>handle_signal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -508,7 +524,7 @@ template&lt;typename Component, typename... Args&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>signal</em></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>exit_code</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -518,9 +534,16 @@ template&lt;typename Component, typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Logs and handles POSIX signals. </p>
+<p>Logs and processes a POSIX signal by initiating application cleanup. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">signal_name</td><td>Name of the POSIX signal. </td></tr>
+    <tr><td class="paramname">exit_code</td><td>POSIX signal code. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00210">210</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00278">278</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -592,7 +615,7 @@ template&lt;typename InitAction&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00061">61</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00063">63</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -621,7 +644,7 @@ template&lt;typename InitAction&gt; </div>
 
 <p>The main lifecycle loop. </p>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00138">138</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00191">191</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -664,7 +687,36 @@ template&lt;typename IterationAction&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00125">125</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00178">178</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad3735e241554233506258e839cae7135" name="ad3735e241554233506258e839cae7135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3735e241554233506258e839cae7135">&#9670;&#160;</a></span>on_exit_handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void consolix::ConsoleApplication::on_exit_handler </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called upon normal program termination. </p>
+
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00203">203</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -743,7 +795,7 @@ template&lt;typename IterationAction&gt; </div>
 
 <p>Runs the application with the registered components. </p>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00075">75</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00081">81</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -786,7 +838,7 @@ template&lt;typename IterationAction&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00086">86</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00093">93</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -815,12 +867,39 @@ template&lt;typename IterationAction&gt; </div>
 
 <p>Sets up signal handlers for graceful application termination. </p>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00112">112</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00120">120</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a5123bc6d24e5a4a3ebab65837c151e45" name="a5123bc6d24e5a4a3ebab65837c151e45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5123bc6d24e5a4a3ebab65837c151e45">&#9670;&#160;</a></span>signal_handler()</h2>
+<a id="aff65ed89e8acb1de04bd966e86cc9a51" name="aff65ed89e8acb1de04bd966e86cc9a51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff65ed89e8acb1de04bd966e86cc9a51">&#9670;&#160;</a></span>shutdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void consolix::ConsoleApplication::shutdown </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>signal</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00108">108</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7fd328e8f7994a16593d4909aaadb81f" name="a7fd328e8f7994a16593d4909aaadb81f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fd328e8f7994a16593d4909aaadb81f">&#9670;&#160;</a></span>signal_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -831,7 +910,7 @@ template&lt;typename IterationAction&gt; </div>
         <tr>
           <td class="memname">static void consolix::ConsoleApplication::signal_handler </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>signal</em></span></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>exit_code</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -842,9 +921,15 @@ template&lt;typename IterationAction&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Handles POSIX signals. </p>
+<p>Handles a POSIX signal and delegates to signal handler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">exit_code</td><td>POSIX signal code. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00195">195</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00261">261</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -873,11 +958,59 @@ template&lt;typename IterationAction&gt; </div>
 
 <p>Stops the application's main loop. </p>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00103">103</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00102">102</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a272dc64fd57d7f190d4494fb3e5c8250" name="a272dc64fd57d7f190d4494fb3e5c8250"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a272dc64fd57d7f190d4494fb3e5c8250">&#9670;&#160;</a></span>m_cleanup</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;bool&gt; consolix::ConsoleApplication::m_cleanup {<a class="el" href="namespaceconsolix.html#af910df9ae4316cbaaf65cbaf094b489f">false</a>}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00117">117</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7c11836a56bc36e7a2bc1d83433035d2" name="a7c11836a56bc36e7a2bc1d83433035d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c11836a56bc36e7a2bc1d83433035d2">&#9670;&#160;</a></span>m_init</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;bool&gt; consolix::ConsoleApplication::m_init {<a class="el" href="namespaceconsolix.html#af910df9ae4316cbaaf65cbaf094b489f">false</a>}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00114">114</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a071b9bed683e7c73b1f4da8424191efe" name="a071b9bed683e7c73b1f4da8424191efe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a071b9bed683e7c73b1f4da8424191efe">&#9670;&#160;</a></span>m_manager</h2>
 
@@ -898,7 +1031,7 @@ template&lt;typename IterationAction&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00108">108</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00113">113</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>
@@ -924,7 +1057,31 @@ template&lt;typename IterationAction&gt; </div>
 
 <p>Flag indicating whether the loop is running. </p>
 
-<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00109">109</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00115">115</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a151f4e1c74392feff93b426a17bff213" name="a151f4e1c74392feff93b426a17bff213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a151f4e1c74392feff93b426a17bff213">&#9670;&#160;</a></span>m_stopping</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;bool&gt; consolix::ConsoleApplication::m_stopping {<a class="el" href="namespaceconsolix.html#af910df9ae4316cbaaf65cbaf094b489f">false</a>}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ConsoleApplication_8hpp_source.html#l00116">116</a> of file <a class="el" href="ConsoleApplication_8hpp_source.html">ConsoleApplication.hpp</a>.</p>
 
 </div>
 </div>

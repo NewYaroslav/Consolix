@@ -135,8 +135,8 @@ $(function(){initNavTree('ServiceLocator_8hpp_source.html',''); initResizable(tr
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
 <div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classconsolix_1_1ServiceLocator.html#a1285797ecd707ded862af94c1dfd183a">   33</a></span>        <span class="keyword">static</span> <a class="code hl_function" href="classconsolix_1_1ServiceLocator.html#aa73ed4b22f731513cac3daa5556d3127">ServiceLocator</a>&amp; <a class="code hl_function" href="classconsolix_1_1ServiceLocator.html#a1285797ecd707ded862af94c1dfd183a">get_instance</a>() {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">static</span> <a class="code hl_function" href="classconsolix_1_1ServiceLocator.html#aa73ed4b22f731513cac3daa5556d3127">ServiceLocator</a> instance;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keywordflow">return</span> instance;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keyword">static</span> <a class="code hl_function" href="classconsolix_1_1ServiceLocator.html#aa73ed4b22f731513cac3daa5556d3127">ServiceLocator</a>* instance = <span class="keyword">new</span> <a class="code hl_function" href="classconsolix_1_1ServiceLocator.html#aa73ed4b22f731513cac3daa5556d3127">ServiceLocator</a>();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keywordflow">return</span> *instance;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
 </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>

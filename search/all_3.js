@@ -2,7 +2,7 @@ var searchData=
 [
   ['check_5fescaped_0',['check_escaped',['../namespaceconsolix.html#a609448ed40739282e0c7e74ee24c8df1',1,'consolix']]],
   ['class_3a_1',['ColorManipulator Class:',['../color_utils.html#autotoc_md23',1,'']]],
-  ['cleanup_2',['cleanup',['../classconsolix_1_1ConsoleApplication.html#aa1261842bfc5dbfa3abd85a72832b6e6',1,'consolix::ConsoleApplication']]],
+  ['cleanup_2',['cleanup',['../classconsolix_1_1ConsoleApplication.html#a9631baca0c79dacd6a0b68601399706f',1,'consolix::ConsoleApplication']]],
   ['clear_5fall_3',['clear_all',['../classconsolix_1_1ServiceLocator.html#a21710f8957f011cb200bb8323c2ceca2',1,'consolix::ServiceLocator::clear_all()'],['../namespaceconsolix.html#a255deb16980369467ad8fe1f75418ab2',1,'consolix::clear_all()']]],
   ['clicomponent_2ehpp_4',['CliComponent.hpp',['../CliComponent_8hpp.html',1,'']]],
   ['code_20conversion_3a_5',['ANSI Escape Code Conversion:',['../color_utils.html#autotoc_md25',1,'']]],

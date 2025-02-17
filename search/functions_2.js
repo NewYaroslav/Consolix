@@ -1,7 +1,7 @@
 var searchData=
 [
   ['check_5fescaped_0',['check_escaped',['../namespaceconsolix.html#a609448ed40739282e0c7e74ee24c8df1',1,'consolix']]],
-  ['cleanup_1',['cleanup',['../classconsolix_1_1ConsoleApplication.html#aa1261842bfc5dbfa3abd85a72832b6e6',1,'consolix::ConsoleApplication']]],
+  ['cleanup_1',['cleanup',['../classconsolix_1_1ConsoleApplication.html#a9631baca0c79dacd6a0b68601399706f',1,'consolix::ConsoleApplication']]],
   ['clear_5fall_2',['clear_all',['../classconsolix_1_1ServiceLocator.html#a21710f8957f011cb200bb8323c2ceca2',1,'consolix::ServiceLocator::clear_all()'],['../namespaceconsolix.html#a255deb16980369467ad8fe1f75418ab2',1,'consolix::clear_all()']]],
   ['color_3',['color',['../classconsolix_1_1ColorManipulator.html#a373aaf633725e02d75874c671fab81a9',1,'consolix::ColorManipulator::color()'],['../namespaceconsolix.html#a094ffa94e032d6125545025f2bc0336a',1,'consolix::color()']]],
   ['colormanipulator_4',['ColorManipulator',['../classconsolix_1_1ColorManipulator.html#a81e1969ad2085937e6c1034bf2384d12',1,'consolix::ColorManipulator']]],

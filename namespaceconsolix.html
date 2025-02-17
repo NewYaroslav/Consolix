@@ -256,9 +256,6 @@ Functions</h2></td></tr>
 <tr class="memitem:af6d350f8f8e10243f251d2bb59120610" id="r_af6d350f8f8e10243f251d2bb59120610"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6d350f8f8e10243f251d2bb59120610">make_relative</a> (const std::string &amp;file_path, const std::string &amp;base_path)</td></tr>
 <tr class="memdesc:af6d350f8f8e10243f251d2bb59120610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the relative path from base_path to file_path.  <br /></td></tr>
 <tr class="separator:af6d350f8f8e10243f251d2bb59120610"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3810adaa879f2f8148f937856be891dc" id="r_a3810adaa879f2f8148f937856be891dc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3810adaa879f2f8148f937856be891dc">resolve_exec_path</a> (const std::string &amp;relative_path)</td></tr>
-<tr class="memdesc:a3810adaa879f2f8148f937856be891dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an absolute path relative to the executable's directory.  <br /></td></tr>
-<tr class="separator:a3810adaa879f2f8148f937856be891dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8d1b3c47332e45cd038278d328d170c" id="r_af8d1b3c47332e45cd038278d328d170c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8d1b3c47332e45cd038278d328d170c">create_directories</a> (const std::string &amp;path)</td></tr>
 <tr class="memdesc:af8d1b3c47332e45cd038278d328d170c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates directories recursively for the given path.  <br /></td></tr>
 <tr class="separator:af8d1b3c47332e45cd038278d328d170c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -546,7 +543,7 @@ template&lt;typename Component, typename... Args&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="path__utils_8hpp_source.html#l00083">83</a> of file <a class="el" href="path__utils_8hpp_source.html">path_utils.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="path__utils_8hpp_source.html#l00185">185</a> of file <a class="el" href="path__utils_8hpp_source.html">path_utils.hpp</a>.</p>
 
 </div>
 </div>
@@ -568,7 +565,7 @@ template&lt;typename Component, typename... Args&gt; </div>
 <p>Retrieves the directory of the executable file. </p>
 <dl class="section return"><dt>Returns</dt><dd>A string containing the directory path of the executable. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="path__utils_8hpp_source.html#l00048">48</a> of file <a class="el" href="path__utils_8hpp_source.html">path_utils.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="path__utils_8hpp_source.html#l00056">56</a> of file <a class="el" href="path__utils_8hpp_source.html">path_utils.hpp</a>.</p>
 
 </div>
 </div>
@@ -618,7 +615,7 @@ template&lt;typename Component, typename... Args&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The extracted file name, or the full string if no directory separator is found. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="path__utils_8hpp_source.html#l00055">55</a> of file <a class="el" href="path__utils_8hpp_source.html">path_utils.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="path__utils_8hpp_source.html#l00147">147</a> of file <a class="el" href="path__utils_8hpp_source.html">path_utils.hpp</a>.</p>
 
 </div>
 </div>
@@ -793,7 +790,7 @@ template&lt;typename InitAction&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A string representing the relative path from base_path to file_path. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="path__utils_8hpp_source.html#l00064">64</a> of file <a class="el" href="path__utils_8hpp_source.html">path_utils.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="path__utils_8hpp_source.html#l00156">156</a> of file <a class="el" href="path__utils_8hpp_source.html">path_utils.hpp</a>.</p>
 
 </div>
 </div>
@@ -915,34 +912,6 @@ template&lt;typename T&gt; </div>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="service__utils_8hpp_source.html#l00034">34</a> of file <a class="el" href="service__utils_8hpp_source.html">service_utils.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3810adaa879f2f8148f937856be891dc" name="a3810adaa879f2f8148f937856be891dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3810adaa879f2f8148f937856be891dc">&#9670;&#160;</a></span>resolve_exec_path()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string consolix::resolve_exec_path </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>relative_path</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructs an absolute path relative to the executable's directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">relative_path</td><td>The relative file path. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The absolute file path. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="path__utils_8hpp_source.html#l00076">76</a> of file <a class="el" href="path__utils_8hpp_source.html">path_utils.hpp</a>.</p>
 
 </div>
 </div>

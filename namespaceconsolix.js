@@ -47,7 +47,6 @@ var namespaceconsolix =
     [ "operator<<", "namespaceconsolix.html#ac20824f9f0da55466298cffe95191f0b", null ],
     [ "register_service", "namespaceconsolix.html#a5343def4943412d22c34f9f6d0a54052", null ],
     [ "register_service", "namespaceconsolix.html#adb9039f7c16d60957081acc0b49b77d4", null ],
-    [ "resolve_exec_path", "namespaceconsolix.html#a3810adaa879f2f8148f937856be891dc", null ],
     [ "run", "namespaceconsolix.html#a932b34e93d57ce83e5d74bba59d8ba9a", null ],
     [ "run", "namespaceconsolix.html#ac0742cee6523c1fb3827ae242fe0f7be", null ],
     [ "stop", "namespaceconsolix.html#af2f50c8eaefc3a6cd072b260afd6badb", null ],
