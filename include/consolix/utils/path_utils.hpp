@@ -19,6 +19,97 @@ namespace consolix {
         std::vector<wchar_t> buffer(MAX_PATH);
         HMODULE hModule = GetModuleHandle(NULL);
 
+        // Пробуем получить путь
+        DWORD size = GetModuleFileNameW(hModule, buffer.data(), buffer.size());
+
+        // Если путь слишком длинный, увеличиваем буфер
+        while (size == buffer.size() && GetLastError() == ERROR_INSUFFICIENT_BUFFER) {
+            buffer.resize(buffer.size() * 2);  // Увеличиваем буфер в два раза
+            size = GetModuleFileNameW(hModule, buffer.data(), buffer.size());
+        }
+
+        if (size == 0) {
+            throw std::runtime_error("Failed to get executable path.");
+        }
+
+        std::wstring exe_path(buffer.begin(), buffer.begin() + size);
+
+        // Преобразуем из std::wstring (UTF-16) в std::string (UTF-8)
+        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+        return converter.to_bytes(exe_path);
+#       else
+        char result[PATH_MAX];
+        ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
+
+        if (count == -1) {
+            throw std::runtime_error("Failed to get executable path.");
+        }
+
+        std::string exe_path(result, count);
+
+        return exe_path;
+#       endif
+    }
+
+    /// \brief Retrieves the directory of the executable file.
+    /// \return A string containing the directory path of the executable.
+    std::string get_exec_dir() {
+#       ifdef _WIN32
+        std::vector<wchar_t> buffer(MAX_PATH);
+        HMODULE hModule = GetModuleHandle(NULL);
+
+        // Пробуем получить путь
+        DWORD size = GetModuleFileNameW(hModule, buffer.data(), buffer.size());
+
+        // Если путь слишком длинный, увеличиваем буфер
+        while (size == buffer.size() && GetLastError() == ERROR_INSUFFICIENT_BUFFER) {
+            buffer.resize(buffer.size() * 2);  // Увеличиваем буфер в два раза
+            size = GetModuleFileNameW(hModule, buffer.data(), buffer.size());
+        }
+
+        if (size == 0) {
+            throw std::runtime_error("Failed to get executable path.");
+        }
+
+        std::wstring exe_path(buffer.begin(), buffer.begin() + size);
+
+        // Обрезаем путь до директории (удаляем имя файла, оставляем только путь к папке)
+        size_t pos = exe_path.find_last_of(L"\\/");
+        if (pos != std::wstring::npos) {
+            exe_path = exe_path.substr(0, pos);
+        }
+
+        // Преобразуем из std::wstring (UTF-16) в std::string (UTF-8)
+        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+        return converter.to_bytes(exe_path);
+#       else
+        char result[PATH_MAX];
+        ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
+
+        if (count == -1) {
+            throw std::runtime_error("Failed to get executable path.");
+        }
+
+        std::string exe_path(result, count);
+
+        // Обрезаем путь до директории (удаляем имя файла, оставляем только путь к папке)
+        size_t pos = exe_path.find_last_of("\\/");
+        if (pos != std::string::npos) {
+            exe_path = exe_path.substr(0, pos);
+        }
+
+        return exe_path;
+#       endif
+    }
+
+    /*
+    /// \brief Retrieves the full path of the executable.
+    /// \return A string containing the full path of the executable.
+    std::string get_exec_path() {
+#       ifdef _WIN32
+        std::vector<wchar_t> buffer(MAX_PATH);
+        HMODULE hModule = GetModuleHandle(NULL);
+
         DWORD size = GetModuleFileNameW(hModule, buffer.data(), (DWORD)buffer.size());
 
         while (size == buffer.size() && GetLastError() == ERROR_INSUFFICIENT_BUFFER) {
@@ -48,6 +139,7 @@ namespace consolix {
     std::string get_exec_dir() {
         return std::filesystem::path(get_exec_path()).parent_path().string();
     }
+    */
 
     /// \brief Extracts the file name from a full file path.
     /// \param file_path The full file path as a string.
@@ -70,12 +162,22 @@ namespace consolix {
         return ec ? file_path : relativeP.u8string();
     }
 
+    /*
     /// \brief Constructs an absolute path relative to the executable's directory.
     /// \param relative_path The relative file path.
     /// \return The absolute file path.
     std::string resolve_exec_path(const std::string& relative_path) {
-        return std::filesystem::absolute(get_exec_dir() + "/" + relative_path).string();
+        std::cout << "dir1  " << std::filesystem::absolute(get_exec_dir() + "\\" + relative_path).string() << std::endl;
+        std::cout << "dir2 " << (get_exec_dir() + "\\" + relative_path) << std::endl;
+#       if defined(_WIN32) || defined(_WIN64)
+        //return std::filesystem::absolute(get_exec_dir() + "\\" + relative_path).string();
+#       else
+        //return std::filesystem::absolute(get_exec_dir() + "/" + relative_path).string();
+#       endif
+        return get_exec_dir() + "\\" + relative_path;
     }
+
+    */
 
     /// \brief Creates directories recursively for the given path.
     /// \param path The directory path to create.

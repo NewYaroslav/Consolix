@@ -60,8 +60,8 @@
 #include "utils/enums.hpp"            ///< Enumerations for shared constants.
 #include "utils/types.hpp"            ///< Common type definitions and aliases.
 #include "utils/ColorManipulator.hpp" ///< Stream-based text color manipulation utilities.
+#include "utils/encoding_utils.hpp"   ///< Tools for character encoding transformations.
 #include "utils/path_utils.hpp"       ///< File and directory path utilities.
 #include "utils/json_utils.hpp"       ///< Utilities for working with JSON strings.
-#include "utils/encoding_utils.hpp"   ///< Tools for character encoding transformations.
 
 #endif // _CONSOLIX_UTILS_HPP_INCLUDED

@@ -31,8 +31,8 @@ namespace consolix {
         /// \brief Retrieves the singleton instance of the `ServiceLocator`.
         /// \return Reference to the `ServiceLocator` instance.
         static ServiceLocator& get_instance() {
-            static ServiceLocator instance;
-            return instance;
+            static ServiceLocator* instance = new ServiceLocator();
+            return *instance;
         }
 
         /// \brief Registers a resource or service.

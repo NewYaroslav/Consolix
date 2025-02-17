@@ -147,7 +147,7 @@ namespace consolix {
                 );
                 LOGIT_PRINT_FATAL("Shutdown completed with errors. Summary: ", summary);
 #               endif
-                throw std::runtime_error("Shutdown completed with errors. See logs for details.");
+                //throw std::runtime_error("Shutdown completed with errors. See logs for details.");
             }
         }
 

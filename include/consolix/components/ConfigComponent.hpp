@@ -73,7 +73,11 @@ namespace consolix {
         void load_config() {
             std::lock_guard<std::mutex> lock(m_mutex);
             std::string config_path = resolve_file_path();
+#           if defined(_WIN32) || defined(_WIN64)
+            std::ifstream file(utf8_to_ansi(config_path));
+#           else
             std::ifstream file(config_path);
+#           endif
 
             if (!file) {
 #               if CONSOLIX_USE_LOGIT == 1
@@ -123,10 +127,17 @@ namespace consolix {
                 if (args.count(m_cli_flag)) {
                     config_path = args[m_cli_flag].as<std::string>();
                 }
-                // Resolve relative paths to the executable's directory
-                return resolve_exec_path(config_path);
+#               if defined(_WIN32) || defined(_WIN64)
+                return get_exec_dir() + "\\" + config_path;
+#               else
+                return get_exec_dir() + "/" + config_path;
+#               endif
             } catch (...) {
-                return resolve_exec_path(m_default_file);
+#               if defined(_WIN32) || defined(_WIN64)
+                return get_exec_dir() + "\\" + m_default_file;
+#               else
+                return get_exec_dir() + "/" + m_default_file;
+#               endif
             }
         }
     };
