@@ -1,6 +1,6 @@
-#include <consolix/core.hpp>
-
 /// \example example_application_main_loop.cpp
+
+#include <consolix/core.hpp>
 
 /// \brief Application configuration structure.
 ///
