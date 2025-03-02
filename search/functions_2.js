@@ -6,5 +6,6 @@ var searchData=
   ['color_3',['color',['../classconsolix_1_1ColorManipulator.html#a373aaf633725e02d75874c671fab81a9',1,'consolix::ColorManipulator::color()'],['../namespaceconsolix.html#a094ffa94e032d6125545025f2bc0336a',1,'consolix::color()']]],
   ['colormanipulator_4',['ColorManipulator',['../classconsolix_1_1ColorManipulator.html#a81e1969ad2085937e6c1034bf2384d12',1,'consolix::ColorManipulator']]],
   ['consoleapplication_5',['ConsoleApplication',['../classconsolix_1_1ConsoleApplication.html#a623f8cf657e42c71450c881eee5307c3',1,'consolix::ConsoleApplication::ConsoleApplication()=default'],['../classconsolix_1_1ConsoleApplication.html#a280ed8e2aea1d4d61447d74c22713390',1,'consolix::ConsoleApplication::ConsoleApplication(const ConsoleApplication &amp;)=delete'],['../classconsolix_1_1ConsoleApplication.html#ad068937484550fce3fccf309a385e08f',1,'consolix::ConsoleApplication::ConsoleApplication(ConsoleApplication &amp;&amp;)=delete']]],
-  ['create_5fdirectories_6',['create_directories',['../namespaceconsolix.html#af8d1b3c47332e45cd038278d328d170c',1,'consolix']]]
+  ['copy_5fto_5fclipboard_6',['copy_to_clipboard',['../namespaceconsolix.html#a84a8367521a69d2072d302fdbd737eb5',1,'consolix']]],
+  ['create_5fdirectories_7',['create_directories',['../namespaceconsolix.html#af8d1b3c47332e45cd038278d328d170c',1,'consolix']]]
 ];

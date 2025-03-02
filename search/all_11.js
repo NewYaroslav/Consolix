@@ -17,5 +17,6 @@ var searchData=
   ['strip_5fjson_5fcomments_14',['strip_json_comments',['../namespaceconsolix.html#a06af929a9275c39404c2a5fe1748c833',1,'consolix']]],
   ['structure_15',['Structure',['../index.html#autotoc_md17',1,'Documentation Structure'],['../project_structure.html',1,'Project Structure']]],
   ['structure_3a_16',['Structure:',['../index.html#autotoc_md19',1,'']]],
-  ['supported_20colors_3a_17',['Supported Colors:',['../color_utils.html#autotoc_md24',1,'']]]
+  ['supported_20colors_3a_17',['Supported Colors:',['../color_utils.html#autotoc_md24',1,'']]],
+  ['system_5futils_2ehpp_18',['system_utils.hpp',['../system__utils_8hpp.html',1,'']]]
 ];

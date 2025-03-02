@@ -48,10 +48,11 @@ var searchData=
   ['consolix_5fuse_5flogit_45',['CONSOLIX_USE_LOGIT',['../LogoComponent_8hpp.html#abc86d8e297b196d80003a22d12ae36cf',1,'CONSOLIX_USE_LOGIT:&#160;LogoComponent.hpp'],['../config__macros_8hpp.html#abc86d8e297b196d80003a22d12ae36cf',1,'CONSOLIX_USE_LOGIT:&#160;config_macros.hpp']]],
   ['consolix_5fwait_5fon_5ferror_46',['CONSOLIX_WAIT_ON_ERROR',['../config__macros_8hpp.html#a7c2aa07b29b2966e512d19a3b06572e0',1,'config_macros.hpp']]],
   ['conversion_3a_47',['Conversion:',['../color_utils.html#autotoc_md25',1,'ANSI Escape Code Conversion:'],['../color_utils.html#autotoc_md26',1,'Windows Console Color Conversion:']]],
-  ['core_48',['Core',['../group__Core.html',1,'']]],
-  ['core_2ehpp_49',['core.hpp',['../core_8hpp.html',1,'']]],
-  ['create_5fdirectories_50',['create_directories',['../namespaceconsolix.html#af8d1b3c47332e45cd038278d328d170c',1,'consolix']]],
-  ['custom_20loop_20example_51',['Custom Loop Example',['../examples_page.html#autotoc_md35',1,'']]],
-  ['customloop_52',['CustomLoop',['../classCustomLoop.html',1,'']]],
-  ['cyan_53',['Cyan',['../namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a023c239d2f2538f140a20e72c7b73f20',1,'consolix']]]
+  ['copy_5fto_5fclipboard_48',['copy_to_clipboard',['../namespaceconsolix.html#a84a8367521a69d2072d302fdbd737eb5',1,'consolix']]],
+  ['core_49',['Core',['../group__Core.html',1,'']]],
+  ['core_2ehpp_50',['core.hpp',['../core_8hpp.html',1,'']]],
+  ['create_5fdirectories_51',['create_directories',['../namespaceconsolix.html#af8d1b3c47332e45cd038278d328d170c',1,'consolix']]],
+  ['custom_20loop_20example_52',['Custom Loop Example',['../examples_page.html#autotoc_md35',1,'']]],
+  ['customloop_53',['CustomLoop',['../classCustomLoop.html',1,'']]],
+  ['cyan_54',['Cyan',['../namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a023c239d2f2538f140a20e72c7b73f20',1,'consolix']]]
 ];
