@@ -216,13 +216,13 @@ namespace consolix {
 
 /// \brief Fallback for logo logging.
 #define CONSOLIX_LOGO_STREAM() \
-    consolix::MultiStream()
+    consolix::MultiStream(false)
 
 namespace consolix {
 
     /// \class LoggerComponent
     /// \brief Fallback LoggerComponent when LogIt is disabled.
-    class LoggerComponent : public IApplicationComponent {
+    class LoggerComponent : public IAppComponent {
     public:
 
         LoggerComponent() = default;
@@ -230,15 +230,9 @@ namespace consolix {
 
     protected:
 
-        bool initialize() override {
-            return true;
-        }
-
-        bool is_initialized() const override {
-            return true;
-        }
-
-        void execute() override {}
+        bool initialize() override {return true;}
+        bool is_initialized() const override {return true;}
+        void process() override {}
 
     }; // LoggerComponent
 

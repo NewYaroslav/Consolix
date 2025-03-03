@@ -63,5 +63,6 @@
 #include "utils/encoding_utils.hpp"   ///< Tools for character encoding transformations.
 #include "utils/path_utils.hpp"       ///< File and directory path utilities.
 #include "utils/json_utils.hpp"       ///< Utilities for working with JSON strings.
+#include "utils/system_utils.hpp"     ///< System-related utilities for clipboard, OS, and system info.
 
 #endif // _CONSOLIX_UTILS_HPP_INCLUDED

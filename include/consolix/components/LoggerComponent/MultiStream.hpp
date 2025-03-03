@@ -49,14 +49,15 @@ namespace consolix {
 #       else
 
         /// \brief Default constructor for MultiStream without LogIt integration.
-        MultiStream() = default;
+        /// \param use_utf8 Flag to indicate if UTF-8 encoding should be used.
+        MultiStream(bool use_utf8 = true) : use_utf8(use_utf8) {};
 
 #       endif
 
         /// \brief Destructor to flush the accumulated log content.
         ~MultiStream() {
-#           if defined(_WIN32) || defined(_WIN64)
-            auto str = utf8_to_cp866(m_stream.str());
+#           if defined(_WIN32)
+            auto str = use_utf8 ? utf8_to_cp866(m_stream.str()) : m_stream.str();
 #           else
             auto str = m_stream.str();
 #           endif // if defined(_WIN32) || defined(_WIN64)
@@ -103,6 +104,8 @@ namespace consolix {
         std::string         m_file;         ///< Source file name.
         int                 m_line;         ///< Line number.
         std::string         m_function;     ///< Function name.
+#       else
+        bool                use_utf8;       ///< Flag indicating whether UTF-8 encoding should be used.
 #       endif
 
         /// \brief Flush the accumulated message to the console on non-Windows platforms.
