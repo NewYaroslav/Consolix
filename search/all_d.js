@@ -28,6 +28,6 @@ var searchData=
   ['module_20descriptions_3a_25',['Module Descriptions:',['../project_structure.html#autotoc_md44',1,'']]],
   ['modules_26',['Key Modules',['../index.html#autotoc_md15',1,'']]],
   ['modules_3a_27',['Included Modules:',['../group__Utilities.html#autotoc_md12',1,'']]],
-  ['multistream_28',['MultiStream',['../classconsolix_1_1MultiStream.html',1,'consolix::MultiStream'],['../classconsolix_1_1MultiStream.html#ac330b502fea5d742a6bf6988210d4086',1,'consolix::MultiStream::MultiStream()']]],
+  ['multistream_28',['MultiStream',['../classconsolix_1_1MultiStream.html',1,'consolix::MultiStream'],['../classconsolix_1_1MultiStream.html#ab7183010a2a915dd8906c6460fc46f1e',1,'consolix::MultiStream::MultiStream()']]],
   ['multistream_2ehpp_29',['MultiStream.hpp',['../MultiStream_8hpp.html',1,'']]]
 ];

@@ -127,9 +127,10 @@ Inheritance diagram for consolix::IAppComponent:</div>
   <img src="classconsolix_1_1IAppComponent.png" usemap="#consolix::IAppComponent_map" alt=""/>
   <map id="consolix::IAppComponent_map" name="consolix::IAppComponent_map">
 <area href="classconsolix_1_1BaseLoopComponent.html" title="Abstract base class for application components with looping functionality." alt="consolix::BaseLoopComponent" shape="rect" coords="0,56,183,80"/>
-<area href="classconsolix_1_1LogoComponent.html" title="Component responsible for displaying a customizable ASCII logo." alt="consolix::LogoComponent" shape="rect" coords="193,56,376,80"/>
-<area href="classconsolix_1_1LoopComponent.html" title="Component for managing a customizable execution loop." alt="consolix::LoopComponent" shape="rect" coords="386,56,569,80"/>
-<area href="classconsolix_1_1TitleComponent.html" title="Handles setting and retrieving the console window title." alt="consolix::TitleComponent" shape="rect" coords="579,56,762,80"/>
+<area href="classconsolix_1_1LoggerComponent.html" title="Fallback LoggerComponent when LogIt is disabled." alt="consolix::LoggerComponent" shape="rect" coords="193,56,376,80"/>
+<area href="classconsolix_1_1LogoComponent.html" title="Component responsible for displaying a customizable ASCII logo." alt="consolix::LogoComponent" shape="rect" coords="386,56,569,80"/>
+<area href="classconsolix_1_1LoopComponent.html" title="Component for managing a customizable execution loop." alt="consolix::LoopComponent" shape="rect" coords="579,56,762,80"/>
+<area href="classconsolix_1_1TitleComponent.html" title="Handles setting and retrieving the console window title." alt="consolix::TitleComponent" shape="rect" coords="772,56,955,80"/>
 <area href="classCustomLoop.html" title="Custom loop component for the main application logic." alt="CustomLoop" shape="rect" coords="0,112,183,136"/>
   </map>
 </div></div>
@@ -223,7 +224,7 @@ Friends</h2></td></tr>
 <p>Initializes the component. This method is called once before the component is processed. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if the initialization is successful, <code>false</code> otherwise. </dd></dl>
 
-<p>Implemented in <a class="el" href="classconsolix_1_1BaseLoopComponent.html#a8b6180aa8090ffe19bc9e9c5f2d700a7">consolix::BaseLoopComponent</a>, <a class="el" href="classconsolix_1_1LogoComponent.html#afe9e5c69ec702865a49861af388e89ec">consolix::LogoComponent</a>, <a class="el" href="classconsolix_1_1LoopComponent.html#a48db55a1b9766c7f2d76818fd1e472e7">consolix::LoopComponent</a>, and <a class="el" href="classconsolix_1_1TitleComponent.html#ab542582f7cfbc809709cff00312d2adf">consolix::TitleComponent</a>.</p>
+<p>Implemented in <a class="el" href="classconsolix_1_1BaseLoopComponent.html#a8b6180aa8090ffe19bc9e9c5f2d700a7">consolix::BaseLoopComponent</a>, <a class="el" href="classconsolix_1_1LoggerComponent.html#a5fc930efd159fa68250cb8ab4dc6e545">consolix::LoggerComponent</a>, <a class="el" href="classconsolix_1_1LogoComponent.html#afe9e5c69ec702865a49861af388e89ec">consolix::LogoComponent</a>, <a class="el" href="classconsolix_1_1LoopComponent.html#a48db55a1b9766c7f2d76818fd1e472e7">consolix::LoopComponent</a>, and <a class="el" href="classconsolix_1_1TitleComponent.html#ab542582f7cfbc809709cff00312d2adf">consolix::TitleComponent</a>.</p>
 
 </div>
 </div>
@@ -253,7 +254,7 @@ Friends</h2></td></tr>
 <p>Checks if the component is initialized. Used to verify if the component is ready to be executed. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if the component is initialized, <code>false</code> otherwise. </dd></dl>
 
-<p>Implemented in <a class="el" href="classconsolix_1_1BaseLoopComponent.html#aabacf39b594c288c2bbf3821cf1dac3a">consolix::BaseLoopComponent</a>, <a class="el" href="classconsolix_1_1LogoComponent.html#a824056d5f7ae82525132761ee28ccb77">consolix::LogoComponent</a>, <a class="el" href="classconsolix_1_1LoopComponent.html#a88b391a970afc9eefc1dde79ca77b1b3">consolix::LoopComponent</a>, and <a class="el" href="classconsolix_1_1TitleComponent.html#a418b75969e5c02a820b37bc398c7e38c">consolix::TitleComponent</a>.</p>
+<p>Implemented in <a class="el" href="classconsolix_1_1BaseLoopComponent.html#aabacf39b594c288c2bbf3821cf1dac3a">consolix::BaseLoopComponent</a>, <a class="el" href="classconsolix_1_1LoggerComponent.html#a82e1d756c1d24ffefb694e285a0c0a19">consolix::LoggerComponent</a>, <a class="el" href="classconsolix_1_1LogoComponent.html#a824056d5f7ae82525132761ee28ccb77">consolix::LogoComponent</a>, <a class="el" href="classconsolix_1_1LoopComponent.html#a88b391a970afc9eefc1dde79ca77b1b3">consolix::LoopComponent</a>, and <a class="el" href="classconsolix_1_1TitleComponent.html#a418b75969e5c02a820b37bc398c7e38c">consolix::TitleComponent</a>.</p>
 
 </div>
 </div>
@@ -282,7 +283,7 @@ Friends</h2></td></tr>
 
 <p>Executes the component's main logic. Called repeatedly during the application's main execution loop. </p>
 
-<p>Implemented in <a class="el" href="classconsolix_1_1BaseLoopComponent.html#a8d495d890f986382b79b261e693151ea">consolix::BaseLoopComponent</a>, <a class="el" href="classconsolix_1_1LogoComponent.html#a84da54f8c5a4e4fec0796ec6ef49607b">consolix::LogoComponent</a>, and <a class="el" href="classconsolix_1_1TitleComponent.html#a18c90357f7f11091e26aead282c1a172">consolix::TitleComponent</a>.</p>
+<p>Implemented in <a class="el" href="classconsolix_1_1BaseLoopComponent.html#a8d495d890f986382b79b261e693151ea">consolix::BaseLoopComponent</a>, <a class="el" href="classconsolix_1_1LoggerComponent.html#ab41702a2f313cf0e95fc8f67565def40">consolix::LoggerComponent</a>, <a class="el" href="classconsolix_1_1LogoComponent.html#a84da54f8c5a4e4fec0796ec6ef49607b">consolix::LogoComponent</a>, and <a class="el" href="classconsolix_1_1TitleComponent.html#a18c90357f7f11091e26aead282c1a172">consolix::TitleComponent</a>.</p>
 
 </div>
 </div>

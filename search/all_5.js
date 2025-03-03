@@ -15,5 +15,5 @@ var searchData=
   ['example_5fapplication_5fmain_5floop_2ecpp_12',['example_application_main_loop.cpp',['../example__application__main__loop_8cpp.html',1,'']]],
   ['examples_13',['Examples',['../examples_page.html',1,'Usage Examples'],['../examples_page.html#autotoc_md31',1,'Usage Examples']]],
   ['examples_2edox_14',['examples.dox',['../examples_8dox.html',1,'']]],
-  ['execute_15',['execute',['../classconsolix_1_1LoggerComponent.html#a7e54617be476dc807783e6053ed06360',1,'consolix::LoggerComponent::execute()'],['../classconsolix_1_1LoopComponent.html#ad696cc1cd7bbc2275edb44eadcbaa7bd',1,'consolix::LoopComponent::execute()']]]
+  ['execute_15',['execute',['../classconsolix_1_1LoopComponent.html#ad696cc1cd7bbc2275edb44eadcbaa7bd',1,'consolix::LoopComponent']]]
 ];
