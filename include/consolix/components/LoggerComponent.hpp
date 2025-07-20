@@ -109,7 +109,7 @@
 #define CONSOLIX_SET_DEBUG_MODE(mode) \
     LOGIT_SET_LOGGER_ENABLED(CONSOLIX_LOGIT_DEBUG_INDEX, mode)
 
-#include <log-it/LogIt.hpp>
+#include <LogIt.hpp>
 #include "LoggerComponent/MultiStream.hpp"
 
 namespace consolix {

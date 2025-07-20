@@ -76,7 +76,7 @@ public:
     }
 }; // CustomLoop
 
-int main(int argc, char* argv[]) {
+int main(int /*argc*/, char* /*argv*/[]) {
     // Set the console title to the application name
     consolix::add<consolix::TitleComponent>(u8"Consolix - консольное приложение");
 

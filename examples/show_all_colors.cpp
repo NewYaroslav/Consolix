@@ -58,7 +58,7 @@ public:
 /// \param argc Number of command-line arguments.
 /// \param argv Array of command-line argument strings.
 /// \return Exit code.
-int main(int argc, char* argv[]) {
+int main(int /*argc*/, char* /*argv*/[]) {
     consolix::add<consolix::TitleComponent>(u8"Consolix - Color Demonstration");
     consolix::add<consolix::LoggerComponent>();
     consolix::add<ColorDemo>();

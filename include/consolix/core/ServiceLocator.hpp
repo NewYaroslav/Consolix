@@ -7,7 +7,7 @@
 /// \ingroup Core
 
 #if CONSOLIX_USE_LOGIT == 1
-#include <log-it/LogIt.hpp>
+#include <LogIt.hpp>
 #endif
 
 #include <unordered_map>
