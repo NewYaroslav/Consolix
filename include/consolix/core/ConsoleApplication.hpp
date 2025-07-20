@@ -210,7 +210,6 @@ namespace consolix {
         /// \param win_event Windows console event code.
         /// \return FALSE to allow further processing by the system.
         static BOOL WINAPI console_handler(DWORD win_event) {
-            std::cout << "-con1" << std::endl;
             switch (win_event) {
             case CTRL_C_EVENT:
                 log_event("CTRL_C_EVENT");
@@ -228,9 +227,7 @@ namespace consolix {
                 log_event("UNKNOWN_EVENT");
                 break;
             }
-            std::cout << "-con2" << std::endl;
             ConsoleApplication::get_instance().shutdown(event_to_exit_code(win_event));
-            std::cout << "-con3" << std::endl;
             return FALSE;
         }
 

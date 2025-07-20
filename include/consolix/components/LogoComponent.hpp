@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <atomic>
 
 /// \brief Enables or disables LogIt for logo rendering.
 #ifndef CONSOLIX_USE_LOGIT

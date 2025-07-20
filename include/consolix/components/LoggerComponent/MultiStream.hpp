@@ -15,14 +15,14 @@
 namespace consolix {
 
     /// \class MultiStream
-	/// \brief A class for handling multi-target log streams.
-	///
-	/// MultiStream ensures consistent and platform-independent logging output:
-	/// - On **Windows**, UTF-8 strings are automatically converted to CP866 to support legacy console encoding.
-	/// - On **Linux/macOS**, UTF-8 strings are directly output to the console.
-	/// - Supports ANSI color codes for enhanced readability.
-	/// - Integrates with LogIt logging library for advanced log management (if enabled).
-	/// - Supports LogIt integration (if enabled) and platform-specific console handling.
+    /// \brief A class for handling multi-target log streams.
+    ///
+    /// MultiStream ensures consistent and platform-independent logging output:
+    /// - On **Windows**, UTF-8 strings are automatically converted to CP866 to support legacy console encoding.
+    /// - On **Linux/macOS**, UTF-8 strings are directly output to the console.
+    /// - Supports ANSI color codes for enhanced readability.
+    /// - Integrates with LogIt logging library for advanced log management (if enabled).
+    /// - Supports LogIt integration (if enabled) and platform-specific console handling.
     class MultiStream {
     public:
 
@@ -46,20 +46,26 @@ namespace consolix {
             const std::string& function)
             : m_level(level), m_file(file), m_line(line), m_function(function) {
         }
+
 #       else
 
         /// \brief Default constructor for MultiStream without LogIt integration.
-        MultiStream() = default;
+        /// \param use_utf8 Flag to indicate if UTF-8 encoding should be used.
+        MultiStream(bool use_utf8 = true) : m_use_utf8(use_utf8) {};
 
 #       endif
 
         /// \brief Destructor to flush the accumulated log content.
         ~MultiStream() {
-#           if defined(_WIN32) || defined(_WIN64)
+#           if CONSOLIX_USE_LOGIT == 1
             auto str = utf8_to_cp866(m_stream.str());
 #           else
+#           if defined(_WIN32)
+            auto str = m_use_utf8 ? utf8_to_cp866(m_stream.str()) : m_stream.str();
+#           else
             auto str = m_stream.str();
-#           endif // if defined(_WIN32) || defined(_WIN64)
+#           endif // if defined(_WIN32)
+#           endif // if CONSOLIX_USE_LOGIT == 1
 
 #           if CONSOLIX_USE_LOGIT == 1
             if (LOGIT_IS_SINGLE_MODE(CONSOLIX_LOGIT_CONSOLE_INDEX)) {
@@ -68,11 +74,11 @@ namespace consolix {
             logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_LOGGER_INDEX) << str;
 #           else
 
-#           if defined(_WIN32) || defined(_WIN64)
+#           if defined(_WIN32)
             handle_ansi_colors_windows(str);
 #           else
             flush_to_console(str);
-#           endif // if defined(_WIN32) || defined(_WIN64)
+#           endif // if defined(_WIN32)
 
 #           endif // if CONSOLIX_USE_LOGIT == 1
         }
@@ -103,6 +109,8 @@ namespace consolix {
         std::string         m_file;         ///< Source file name.
         int                 m_line;         ///< Line number.
         std::string         m_function;     ///< Function name.
+#       else
+        bool                m_use_utf8;     ///< Flag indicating whether UTF-8 encoding should be used.
 #       endif
 
         /// \brief Flush the accumulated message to the console on non-Windows platforms.
@@ -117,7 +125,7 @@ namespace consolix {
             }
         }
 
-#       if CONSOLIX_USE_LOGIT == 0 && (defined(_WIN32) || defined(_WIN64))
+#       if CONSOLIX_USE_LOGIT == 0 && defined(_WIN32)
 
         /// \brief Handle ANSI color codes in the message for Windows console.
         /// \param message The message containing ANSI color codes.
@@ -187,7 +195,9 @@ namespace consolix {
             // Set the console text attribute to the desired color
             SetConsoleTextAttribute(handle_stdout, color_value);
         }
+
 #       endif
+
     }; // MultiStream
 
 }; // namespace consolix
