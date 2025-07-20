@@ -7,6 +7,7 @@
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Consolix: consolix::MultiStream Class Reference</title>
+<link rel="icon" href="logo.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -123,7 +124,7 @@ $(function(){initNavTree('classconsolix_1_1MultiStream.html',''); initResizable(
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab7183010a2a915dd8906c6460fc46f1e" id="r_ab7183010a2a915dd8906c6460fc46f1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7183010a2a915dd8906c6460fc46f1e">MultiStream</a> (bool <a class="el" href="#ac9e5e0bc445fef2e9be1fc72114cc93c">use_utf8</a>=<a class="el" href="namespaceconsolix.html#ae6bd4c5688aaa5973a77877067ef8178">true</a>)</td></tr>
+<tr class="memitem:ab7183010a2a915dd8906c6460fc46f1e" id="r_ab7183010a2a915dd8906c6460fc46f1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7183010a2a915dd8906c6460fc46f1e">MultiStream</a> (bool use_utf8=<a class="el" href="namespaceconsolix.html#ae6bd4c5688aaa5973a77877067ef8178">true</a>)</td></tr>
 <tr class="memdesc:ab7183010a2a915dd8906c6460fc46f1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor for <a class="el" href="classconsolix_1_1MultiStream.html" title="A class for handling multi-target log streams.">MultiStream</a> without LogIt integration.  <br /></td></tr>
 <tr class="separator:ab7183010a2a915dd8906c6460fc46f1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a844875728cfb7611c7a8c4e9e3fb363d" id="r_a844875728cfb7611c7a8c4e9e3fb363d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a844875728cfb7611c7a8c4e9e3fb363d">~MultiStream</a> ()</td></tr>
@@ -148,9 +149,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ac8eefd02baa12100562b5d7d12b99cf0" id="r_ac8eefd02baa12100562b5d7d12b99cf0"><td class="memItemLeft" align="right" valign="top">std::ostringstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8eefd02baa12100562b5d7d12b99cf0">m_stream</a></td></tr>
 <tr class="memdesc:ac8eefd02baa12100562b5d7d12b99cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal stream for accumulating log content.  <br /></td></tr>
 <tr class="separator:ac8eefd02baa12100562b5d7d12b99cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9e5e0bc445fef2e9be1fc72114cc93c" id="r_ac9e5e0bc445fef2e9be1fc72114cc93c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9e5e0bc445fef2e9be1fc72114cc93c">use_utf8</a></td></tr>
-<tr class="memdesc:ac9e5e0bc445fef2e9be1fc72114cc93c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether UTF-8 encoding should be used.  <br /></td></tr>
-<tr class="separator:ac9e5e0bc445fef2e9be1fc72114cc93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f7ff1a0090e182bb908fe8aea8dcf08" id="r_a6f7ff1a0090e182bb908fe8aea8dcf08"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f7ff1a0090e182bb908fe8aea8dcf08">m_use_utf8</a></td></tr>
+<tr class="memdesc:a6f7ff1a0090e182bb908fe8aea8dcf08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether UTF-8 encoding should be used.  <br /></td></tr>
+<tr class="separator:a6f7ff1a0090e182bb908fe8aea8dcf08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A class for handling multi-target log streams. </p>
@@ -195,7 +196,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00053">53</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00054">54</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
 
 </div>
 </div>
@@ -224,7 +225,7 @@ Private Attributes</h2></td></tr>
 
 <p>Destructor to flush the accumulated log content. </p>
 
-<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00058">58</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00059">59</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
 
 </div>
 </div>
@@ -260,7 +261,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00113">113</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00118">118</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
 
 </div>
 </div>
@@ -304,7 +305,7 @@ template&lt;typename T&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the current <a class="el" href="classconsolix_1_1MultiStream.html" title="A class for handling multi-target log streams.">MultiStream</a> object. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00086">86</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00091">91</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
 
 </div>
 </div>
@@ -340,7 +341,7 @@ template&lt;typename T&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the current <a class="el" href="classconsolix_1_1MultiStream.html" title="A class for handling multi-target log streams.">MultiStream</a> object. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00094">94</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00099">99</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
 
 </div>
 </div>
@@ -367,12 +368,12 @@ template&lt;typename T&gt; </div>
 
 <p>Internal stream for accumulating log content. </p>
 
-<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00100">100</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00105">105</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac9e5e0bc445fef2e9be1fc72114cc93c" name="ac9e5e0bc445fef2e9be1fc72114cc93c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9e5e0bc445fef2e9be1fc72114cc93c">&#9670;&#160;</a></span>use_utf8</h2>
+<a id="a6f7ff1a0090e182bb908fe8aea8dcf08" name="a6f7ff1a0090e182bb908fe8aea8dcf08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f7ff1a0090e182bb908fe8aea8dcf08">&#9670;&#160;</a></span>m_use_utf8</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -381,7 +382,7 @@ template&lt;typename T&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool consolix::MultiStream::use_utf8</td>
+          <td class="memname">bool consolix::MultiStream::m_use_utf8</td>
         </tr>
       </table>
   </td>
@@ -393,7 +394,7 @@ template&lt;typename T&gt; </div>
 
 <p>Flag indicating whether UTF-8 encoding should be used. </p>
 
-<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00108">108</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MultiStream_8hpp_source.html#l00113">113</a> of file <a class="el" href="MultiStream_8hpp_source.html">MultiStream.hpp</a>.</p>
 
 </div>
 </div>
