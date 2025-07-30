@@ -116,7 +116,7 @@ $(function(){initNavTree('encoding__utils_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="encoding__utils_8hpp.html#a80d8db64037c9763f0e3b565840dfba7">    3</a></span><span class="preprocessor">#define _CONSOLIX_ENCODING_UTILS_HPP_INCLUDED</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#if defined(_WIN32) || defined(_WIN64)</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#if defined(_WIN32)</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
@@ -127,13 +127,13 @@ $(function(){initNavTree('encoding__utils_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordflow">if</span> (n_len == 0) <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        std::wstring wide_string(n_len + 1, L<span class="charliteral">&#39;\0&#39;</span>);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, wide_string.data(), n_len);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, &amp;wide_string[0], n_len);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        n_len = WideCharToMultiByte(CP_ACP, 0, wide_string.c_str(), -1, NULL, 0, NULL, NULL);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">if</span> (n_len == 0) <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        std::string ansi_string(n_len - 1, <span class="charliteral">&#39;\0&#39;</span>);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        WideCharToMultiByte(CP_ACP, 0, wide_string.c_str(), -1, ansi_string.data(), n_len, NULL, NULL);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        WideCharToMultiByte(CP_ACP, 0, wide_string.c_str(), -1, &amp;ansi_string[0], n_len, NULL, NULL);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> ansi_string;</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
@@ -142,13 +142,13 @@ $(function(){initNavTree('encoding__utils_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">if</span> (n_len == 0) <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        std::wstring wide_string(n_len, L<span class="charliteral">&#39;\0&#39;</span>);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        MultiByteToWideChar(CP_ACP, 0, ansi.c_str(), -1, wide_string.data(), n_len);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        MultiByteToWideChar(CP_ACP, 0, ansi.c_str(), -1, &amp;wide_string[0], n_len);</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        n_len = WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, NULL, 0, NULL, NULL);</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">if</span> (n_len == 0) <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        std::string utf8_string(n_len - 1, <span class="charliteral">&#39;\0&#39;</span>);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, utf8_string.data(), n_len, NULL, NULL);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, &amp;utf8_string[0], n_len, NULL, NULL);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> utf8_string;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
@@ -182,26 +182,26 @@ $(function(){initNavTree('encoding__utils_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    std::string cp1251_to_utf8(<span class="keyword">const</span> std::string&amp; cp1251) {</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordtype">int</span> len = MultiByteToWideChar(1251, 0, cp1251.c_str(), -1, NULL, 0);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    std::string cp1251_to_utf8(<span class="keyword">const</span> std::string&amp; cp1251_string) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordtype">int</span> len = MultiByteToWideChar(1251, 0, cp1251_string.c_str(), -1, NULL, 0);</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">if</span> (len == 0) <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        std::wstring wideString(len, L<span class="charliteral">&#39;\0&#39;</span>);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        MultiByteToWideChar(1251, 0, cp1251.c_str(), -1, wideString.data(), len);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        std::wstring wide_string(len, L<span class="charliteral">&#39;\0&#39;</span>);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        MultiByteToWideChar(1251, 0, cp1251_string.c_str(), -1, &amp;wide_string[0], len);</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        len = WideCharToMultiByte(CP_UTF8, 0, wideString.c_str(), -1, NULL, 0, NULL, NULL);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        len = WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, NULL, 0, NULL, NULL);</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">if</span> (len == 0) <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        std::string utf8String(len, <span class="charliteral">&#39;\0&#39;</span>);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        WideCharToMultiByte(CP_UTF8, 0, wideString.c_str(), -1, utf8String.data(), len, NULL, NULL);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">return</span> utf8String;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        std::string utf8_string(len, <span class="charliteral">&#39;\0&#39;</span>);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, &amp;utf8_string[0], len, NULL, NULL);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">return</span> utf8_string;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    std::string utf16_to_utf8(LPWSTR utf16String) {</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordtype">int</span> bufferSize = WideCharToMultiByte(CP_UTF8, 0, utf16String, -1, <span class="keyword">nullptr</span>, 0, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        std::string utf8String(bufferSize, <span class="charliteral">&#39;\0&#39;</span>);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        WideCharToMultiByte(CP_UTF8, 0, utf16String, -1, utf8String.data(), bufferSize, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> utf8String;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    std::string utf16_to_utf8(LPWSTR utf16_string) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordtype">int</span> bufferSize = WideCharToMultiByte(CP_UTF8, 0, utf16_string, -1, <span class="keyword">nullptr</span>, 0, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        std::string utf8_string(bufferSize, <span class="charliteral">&#39;\0&#39;</span>);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        WideCharToMultiByte(CP_UTF8, 0, utf16_string, -1, &amp;utf8_string[0], bufferSize, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> utf8_string;</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span></div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    std::wstring utf8_to_utf16(<span class="keyword">const</span> std::string&amp; utf8) <span class="keyword">noexcept</span> {</div>
@@ -209,7 +209,7 @@ $(function(){initNavTree('encoding__utils_8hpp_source.html',''); initResizable(t
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">if</span> (n_len == 0) <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        std::wstring utf16_string(n_len, L<span class="charliteral">&#39;\0&#39;</span>);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, utf16_string.data(), n_len);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, &amp;utf16_string[0], n_len);</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">return</span> utf16_string;</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    }</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
