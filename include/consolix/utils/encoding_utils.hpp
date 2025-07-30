@@ -6,7 +6,7 @@
 /// \brief Utilities for working with character encodings and string transformations.
 /// \ingroup Utilities
 
-#if defined(_WIN32) || defined(_WIN64)
+#if defined(_WIN32)
 
 #include <string>
 
@@ -20,13 +20,13 @@ namespace consolix {
         if (n_len == 0) return {};
 
         std::wstring wide_string(n_len + 1, L'\0');
-        MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, wide_string.data(), n_len);
+        MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, &wide_string[0], n_len);
 
         n_len = WideCharToMultiByte(CP_ACP, 0, wide_string.c_str(), -1, NULL, 0, NULL, NULL);
         if (n_len == 0) return {};
 
         std::string ansi_string(n_len - 1, '\0');
-        WideCharToMultiByte(CP_ACP, 0, wide_string.c_str(), -1, ansi_string.data(), n_len, NULL, NULL);
+        WideCharToMultiByte(CP_ACP, 0, wide_string.c_str(), -1, &ansi_string[0], n_len, NULL, NULL);
         return ansi_string;
     }
 
@@ -38,13 +38,13 @@ namespace consolix {
         if (n_len == 0) return {};
 
         std::wstring wide_string(n_len, L'\0');
-        MultiByteToWideChar(CP_ACP, 0, ansi.c_str(), -1, wide_string.data(), n_len);
+        MultiByteToWideChar(CP_ACP, 0, ansi.c_str(), -1, &wide_string[0], n_len);
 
         n_len = WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, NULL, 0, NULL, NULL);
         if (n_len == 0) return {};
 
         std::string utf8_string(n_len - 1, '\0');
-        WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, utf8_string.data(), n_len, NULL, NULL);
+        WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, &utf8_string[0], n_len, NULL, NULL);
         return utf8_string;
     }
 
@@ -85,31 +85,31 @@ namespace consolix {
     }
 
     /// \brief Converts a CP1251 string to UTF-8.
-    /// \param cp1251 The CP1251 encoded string.
+    /// \param cp1251_string The CP1251 encoded string.
     /// \return The converted UTF-8 string.
-    std::string cp1251_to_utf8(const std::string& cp1251) {
-        int len = MultiByteToWideChar(1251, 0, cp1251.c_str(), -1, NULL, 0);
+    std::string cp1251_to_utf8(const std::string& cp1251_string) {
+        int len = MultiByteToWideChar(1251, 0, cp1251_string.c_str(), -1, NULL, 0);
         if (len == 0) return {};
 
-        std::wstring wideString(len, L'\0');
-        MultiByteToWideChar(1251, 0, cp1251.c_str(), -1, wideString.data(), len);
+        std::wstring wide_string(len, L'\0');
+        MultiByteToWideChar(1251, 0, cp1251_string.c_str(), -1, &wide_string[0], len);
 
-        len = WideCharToMultiByte(CP_UTF8, 0, wideString.c_str(), -1, NULL, 0, NULL, NULL);
+        len = WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, NULL, 0, NULL, NULL);
         if (len == 0) return {};
 
-        std::string utf8String(len, '\0');
-        WideCharToMultiByte(CP_UTF8, 0, wideString.c_str(), -1, utf8String.data(), len, NULL, NULL);
-        return utf8String;
+        std::string utf8_string(len, '\0');
+        WideCharToMultiByte(CP_UTF8, 0, wide_string.c_str(), -1, &utf8_string[0], len, NULL, NULL);
+        return utf8_string;
     }
 
     /// \brief Converts a UTF-16 string to UTF-8.
-    /// \param utf16String A wide character string.
+    /// \param utf16_string A wide character string.
     /// \return The converted UTF-8 string.
-    std::string utf16_to_utf8(LPWSTR utf16String) {
-        int bufferSize = WideCharToMultiByte(CP_UTF8, 0, utf16String, -1, nullptr, 0, nullptr, nullptr);
-        std::string utf8String(bufferSize, '\0');
-        WideCharToMultiByte(CP_UTF8, 0, utf16String, -1, utf8String.data(), bufferSize, nullptr, nullptr);
-        return utf8String;
+    std::string utf16_to_utf8(LPWSTR utf16_string) {
+        int bufferSize = WideCharToMultiByte(CP_UTF8, 0, utf16_string, -1, nullptr, 0, nullptr, nullptr);
+        std::string utf8_string(bufferSize, '\0');
+        WideCharToMultiByte(CP_UTF8, 0, utf16_string, -1, &utf8_string[0], bufferSize, nullptr, nullptr);
+        return utf8_string;
     }
 
     /// \brief Converts a UTF-8 string to a UTF-16 wide string.
@@ -120,7 +120,7 @@ namespace consolix {
         if (n_len == 0) return {};
 
         std::wstring utf16_string(n_len, L'\0');
-        MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, utf16_string.data(), n_len);
+        MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, &utf16_string[0], n_len);
         return utf16_string;
     }
 
