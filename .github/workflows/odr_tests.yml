@@ -6,6 +6,9 @@ on:
 jobs:
   odr:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tests/odr
     steps:
       - uses: actions/checkout@v4
       
