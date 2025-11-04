@@ -1,4 +1,4 @@
-#include "../../include/consolix/core/ConsoleApplication.hpp"
+#include <consolix/core.hpp>
 #include <memory>
 
 extern "C" consolix::ConsoleApplication* get_console_app_a() { 

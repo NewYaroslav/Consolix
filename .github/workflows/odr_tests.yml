@@ -19,9 +19,9 @@ jobs:
           
       - name: Build ConsoleApp ODR
         run: |
-          g++ -std=c++17 -c console_app_a.cpp
-          g++ -std=c++17 -c console_app_b.cpp
-          g++ -std=c++17 -c console_app_main.cpp
+          g++ -std=c++17 -I ../../include -c console_app_a.cpp
+          g++ -std=c++17 -I ../../include -c console_app_b.cpp
+          g++ -std=c++17 -I ../../include -c console_app_main.cpp
           g++ console_app_a.o console_app_b.o console_app_main.o -o app
           
       - name: Run ConsoleApp ODR

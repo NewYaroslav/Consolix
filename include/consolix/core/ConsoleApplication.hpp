@@ -276,7 +276,7 @@ namespace consolix {
 #           if CONSOLIX_USE_LOGIT == 1
             LOGIT_PRINT_INFO("POSIX signal received: ", signal_name, ", exit code: ", exit_code);
 #           endif
-            cleanup(exit_code);
+            ConsoleApplication::get_instance().cleanup(exit_code);
         }
 
 #       endif
