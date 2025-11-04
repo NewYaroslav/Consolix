@@ -25,7 +25,7 @@ namespace consolix {
 
     /// \brief Initializes the application.
     /// This function prepares the application and service locator for use.
-    void init() {
+    inline void init() {
         ServiceLocator::get_instance();
         ConsoleApplication::get_instance().init();
     }
@@ -35,7 +35,7 @@ namespace consolix {
     /// \tparam InitAction A callable type for the custom initialization action.
     /// \param init_action The action to execute during initialization.
     template <typename InitAction>
-    void init(InitAction init_action) {
+    inline void init(InitAction init_action) {
         ServiceLocator::get_instance();
         ConsoleApplication::get_instance().init(init_action);
     }

@@ -15,7 +15,7 @@ namespace consolix {
     /// \brief Converts a UTF-8 string to an ANSI string (Windows-specific).
     /// \param utf8 The UTF-8 encoded string.
     /// \return The converted ANSI string.
-    std::string utf8_to_ansi(const std::string& utf8) noexcept {
+    inline std::string utf8_to_ansi(const std::string& utf8) noexcept {
         int n_len = MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, NULL, 0);
         if (n_len == 0) return {};
 
@@ -33,7 +33,7 @@ namespace consolix {
     /// \brief Converts an ANSI string to a UTF-8 string (Windows-specific).
     /// \param ansi The ANSI encoded string.
     /// \return The converted UTF-8 string.
-    std::string ansi_to_utf8(const std::string& ansi) noexcept {
+    inline std::string ansi_to_utf8(const std::string& ansi) noexcept {
         int n_len = MultiByteToWideChar(CP_ACP, 0, ansi.c_str(), -1, NULL, 0);
         if (n_len == 0) return {};
 
@@ -51,7 +51,7 @@ namespace consolix {
     /// \brief Converts a UTF-8 string to a CP866 string (DOS-specific, Windows).
     /// \param utf8 The UTF-8 encoded string.
     /// \return The converted CP866 string.
-    std::string utf8_to_cp866(const std::string& utf8) noexcept {
+    inline std::string utf8_to_cp866(const std::string& utf8) noexcept {
         std::string temp = utf8_to_ansi(utf8);
         CharToOem((LPSTR)temp.c_str(), temp.data());
         return temp;
@@ -60,7 +60,7 @@ namespace consolix {
     /// \brief Validates whether a string is a valid UTF-8 string.
     /// \param message The string to validate.
     /// \return `true` if the string is valid UTF-8, `false` otherwise.
-    bool is_valid_utf8(const char* message) {
+    inline bool is_valid_utf8(const char* message) {
         if (!message) return true;
         const unsigned char* bytes = reinterpret_cast<const unsigned char*>(message);
         while (*bytes != 0x00) {
@@ -87,7 +87,7 @@ namespace consolix {
     /// \brief Converts a CP1251 string to UTF-8.
     /// \param cp1251_string The CP1251 encoded string.
     /// \return The converted UTF-8 string.
-    std::string cp1251_to_utf8(const std::string& cp1251_string) {
+    inline std::string cp1251_to_utf8(const std::string& cp1251_string) {
         int len = MultiByteToWideChar(1251, 0, cp1251_string.c_str(), -1, NULL, 0);
         if (len == 0) return {};
 
@@ -105,7 +105,7 @@ namespace consolix {
     /// \brief Converts a UTF-16 string to UTF-8.
     /// \param utf16_string A wide character string.
     /// \return The converted UTF-8 string.
-    std::string utf16_to_utf8(LPWSTR utf16_string) {
+    inline std::string utf16_to_utf8(LPWSTR utf16_string) {
         int bufferSize = WideCharToMultiByte(CP_UTF8, 0, utf16_string, -1, nullptr, 0, nullptr, nullptr);
         std::string utf8_string(bufferSize, '\0');
         WideCharToMultiByte(CP_UTF8, 0, utf16_string, -1, &utf8_string[0], bufferSize, nullptr, nullptr);
@@ -115,7 +115,7 @@ namespace consolix {
     /// \brief Converts a UTF-8 string to a UTF-16 wide string.
     /// \param utf8 The UTF-8 encoded string.
     /// \return The converted UTF-16 string.
-    std::wstring utf8_to_utf16(const std::string& utf8) noexcept {
+    inline std::wstring utf8_to_utf16(const std::string& utf8) noexcept {
         int n_len = MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, NULL, 0);
         if (n_len == 0) return {};
 
