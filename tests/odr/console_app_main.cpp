@@ -1,5 +1,6 @@
 #include <iostream>
 #include <consolix/core/ConsoleApplication.hpp>
+#include <memory>
 
 extern "C" consolix::ConsoleApplication* get_console_app_a();
 extern "C" consolix::ConsoleApplication* get_console_app_b();
