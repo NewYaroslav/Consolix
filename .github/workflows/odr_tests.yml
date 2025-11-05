@@ -17,12 +17,20 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential
           
-      - name: Build ConsoleApp ODR
+      - name: Build ConsoleApp ODR 1
         run: |
           g++ -std=c++17 -I ../../include -c console_app_a.cpp
           g++ -std=c++17 -I ../../include -c console_app_b.cpp
           g++ -std=c++17 -I ../../include -c console_app_main.cpp
           g++ console_app_a.o console_app_b.o console_app_main.o -o app
           
-      - name: Run ConsoleApp ODR
+      - name: Run ConsoleApp ODR 1
         run: ./app
+        
+      - name: Build ConsoleApp ODR 2
+        run: |
+          g++ -std=c++17 -I ../../include -c console_app_a.cpp
+          g++ -std=c++17 -I ../../include -c console_app_b.cpp
+          ar rcs libconsole_app_a.a console_app_a.o
+          ar rcs libconsole_app_b.a console_app_b.o
+          g++ -std=c++17 -I ../../include console_app_main.cpp libconsole_app_a.a libconsole_app_b.a -o app
