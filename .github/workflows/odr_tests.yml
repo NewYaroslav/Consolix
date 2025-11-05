@@ -22,10 +22,10 @@ jobs:
           g++ -std=c++17 -I ../../include -c console_app_a.cpp
           g++ -std=c++17 -I ../../include -c console_app_b.cpp
           g++ -std=c++17 -I ../../include -c console_app_main.cpp
-          g++ console_app_a.o console_app_b.o console_app_main.o -o app
+          g++ console_app_a.o console_app_b.o console_app_main.o -o app_console_app_1
           
       - name: Run ConsoleApp ODR 1
-        run: ./app
+        run: ./app_console_app_1
         
       - name: Build ConsoleApp ODR 2
         run: |
@@ -33,4 +33,28 @@ jobs:
           g++ -std=c++17 -I ../../include -c console_app_b.cpp
           ar rcs libconsole_app_a.a console_app_a.o
           ar rcs libconsole_app_b.a console_app_b.o
-          g++ -std=c++17 -I ../../include console_app_main.cpp libconsole_app_a.a libconsole_app_b.a -o app
+          g++ -std=c++17 -I ../../include console_app_main.cpp libconsole_app_a.a libconsole_app_b.a -o app_console_app_2
+          
+      - name: Run ConsoleApp ODR 2
+        run: ./app_console_app_2
+        
+      - name: Build S_Locator ODR 1
+        run: |
+          g++ -std=c++17 -I ../../include -c s_locator_a.cpp
+          g++ -std=c++17 -I ../../include -c s_locator_b.cpp
+          g++ -std=c++17 -I ../../include -c s_locator_main.cpp
+          g++ s_locator_a.o s_locator_b.o s_locator_main.o -o app_s_locator_1
+          
+      - name: Run S_Locator ODR 1
+        run: ./app_s_locator_1
+        
+      - name: Build S_Locator ODR 2
+        run: |
+          g++ -std=c++17 -I ../../include -c s_locator_a.cpp
+          g++ -std=c++17 -I ../../include -c s_locator_b.cpp
+          ar rcs libs_locator_a.a s_locator_a.o
+          ar rcs libs_locator_b.a s_locator_b.o
+          g++ -std=c++17 -I ../../include s_locator_main.cpp libs_locator_a.a libs_locator_b.a -o app_s_locator_2
+          
+      - name: Run S_Locator ODR 2
+        run: ./app_s_locator_2
