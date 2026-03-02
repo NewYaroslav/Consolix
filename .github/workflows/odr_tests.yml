@@ -1,0 +1,62 @@
+name: ODR checks
+
+on:
+  push
+
+jobs:
+  odr:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tests/odr
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential
+          
+      - name: Build ConsoleApp ODR header
+        run: |
+          g++ -std=c++17 -I ../../include -c console_app_a.cpp
+          g++ -std=c++17 -I ../../include -c console_app_b.cpp
+          g++ -std=c++17 -I ../../include -c console_app_main.cpp
+          g++ console_app_a.o console_app_b.o console_app_main.o -o app_console_app_header
+          
+      - name: Run ConsoleApp ODR header
+        run: ./app_console_app_header
+        
+      - name: Build ConsoleApp ODR static
+        run: |
+          g++ -std=c++17 -I ../../include -c consolix_static_library.cpp -o consolix_static_library.o
+          ar rcs libconsolix_odr.a consolix_static_library.o
+          g++ -std=c++17 -I ../../include -c console_app_a.cpp -o console_app_static_a.o
+          g++ -std=c++17 -I ../../include -c console_app_b.cpp -o console_app_static_b.o
+          g++ -std=c++17 -c console_app_main_static.cpp -o console_app_main_static.o
+          g++ console_app_static_a.o console_app_static_b.o console_app_main_static.o libconsolix_odr.a -o app_console_app_static
+          
+      - name: Run ConsoleApp ODR static
+        run: ./app_console_app_static
+        
+      - name: Build S_Locator ODR header
+        run: |
+          g++ -std=c++17 -I ../../include -c s_locator_a.cpp
+          g++ -std=c++17 -I ../../include -c s_locator_b.cpp
+          g++ -std=c++17 -I ../../include -c s_locator_main.cpp
+          g++ s_locator_a.o s_locator_b.o s_locator_main.o -o app_s_locator_header
+          
+      - name: Run S_Locator ODR header
+        run: ./app_s_locator_header
+        
+      - name: Build S_Locator ODR static
+        run: |
+          g++ -std=c++17 -I ../../include -c consolix_static_library.cpp -o consolix_static_library.o
+          ar rcs libconsolix_odr.a consolix_static_library.o
+          g++ -std=c++17 -I ../../include -c s_locator_a.cpp -o s_locator_static_a.o
+          g++ -std=c++17 -I ../../include -c s_locator_b.cpp -o s_locator_static_b.o
+          g++ -std=c++17 -c s_locator_main_static.cpp -o s_locator_main_static.o
+          g++ s_locator_static_a.o s_locator_static_b.o s_locator_main_static.o libconsolix_odr.a -o app_s_locator_static
+          
+      - name: Run S_Locator ODR static
+        run: ./app_s_locator_static

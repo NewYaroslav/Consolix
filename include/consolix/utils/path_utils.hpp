@@ -14,7 +14,7 @@ namespace consolix {
 
     /// \brief Retrieves the full path of the executable.
     /// \return A string containing the full path of the executable.
-    std::string get_exec_path() {
+    inline std::string get_exec_path() {
 #       ifdef _WIN32
         std::vector<wchar_t> buffer(MAX_PATH);
         HMODULE hModule = GetModuleHandle(NULL);
@@ -53,14 +53,14 @@ namespace consolix {
 
     /// \brief Retrieves the directory of the executable file.
     /// \return A string containing the directory path of the executable.
-    std::string get_exec_dir() {
+    inline std::string get_exec_dir() {
         return (fs::u8path(get_exec_path())).parent_path().u8string();
     }
 
     /// \brief Extracts the file name from a full file path.
     /// \param file_path The full file path as a string.
     /// \return The extracted file name, or the full string if no directory separator is found.
-    std::string get_file_name(const std::string& file_path) {
+    inline std::string get_file_name(const std::string& file_path) {
         //std::size_t pos = file_path.find_last_of("/\\");
         //return (pos == std::string::npos) ? file_path : file_path.substr(pos + 1);
         return (fs::u8path(file_path)).filename().u8string();
@@ -69,7 +69,7 @@ namespace consolix {
     /// \brief Resolves a relative path to absolute, based on executable location.
     /// \param relative_path Relative path from executable directory.
     /// \return Absolute path string.
-    std::string resolve_exec_path(const std::string& relative_path) {
+    inline std::string resolve_exec_path(const std::string& relative_path) {
         return (fs::u8path(get_exec_dir()) / fs::u8path(relative_path)).u8string();
     }
 
@@ -89,7 +89,7 @@ namespace consolix {
     /// \brief Creates directories recursively for the given path.
     /// \param path The directory path to create.
     /// \throws std::runtime_error if the directories cannot be created.
-    void create_directories(const std::string& path) {
+    inline void create_directories(const std::string& path) {
         fs::path dir = fs::u8path(path);
         if (!std::filesystem::exists(dir)) {
             std::error_code ec;

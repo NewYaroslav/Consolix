@@ -22,7 +22,7 @@ namespace consolix {
     /// \brief Copies the given text to the system clipboard.
     /// \param text The text to copy.
     /// \return True if the operation was successful, false otherwise.
-    bool copy_to_clipboard(const std::string& text) {
+    inline bool copy_to_clipboard(const std::string& text) {
 #       ifdef _WIN32
         if (OpenClipboard(nullptr)) {
             EmptyClipboard();
@@ -52,7 +52,7 @@ namespace consolix {
 
     /// \brief Retrieves text from the system clipboard.
     /// \return Clipboard contents as a string, or an empty string on failure.
-    std::string get_clipboard_text() {
+    inline std::string get_clipboard_text() {
 #       ifdef _WIN32
         if (!OpenClipboard(nullptr)) return "";
         HANDLE hData = GetClipboardData(CF_TEXT);
@@ -76,7 +76,7 @@ namespace consolix {
 
     /// \brief Gets the name of the operating system.
     /// \return A string representing the OS name.
-    std::string get_os_name() {
+    inline std::string get_os_name() {
 #       ifdef _WIN32
         return "Windows";
 #       elif defined(__APPLE__)
@@ -90,7 +90,7 @@ namespace consolix {
 
     /// \brief Gets the current system time in milliseconds.
     /// \return System time in milliseconds.
-    uint64_t get_system_time_ms() {
+    inline uint64_t get_system_time_ms() {
         return std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now().time_since_epoch()
         ).count();
@@ -98,7 +98,7 @@ namespace consolix {
 
     /// \brief Gets the number of logical CPU cores.
     /// \return The number of logical CPU cores.
-    int get_cpu_count() {
+    inline int get_cpu_count() {
 #       ifdef _WIN32
         SYSTEM_INFO sysinfo;
         GetSystemInfo(&sysinfo);
@@ -112,7 +112,7 @@ namespace consolix {
 
     /// \brief Gets the user's home directory path.
     /// \return A string containing the home directory path.
-    std::string get_home_directory() {
+    inline std::string get_home_directory() {
 #       ifdef _WIN32
         char* home = getenv("USERPROFILE");
         return home ? std::string(home) : "";
@@ -126,7 +126,7 @@ namespace consolix {
 
     /// \brief Gets the system temporary directory path.
     /// \return A string containing the temporary directory path.
-    std::string get_temp_directory() {
+    inline std::string get_temp_directory() {
 #       ifdef _WIN32
         char tempPath[MAX_PATH];
         GetTempPathA(MAX_PATH, tempPath);
@@ -142,7 +142,7 @@ namespace consolix {
     /// \brief Retrieves an environment variable's value.
     /// \param var_name The name of the environment variable.
     /// \return The value of the environment variable, or an empty string if not found.
-    std::string get_env_var(const std::string& var_name) {
+    inline std::string get_env_var(const std::string& var_name) {
         const char* value = getenv(var_name.c_str());
         return value ? std::string(value) : "";
     }

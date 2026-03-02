@@ -36,7 +36,7 @@ namespace consolix {
     ///                          in comments are preserved. Otherwise, all characters in the
     ///                          comments are replaced with whitespace.
     /// \return A JSON string with comments removed.
-    std::string strip_json_comments(
+    inline std::string strip_json_comments(
             const std::string &json_string,
             bool with_whitespace = false,
             bool preserve_newlines = true) {
