@@ -13,6 +13,8 @@ namespace consolix {
     /// This interface defines a method for handling shutdown events,
     /// which is particularly useful for releasing resources, saving state,
     /// or performing cleanup operations when a termination signal is received.
+    /// The callback runs during the application's normal shutdown path rather than
+    /// directly from a POSIX signal handler.
     /// Access to the `shutdown` method is restricted to the `AppComponentManager` class.
     class IShutdownable {
         friend class AppComponentManager; ///< Grants access to the `AppComponentManager` class.
@@ -24,8 +26,10 @@ namespace consolix {
     protected:
         /// \brief Handles shutdown logic for the component.
         ///
-        /// This method is called when a shutdown signal is received. Derived components
+        /// This method is called when the application enters shutdown. Derived components
         /// should implement this method to perform necessary cleanup or save state before termination.
+        /// On POSIX, a signal may trigger this shutdown, but the callback itself still runs
+        /// later in normal application code.
         /// \param signal The shutdown signal (e.g., SIGINT or SIGTERM).
         virtual void shutdown(int signal) = 0;
     };

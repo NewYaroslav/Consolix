@@ -81,6 +81,12 @@ function(consolix_prepare_target target_name)
     consolix_apply_common_warnings(${target_name})
 endfunction()
 
+function(consolix_add_test target_name source_file)
+    add_executable(${target_name} "${source_file}")
+    consolix_prepare_target(${target_name})
+    add_test(NAME ${target_name} COMMAND ${target_name})
+endfunction()
+
 if(CONSOLIX_BUILD_EXAMPLES)
     file(GLOB_RECURSE CONSOLIX_EXAMPLE_SOURCES CONFIGURE_DEPENDS
         "${CMAKE_CURRENT_SOURCE_DIR}/examples/*.cpp"
@@ -103,23 +109,28 @@ if(CONSOLIX_BUILD_EXAMPLES)
     endforeach()
 endif()
 
-if(CONSOLIX_BUILD_TESTS AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_strip_json_comments.cpp")
+if(CONSOLIX_BUILD_TESTS)
     enable_testing()
 
-    add_executable(test_strip_json_comments "tests/test_strip_json_comments.cpp")
-    consolix_prepare_target(test_strip_json_comments)
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_strip_json_comments.cpp")
+        consolix_add_test(test_strip_json_comments "tests/test_strip_json_comments.cpp")
 
-    file(GLOB CONSOLIX_TEST_JSONS CONFIGURE_DEPENDS
-        "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.json"
-    )
-    foreach(test_json IN LISTS CONSOLIX_TEST_JSONS)
-        get_filename_component(test_json_name "${test_json}" NAME)
-        add_custom_command(TARGET test_strip_json_comments POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-                "${test_json}"
-                "$<TARGET_FILE_DIR:test_strip_json_comments>/${test_json_name}"
+        file(GLOB CONSOLIX_TEST_JSONS CONFIGURE_DEPENDS
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.json"
         )
-    endforeach()
+        foreach(test_json IN LISTS CONSOLIX_TEST_JSONS)
+            get_filename_component(test_json_name "${test_json}" NAME)
+            add_custom_command(TARGET test_strip_json_comments POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                    "${test_json}"
+                    "$<TARGET_FILE_DIR:test_strip_json_comments>/${test_json_name}"
+            )
+        endforeach()
+    endif()
 
-    add_test(NAME test_strip_json_comments COMMAND test_strip_json_comments)
+    if(UNIX AND NOT WIN32 AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_posix_signal_shutdown.cpp")
+        consolix_add_test(test_posix_signal_shutdown "tests/test_posix_signal_shutdown.cpp")
+        target_compile_definitions(test_posix_signal_shutdown PRIVATE CONSOLIX_WAIT_ON_ERROR=0)
+        set_tests_properties(test_posix_signal_shutdown PROPERTIES TIMEOUT 15)
+    endif()
 endif()

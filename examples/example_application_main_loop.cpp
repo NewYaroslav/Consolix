@@ -22,7 +22,7 @@ struct AppConfig {
 /// This component handles application-specific logic in three stages:
 /// - Initialization (`on_once`).
 /// - Repeated execution (`on_loop`).
-/// - Graceful shutdown (`on_shutdown`).
+/// - Graceful shutdown (`on_shutdown`) executed in the normal application path.
 class CustomLoop final : public consolix::BaseLoopComponent {
 public:
 
@@ -69,7 +69,7 @@ public:
         LOGIT_TRACE0();
     }
 
-    /// \brief Called during application shutdown.
+    /// \brief Called during application shutdown after a stop request or termination signal.
     /// \param signal The shutdown signal.
     void on_shutdown(int signal) override {
         CONSOLIX_STREAM() << "Application is shutting down. Received signal: " << signal;

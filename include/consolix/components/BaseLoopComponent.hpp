@@ -44,7 +44,8 @@ namespace consolix {
         /// \brief Called when the application shuts down.
         ///
         /// Derived classes should implement this method to release resources or perform
-        /// cleanup operations before termination.
+        /// cleanup operations before termination. On POSIX, this callback is invoked
+        /// after the signal handler has requested shutdown, not from the handler itself.
         /// \param signal The signal that triggered the shutdown.
         virtual void on_shutdown(int signal) = 0;
 

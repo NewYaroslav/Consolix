@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test-linux:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        cxx_standard: [11, 14, 17]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Configure
+        run: >
+          cmake -S . -B build
+          -DCONSOLIX_CXX_STANDARD=${{ matrix.cxx_standard }}
+          -DCONSOLIX_BUILD_EXAMPLES=ON
+          -DCONSOLIX_BUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure

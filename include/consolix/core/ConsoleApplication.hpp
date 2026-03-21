@@ -10,13 +10,18 @@
 #include <cstdlib>
 #include <iostream>
 
+#if !defined(_WIN32) && !defined(_WIN64)
+#include <signal.h>
+#endif
+
 namespace consolix {
 
     /// \class ConsoleApplication
     /// \brief Singleton class to manage the lifecycle of a console application.
     ///
     /// Provides functionality to initialize, execute, and gracefully shut down components
-    /// in a structured lifecycle. Supports signal handling for both Windows and POSIX systems.
+    /// in a structured lifecycle. On POSIX systems, signal handlers only request shutdown,
+    /// and the actual component cleanup runs later in the normal execution path.
     class ConsoleApplication {
     public:
 
@@ -47,12 +52,10 @@ namespace consolix {
         /// This method initializes all components in the manager and ensures readiness
         void init() {
             try {
-                while (!m_stopping && !m_manager.initialize()) {
+                while (!stop_requested() && !m_manager.initialize()) {
                     std::this_thread::sleep_for(std::chrono::milliseconds(1));
                 }
-                if (m_stopping) {
-                    cleanup(0);
-                }
+                cleanup_if_stopping();
             } catch (const std::exception& e) {
                 handle_fatal_exception(e);
             }
@@ -64,16 +67,12 @@ namespace consolix {
         template <typename InitAction>
         void init(InitAction init_action) {
             try {
-                while (!m_stopping && !m_manager.initialize()) {
+                while (!stop_requested() && !m_manager.initialize()) {
                     std::this_thread::sleep_for(std::chrono::milliseconds(1));
                 }
-                if (m_stopping) {
-                    cleanup(0);
-                }
+                cleanup_if_stopping();
                 init_action();
-                if (m_stopping) {
-                    cleanup(0);
-                }
+                cleanup_if_stopping();
             } catch (const std::exception& e) {
                 handle_fatal_exception(e);
             }
@@ -108,6 +107,7 @@ namespace consolix {
 
         /// \brief
         void shutdown(int signal) {
+            m_stopping = true;
             cleanup(signal);
         }
 
@@ -123,8 +123,17 @@ namespace consolix {
 #           if defined(_WIN32) || defined(_WIN64)
             SetConsoleCtrlHandler(console_handler, TRUE);
 #           else
-            std::signal(SIGINT, signal_handler);
-            std::signal(SIGTERM, signal_handler);
+            reset_signal_state();
+
+            struct sigaction action = {};
+            action.sa_handler = signal_handler;
+            sigemptyset(&action.sa_mask);
+            sigaddset(&action.sa_mask, SIGINT);
+            sigaddset(&action.sa_mask, SIGTERM);
+            action.sa_flags = 0;
+
+            sigaction(SIGINT, &action, nullptr);
+            sigaction(SIGTERM, &action, nullptr);
 #           endif
             std::atexit(on_exit_handler);
         }
@@ -133,8 +142,14 @@ namespace consolix {
         /// \param exit_code Exit code indicating the reason for cleanup.
         /// \param wait_for_press Flag indicating if the program should wait for a key press before exiting.
         void cleanup(int exit_code, bool wait_for_press = false) {
-            if (m_cleanup) return;
-            m_cleanup = true;
+            bool expected = false;
+            if (!m_cleanup.compare_exchange_strong(expected, true)) return;
+
+            m_stopping = true;
+
+#           if !defined(_WIN32) && !defined(_WIN64)
+            PosixTerminationSignalMaskGuard posix_signal_mask_guard;
+#           endif
 
 #           if CONSOLIX_USE_LOGIT == 1
             LOGIT_PRINT_INFO("Cleaning up application for exit code: ", exit_code);
@@ -179,11 +194,11 @@ namespace consolix {
         template <typename IterationAction>
         void lifecycle_loop(IterationAction iteration_action) {
             try {
-                while (!m_stopping) {
+                while (!stop_requested()) {
                     m_manager.process();
                     iteration_action();
                 }
-                cleanup(0);
+                cleanup(resolve_stop_exit_code(0));
             } catch (const std::exception& e) {
                 handle_fatal_exception(e);
             }
@@ -192,10 +207,10 @@ namespace consolix {
         /// \brief The main lifecycle loop.
         void lifecycle_loop() {
             try {
-                while (!m_stopping) {
+                while (!stop_requested()) {
                     m_manager.process();
                 }
-                cleanup(0);
+                cleanup(resolve_stop_exit_code(0));
             } catch (const std::exception& e) {
                 handle_fatal_exception(e);
             }
@@ -255,32 +270,95 @@ namespace consolix {
 
 #       else
 
-        /// \brief Handles a POSIX signal and delegates to signal handler.
+        class PosixTerminationSignalMaskGuard {
+        public:
+            PosixTerminationSignalMaskGuard() {
+                sigemptyset(&m_mask);
+                sigaddset(&m_mask, SIGINT);
+                sigaddset(&m_mask, SIGTERM);
+
+                if (sigprocmask(SIG_BLOCK, &m_mask, &m_old_mask) == 0) {
+                    m_active = true;
+                }
+            }
+
+            ~PosixTerminationSignalMaskGuard() {
+                if (m_active) {
+                    sigprocmask(SIG_SETMASK, &m_old_mask, nullptr);
+                }
+            }
+
+        private:
+            sigset_t m_mask{};
+            sigset_t m_old_mask{};
+            bool     m_active{false};
+        };
+
+        /// \brief Handles a POSIX signal by recording a deferred shutdown request.
         /// \param exit_code POSIX signal code.
         static void signal_handler(int exit_code) {
-            switch (exit_code) {
-            case SIGINT:
-                handle_signal("SIGINT", exit_code);
-                break;
-            case SIGTERM:
-                handle_signal("SIGTERM", exit_code);
-                break;
-            default:
-                handle_signal("UNKNOWN_SIGNAL", exit_code);
-                break;
+            pending_signal_code() = static_cast<std::sig_atomic_t>(exit_code);
+            signal_stop_requested() = 1;
+        }
+
+        /// \brief Resets POSIX signal state before installing handlers.
+        static void reset_signal_state() {
+            pending_signal_code() = 0;
+            signal_stop_requested() = 0;
+        }
+
+        /// \brief Checks whether a POSIX signal requested shutdown and synchronizes the runtime state.
+        bool stop_requested() {
+            if (signal_stop_requested() != 0) {
+                m_stopping = true;
+            }
+            return m_stopping.load();
+        }
+
+        /// \brief Resolves the exit code for the active stop request.
+        int resolve_stop_exit_code(int fallback_exit_code) const {
+            const int pending_exit_code = static_cast<int>(pending_signal_code());
+            if (pending_exit_code != 0) {
+                return pending_exit_code;
+            }
+            return fallback_exit_code;
+        }
+
+        /// \brief Executes cleanup immediately if a stop request is already pending.
+        void cleanup_if_stopping() {
+            if (stop_requested()) {
+                cleanup(resolve_stop_exit_code(0));
             }
         }
 
-        /// \brief Logs and processes a POSIX signal by initiating application cleanup.
-        /// \param signal_name Name of the POSIX signal.
-        /// \param exit_code POSIX signal code.
-        static void handle_signal(const char* signal_name, int exit_code) {
-#           if CONSOLIX_USE_LOGIT == 1
-            LOGIT_PRINT_INFO("POSIX signal received: ", signal_name, ", exit code: ", exit_code);
-#           endif
-            ConsoleApplication::get_instance().shutdown(exit_code);
+        /// \brief Storage for the last requested POSIX shutdown signal.
+        static volatile std::sig_atomic_t& pending_signal_code() {
+            static volatile std::sig_atomic_t value = 0;
+            return value;
         }
 
+        /// \brief Storage for the POSIX stop-request flag.
+        static volatile std::sig_atomic_t& signal_stop_requested() {
+            static volatile std::sig_atomic_t value = 0;
+            return value;
+        }
+
+#       endif
+
+#       if defined(_WIN32) || defined(_WIN64)
+        bool stop_requested() {
+            return m_stopping.load();
+        }
+
+        int resolve_stop_exit_code(int fallback_exit_code) const {
+            return fallback_exit_code;
+        }
+
+        void cleanup_if_stopping() {
+            if (m_stopping) {
+                cleanup(0);
+            }
+        }
 #       endif
 
         ConsoleApplication() = default;

@@ -105,6 +105,54 @@ int main() {
 }
 ```
 
+On POSIX systems, a termination signal only requests shutdown. The `on_shutdown`
+callback above still runs later in the normal application flow rather than inside
+the signal handler.
+
+## Resource Cleanup and Worker Shutdown
+Use `on_shutdown(int)` for controlled shutdown logic such as stopping background
+threads, joining them, and then releasing owned resources:
+
+```cpp
+class ShutdownAndResourcesDemo final : public consolix::BaseLoopComponent {
+public:
+    bool on_once() override {
+        m_resource.reset(new WorkerResource("background-worker"));
+        m_worker = std::thread(&ShutdownAndResourcesDemo::worker_loop, this);
+        return true;
+    }
+
+    void on_loop() override {
+        if (++m_tick_count >= 5) {
+            consolix::stop();
+        }
+    }
+
+    void on_shutdown(int signal) override {
+        m_worker_stop.store(true);
+        if (m_worker.joinable()) {
+            m_worker.join();
+        }
+        m_resource.reset();
+    }
+
+private:
+    std::thread m_worker;
+    std::unique_ptr<WorkerResource> m_resource;
+    std::atomic<bool> m_worker_stop{false};
+    std::atomic<unsigned> m_heartbeats{0};
+    std::atomic<int> m_tick_count{0};
+};
+```
+
+This is the recommended lifecycle pattern in Consolix:
+- do not perform cleanup in the signal handler itself
+- do not detach long-lived worker threads owned by a component
+- request stop first, then `join()`, then release owned resources
+- use `consolix::stop()` for cooperative shutdown from the normal execution path
+
+See `examples/example_shutdown_and_resources.cpp` for the full runnable example.
+
 ## Logging with LogIt
 Use the integrated `LoggerComponent` to manage logging:
 

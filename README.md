@@ -11,17 +11,24 @@
   ░░░░░░░░░   ░░░░░░  ░░░░ ░░░░░ ░░░░░░   ░░░░░░  ░░░░░ ░░░░░ ░░░░░ ░░░░░ 
 ```
 
-Consolix is a `header-only` C++ library for building console applications around reusable components, a service locator, and a small set of utility modules.
+Consolix is a `header-only` C++ library for building structured console applications around reusable components, a service locator, and a focused set of utility modules.
 
-## Highlights
+## Overview
+
+Consolix is designed for console applications that need more structure than a single `main.cpp`, but still want a lightweight, easy-to-integrate setup.
+
+It provides a component-based application model, shared services, path and JSON helpers, and optional integrations for logging, CLI parsing, and configuration loading. The goal is to make console apps easier to assemble, extend, and maintain without introducing a heavy runtime framework.
+
+## Capabilities
 
 - `header-only` delivery with an official `Consolix::Consolix` CMake `INTERFACE` target
-- aggregate-first public entry headers:
+- component-based application architecture for logging, configuration, titles, logos, and execution loops
+- aggregate-first public entry headers for normal consumption:
   - `#include <consolix/consolix.hpp>`
   - `#include <consolix/core.hpp>`
   - `#include <consolix/components.hpp>`
   - `#include <consolix/utils.hpp>`
-- intended standalone utility leaves:
+- intended standalone utility leaves for focused direct includes:
   - `#include <consolix/utils/json_utils.hpp>`
   - `#include <consolix/utils/path_utils.hpp>`
   - `#include <consolix/utils/enums.hpp>`
@@ -31,6 +38,20 @@ Consolix is a `header-only` C++ library for building console applications around
   - [LogIt](https://github.com/NewYaroslav/log-it-cpp)
   - [cxxopts](https://github.com/jarro2783/cxxopts)
   - [nlohmann/json](https://github.com/nlohmann/json)
+
+## Quick Start
+
+For most projects, the fastest way to start is:
+
+1. Add Consolix to your project and make `include/` available to the compiler.
+2. Define only the feature macros you actually need.
+3. Include one of the aggregate entry headers, usually:
+
+```cpp
+#include <consolix/consolix.hpp>
+```
+
+If you use CMake, the preferred consumer path is `Consolix::Consolix`. If you need more detail about include layout, feature flags, or build setup, the next sections cover those contracts explicitly.
 
 ## Include Model
 
@@ -141,5 +162,6 @@ Additional repository guidance:
 
 - developer guidelines: `docs/header-implementation-guidelines.md`
 - agent playbook: `agents/header-implementation-guidelines.md`
+- lifecycle example: `examples/example_shutdown_and_resources.cpp`
 
 API documentation: https://newyaroslav.github.io/Consolix/

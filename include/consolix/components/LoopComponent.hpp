@@ -20,7 +20,7 @@ namespace consolix {
     /// It supports three customizable functions:
     /// - `on_initialize`: Called once during initialization.
     /// - `on_execute`: Called repeatedly while the loop is running.
-    /// - `on_shutdown`: Called during shutdown.
+    /// - `on_shutdown`: Called during shutdown from the normal application path.
     class LoopComponent :
         public IAppComponent,
         public IShutdownable  {
@@ -108,6 +108,7 @@ namespace consolix {
         }
 
         /// \brief Shuts down the component.
+        /// This callback runs outside the POSIX signal handler even when a signal initiated shutdown.
         /// \param signal The shutdown signal.
         void shutdown(int signal) override {
             try {

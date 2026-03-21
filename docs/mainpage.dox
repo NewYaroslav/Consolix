@@ -11,37 +11,54 @@ Version: VERSION_PLACEHOLDER
 ░███         ░███ ░███ ░███ ░███ ░░█████ ░███ ░███ ░███  ░███  ░░░█████░  
 ░░███     ███░███ ░███ ░███ ░███  ░░░░███░███ ░███ ░███  ░███   ███░░░███ 
  ░░█████████ ░░██████  ████ █████ ██████ ░░██████  █████ █████ █████ █████
-  ░░░░░░░░░   ░░░░░░  ░░░░ ░░░░░ ░░░░░░   ░░░░░░  ░░░░░ ░░░░░ ░░░░░ ░░░░░  
+  ░░░░░░░░░   ░░░░░░  ░░░░ ░░░░░ ░░░░░░   ░░░░░░  ░░░░░ ░░░░░ ░░░░░ ░░░░░ 
 ```
 
-Welcome to the **Consolix Framework**, a versatile library designed to streamline the development of console-based applications. 
-Consolix provides core utilities, components, and abstractions that make building robust, maintainable applications faster and easier.
+Welcome to the **Consolix Framework**, a `header-only` C++ library for structured console applications built around reusable components, a service locator, and a focused set of utility modules.
 
-## Features
-- **Component-Based Architecture:** Modular design with reusable components like logging, configuration management, and CLI parsing.
-- **Service Locator:** A flexible mechanism for global service registration and retrieval.
-- **Customizable Execution Loops:** Support for structured loops to suit a wide variety of application needs.
-- **Enhanced Logging:** Powered by LogIt, including console and file-based loggers.
-- **JSON Support with Comments:** Easily load and manage JSON configurations with comment support.
-- **Cross-Platform:** Seamlessly runs on Windows and POSIX-compatible systems. (For POSIX not fully tested)
+## Overview
+
+Consolix is designed for console applications that need more structure than a single source file, but do not want the weight of a large framework.
+
+It helps organize application startup, shared services, logging, CLI parsing, configuration loading, and common utility tasks so console applications remain easier to grow and maintain.
+
+## Capabilities
+
+- **Header-only delivery** with an official `Consolix::Consolix` CMake `INTERFACE` target
+- **Component-Based Architecture** for logging, configuration management, console titles, logos, and application loops
+- **Aggregate-first public entry headers** for normal consumer code
+- **Intended standalone utility leaves** for focused direct includes
+- **Compatibility with C++11, C++14, and C++17**
+- **Optional integrations** with LogIt, cxxopts, and nlohmann/json
 
 ## Key Modules
+
 - **Core**:
-  - ServiceLocator for global resource management.
-  - Utilities for path handling, JSON processing, and more.
-  - Application lifecycle management via AppComponentManager and ConsoleApplication.
+  - `ServiceLocator` for global resource management
+  - `AppComponentManager` and `ConsoleApplication` for application lifecycle
+  - service and application helpers for common setup flows
 
 - **Components**:
-  - `TitleComponent`: Manages the console window title. 
-  - `LoggerComponent`: Centralized logging for console and file output.
-  - `CliComponent`: Simplifies command-line argument handling.
-  - `ConfigComponent`: Loads configuration from JSON files with support for comments.
-  - `LogoComponent`: Displays a custom ASCII logo in the console.
-  - `LoopComponent`: Implements customizable application loops.
+  - `TitleComponent`: manages the console window title
+  - `LoggerComponent`: centralized logging for console and file output
+  - `CliComponent`: command-line argument handling
+  - `ConfigComponent`: JSON-based configuration with comment support
+  - `LogoComponent`: displays a custom ASCII logo in the console
+  - `LoopComponent`: customizable application loops
 
 - **Utilities**:
-  - `path_utils.hpp`: Tools for file and directory path management.
-  - `json_utils.hpp`: Helpers for parsing and cleaning JSON strings.
+  - `path_utils.hpp`: path and executable-location helpers
+  - `json_utils.hpp`: helpers for parsing and cleaning JSON strings
+  - additional helpers for colors, encoding, system info, and common types
+
+## Quick Start
+
+For most projects, the shortest path is:
+
+1. Add Consolix headers to your project.
+2. Enable only the optional integrations you need.
+3. Include an aggregate entry header such as `#include <consolix/consolix.hpp>`.
+4. If you use CMake, link against `Consolix::Consolix`.
 
 ## Example Usage
 
@@ -72,14 +89,14 @@ int main(int argc, char* argv[]) {
 
 ## Documentation Structure
 
-### Main Sections:
+### Main Sections
 1. **General Guidance**
-    - [Installation and Configuration](\ref setup)
-    - [Usage Examples](\ref examples_page)
+   - [Installation and Configuration](\ref setup)
+   - [Usage Examples](\ref examples_page)
 
 2. **Modules and Components**
-    - [Core Modules](\ref Core)
-    - [Components](\ref Components)
+   - [Core Modules](\ref Core)
+   - [Components](\ref Components)
 
 3. **Utilities**
    - [Path Utilities](\ref path_utils)
@@ -88,14 +105,15 @@ int main(int argc, char* argv[]) {
    - [Common Types and Enumerations](\ref common_types)
 
 4. **Project Overview**
-    - [Project Structure](\ref project_structure)
+   - [Project Structure](\ref project_structure)
 
-### Structure:
-- **Core** — foundational classes and utilities.
-- **Components** — modules implementing key application features.
-- **Utilities** — helper functions and modules.
-- **Interfaces** — interface classes defining the architecture of components.
+### Structure
+- **Core** — foundational classes and utilities
+- **Components** — modules implementing key application features
+- **Utilities** — helper functions and reusable support modules
+- **Interfaces** — interface classes defining component contracts
 
 ## License
+
 Consolix is distributed under the MIT License. For details, see the LICENSE file.
 */

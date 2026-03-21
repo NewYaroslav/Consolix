@@ -11,12 +11,19 @@
   ░░░░░░░░░   ░░░░░░  ░░░░ ░░░░░ ░░░░░░   ░░░░░░  ░░░░░ ░░░░░ ░░░░░ ░░░░░ 
 ```
 
-Consolix — это `header-only` библиотека C++ для консольных приложений с компонентной моделью, service locator и набором утилит.
+Consolix — это `header-only` библиотека C++ для структурированных консольных приложений с компонентной моделью, service locator и набором прикладных утилит.
 
-## Основное
+## Обзор
+
+Consolix рассчитан на консольные приложения, которым уже тесно в одном `main.cpp`, но при этом не нужен тяжёлый runtime-framework.
+
+Библиотека даёт компонентную сборку приложения, общие сервисы, утилиты для путей и JSON, а также опциональные интеграции для логирования, CLI-парсинга и конфигурации. Идея в том, чтобы быстрее собирать, расширять и поддерживать консольные приложения без лишней инфраструктуры.
+
+## Возможности
 
 - поставляется как `header-only`
 - в CMake экспортируется как `Consolix::Consolix` через `INTERFACE` target
+- компонентная архитектура для логирования, конфигурации, заголовка окна, логотипа и execution loop
 - основные публичные точки входа:
   - `#include <consolix/consolix.hpp>`
   - `#include <consolix/core.hpp>`
@@ -33,9 +40,25 @@ Consolix — это `header-only` библиотека C++ для консоль
   - [cxxopts](https://github.com/jarro2783/cxxopts)
   - [nlohmann/json](https://github.com/nlohmann/json)
 
-## Модель подключений
+## Быстрый старт
 
-Consolix спроектирован в aggregate-first стиле. Для обычного использования предпочитайте агрегирующие заголовки:
+Для большинства проектов самый короткий путь такой:
+
+1. Подключить Consolix к проекту и сделать `include/` доступным для компилятора.
+2. Включить только те feature macros, которые действительно нужны.
+3. Подключить агрегирующий entry header, обычно:
+
+```cpp
+#include <consolix/consolix.hpp>
+```
+
+Если используется CMake, предпочтительный consumer path — `Consolix::Consolix`. Более точные правила по include-модели, feature flags и build setup приведены ниже.
+
+## Include Model
+
+Consolix спроектирован в aggregate-first стиле.
+
+Для обычного использования предпочитайте:
 
 ```cpp
 #include <consolix/consolix.hpp>
@@ -60,7 +83,7 @@ Consolix спроектирован в aggregate-first стиле. Для обы
 
 Остальные внутренние leaf headers следует считать деталями реализации aggregate entry points, если документация явно не говорит обратное.
 
-## Макросы возможностей
+## Feature Macros
 
 Все опциональные зависимости по умолчанию выключены:
 
@@ -95,7 +118,7 @@ target_link_libraries(my_app PRIVATE Consolix::Consolix)
 
 Для GNU toolchains в режимах `C++11` и `C++14` target автоматически добавляет `stdc++fs`, если нужен experimental filesystem.
 
-## Короткий пример
+## Example
 
 ```cpp
 #define CONSOLIX_USE_LOGIT   1
@@ -134,8 +157,9 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-## Документация
+## Documentation
 
 - developer guidelines: `docs/header-implementation-guidelines.md`
 - agent playbook: `agents/header-implementation-guidelines.md`
+- lifecycle example: `examples/example_shutdown_and_resources.cpp`
 - API docs: https://newyaroslav.github.io/Consolix/

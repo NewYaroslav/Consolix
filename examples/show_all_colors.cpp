@@ -47,7 +47,7 @@ public:
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 
-    /// \brief Called during application shutdown.
+    /// \brief Called during application shutdown after a stop request or termination signal.
     /// \param signal The shutdown signal.
     void on_shutdown(int signal) override {
         CONSOLIX_STREAM() << "Application is shutting down. Received signal: " << signal;
