@@ -76,7 +76,7 @@ public:
     }
 }; // CustomLoop
 
-int main(int /*argc*/, char* /*argv*/[]) {
+int main(int argc, char* argv[]) {
     // Set the console title to the application name
     consolix::add<consolix::TitleComponent>(u8"Consolix - консольное приложение");
 
@@ -95,7 +95,9 @@ int main(int /*argc*/, char* /*argv*/[]) {
         ("p,period", "Period in milliseconds", cxxopts::value<int>()->default_value("10"))
         ("h,help", "Show help message");
         options.allow_unrecognised_options();
-    });
+    },
+    argc,
+    argv);
 
     // Add logo component to display the application logo at startup.
     consolix::add<consolix::LogoComponent>(consolix::TextColor::Yellow);

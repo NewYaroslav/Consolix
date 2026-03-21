@@ -10,6 +10,7 @@
 /// On Windows, it converts UTF-8 strings to CP866 for compatibility with legacy console encoding,
 /// while on Linux/macOS, it directly outputs UTF-8 strings with ANSI color codes.
 
+#include <iostream>
 #include <sstream>
 
 namespace consolix {

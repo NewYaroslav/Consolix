@@ -5,6 +5,8 @@
 /// \file enums.hpp
 /// \brief Contains enumerations and utility functions for text colors.
 
+#include "../core/platform_includes.hpp"
+
 #include <array>
 
 namespace consolix {

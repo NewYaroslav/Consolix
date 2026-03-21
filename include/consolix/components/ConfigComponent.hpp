@@ -8,7 +8,11 @@
 
 #if CONSOLIX_USE_JSON == 1
 
+#include <atomic>
 #include <fstream>
+#include <mutex>
+#include <string>
+
 #include <nlohmann/json.hpp>
 
 namespace consolix {
@@ -42,12 +46,11 @@ namespace consolix {
         /// \brief Initializes the component.
         /// \return `true` if initialization succeeds, `false` otherwise.
         bool initialize() override {
-            if (!has_service<CliOptions>()) {
-                load_config();
-                m_is_init = true;
-                return true;
+#           if CONSOLIX_USE_CXXOPTS == 1
+            if (has_service<CliOptions>() && !has_service<CliArguments>()) {
+                return false;
             }
-            if (!has_service<CliArguments>()) return false;
+#           endif
             load_config();
             m_is_init = true;
             return true;
@@ -101,11 +104,7 @@ namespace consolix {
                 nlohmann::json json_data = nlohmann::json::parse(json_content);
 
                 m_config_data = json_data.get<ConfigType>();
-
-                // Register the configuration in the ServiceLocator
-                register_service<ConfigType>([this]() {
-                    return std::make_shared<ConfigType>(m_config_data);
-                });
+                store_config_service();
             } catch (const std::exception& e) {
 #               if CONSOLIX_USE_LOGIT == 1
                 LOGIT_PRINT_ERROR("Failed to parse config file: ", e.what());
@@ -121,24 +120,29 @@ namespace consolix {
         /// \return The resolved file path.
         std::string resolve_file_path() {
             std::string config_path = m_default_file;
-            try {
-                // Check if CLI arguments are available
-                auto args = get_service<CliArguments>();
+            
+#           if CONSOLIX_USE_CXXOPTS == 1
+            if (has_service<CliArguments>()) {
+                auto& args = get_service<CliArguments>();
                 if (args.count(m_cli_flag)) {
-                    config_path = args[m_cli_flag].as<std::string>();
+                    config_path = args[m_cli_flag].template as<std::string>();
                 }
-#               if defined(_WIN32) || defined(_WIN64)
-                return get_exec_dir() + "\\" + config_path;
-#               else
-                return get_exec_dir() + "/" + config_path;
-#               endif
-            } catch (...) {
-#               if defined(_WIN32) || defined(_WIN64)
-                return get_exec_dir() + "\\" + m_default_file;
-#               else
-                return get_exec_dir() + "/" + m_default_file;
-#               endif
             }
+#           endif
+
+            return resolve_exec_path(config_path);
+        }
+
+        /// \brief Stores or updates the configuration service.
+        void store_config_service() {
+            if (has_service<ConfigType>()) {
+                get_service<ConfigType>() = m_config_data;
+                return;
+            }
+
+            register_service<ConfigType>([this]() {
+                return std::make_shared<ConfigType>(m_config_data);
+            });
         }
     };
 

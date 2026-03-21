@@ -34,7 +34,7 @@
 ///     CONSOLIX_STREAM() << consolix::color(consolix::TextColor::Green) << "Hello, Consolix!" << std::endl;
 ///
 ///     // Example of working with paths
-///     std::string exe_dir = consolix::resolve_executable_path();
+///     std::string exe_dir = consolix::resolve_exec_path(".");
 ///     CONSOLIX_STREAM() << "Executable Directory: " << exe_dir << std::endl;
 ///
 ///     // Example of stripping comments from a JSON string

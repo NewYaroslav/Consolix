@@ -31,9 +31,7 @@ namespace consolix {
                 const std::string& description,
                 std::function<void(CliOptions&)> creator)
             : m_creator(std::move(creator)) {
-            register_service<CliOptions>([&name, &description]() {
-                return std::make_shared<CliOptions>(name, description);
-            });
+            register_options_service(name, description);
         }
 
         /// \brief Constructs a `CliComponent` with pre-parsed arguments.
@@ -49,13 +47,25 @@ namespace consolix {
                 int argc,
                 const char* argv[])
             : m_creator(std::move(creator)) {
-            register_service<CliOptions>([&name, &description](){
-                return std::make_shared<CliOptions>(name, description);
-            });
-            m_argc = argc;
-            for (int i = 0; i < argc; ++i) {
-                m_argv_c.push_back(argv[i]);
-            }
+            register_options_service(name, description);
+            store_argv(argc, argv);
+        }
+
+        /// \brief Constructs a `CliComponent` with pre-parsed arguments from a standard `main` signature.
+        /// \param name Name displayed in `--help` (does not affect the actual program name).
+        /// \param description Brief description displayed in the help message.
+        /// \param creator A function to initialize command-line options.
+        /// \param argc The number of command-line arguments.
+        /// \param argv The command-line argument values.
+        CliComponent(
+                const std::string& name,
+                const std::string& description,
+                std::function<void(CliOptions&)> creator,
+                int argc,
+                char* argv[])
+            : m_creator(std::move(creator)) {
+            register_options_service(name, description);
+            store_argv(argc, argv);
         }
 
         /// \brief Adds a command-line option without a default value.
@@ -166,6 +176,22 @@ namespace consolix {
         std::vector<const char*> m_argv_c;          ///< A copy of command-line arguments in `const char*` format, compatible with cxxopts.
         std::function<void(CliOptions&)> m_creator; ///< A function to initialize and configure command-line options.
         std::atomic<bool> m_is_init{false};         ///< Initialization flag. `true` if the component is successfully initialized.
+
+        /// \brief Registers the shared CLI options service.
+        void register_options_service(const std::string& name, const std::string& description) {
+            register_service<CliOptions>([&name, &description]() {
+                return std::make_shared<CliOptions>(name, description);
+            });
+        }
+
+        /// \brief Stores argv entries in a stable `const char*` view.
+        template <typename ArgvEntry>
+        void store_argv(int argc, ArgvEntry argv[]) {
+            m_argc = argc;
+            for (int i = 0; i < argc; ++i) {
+                m_argv_c.push_back(argv[i]);
+            }
+        }
 
 #       if defined(_WIN32) || defined(_WIN64)
         /// \brief Parse arguments using Windows API.

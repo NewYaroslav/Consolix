@@ -11,133 +11,135 @@
   ░░░░░░░░░   ░░░░░░  ░░░░ ░░░░░ ░░░░░░   ░░░░░░  ░░░░░ ░░░░░ ░░░░░ ░░░░░ 
 ```
 
-**Consolix** is a `header-only` C++ library providing components and utilities for developing console applications.
+Consolix is a `header-only` C++ library for building console applications around reusable components, a service locator, and a small set of utility modules.
 
-## Features
+## Highlights
 
-- **Component-based architecture:** Easy-to-integrate modules like logging, configuration management, and command-line argument parsing.
-- **Global Service Locator:** A convenient mechanism for dependency and service management.
-- **UTF-8 support:**
-	- The program title (`TitleComponent`) supports `UTF-8` text, with automatic conversion to `UTF-16` on Windows and the use of `ANSI escape` sequences on POSIX systems.
-	- Console output (`LoggerComponent`) supports `UTF-8` with automatic conversion to `CP866` on Windows for compatibility with legacy encodings.
-- **Customizable execution loops:** Support for structured loops to execute user-defined tasks.
-- **Advanced logging:** Integration with [LogIt](https://github.com/NewYaroslav/log-it-cpp).
-- **JSON with comments support:** Load JSON configurations with comments using [nlohmann/json](https://github.com/nlohmann/json).
-- **Cross-Platform:** Works on Windows and POSIX-compatible systems. *(POSIX is not fully tested)*.
-- **C++17 Compatibility:** Requires a C++17-compliant compiler (GCC 7.1+, Clang 5.0+, MSVC 15.3+).
+- `header-only` delivery with an official `Consolix::Consolix` CMake `INTERFACE` target
+- aggregate-first public entry headers:
+  - `#include <consolix/consolix.hpp>`
+  - `#include <consolix/core.hpp>`
+  - `#include <consolix/components.hpp>`
+  - `#include <consolix/utils.hpp>`
+- intended standalone utility leaves:
+  - `#include <consolix/utils/json_utils.hpp>`
+  - `#include <consolix/utils/path_utils.hpp>`
+  - `#include <consolix/utils/enums.hpp>`
+  - `#include <consolix/utils/types.hpp>`
+- compatibility with `C++11`, `C++14`, and `C++17`
+- optional integration with:
+  - [LogIt](https://github.com/NewYaroslav/log-it-cpp)
+  - [cxxopts](https://github.com/jarro2783/cxxopts)
+  - [nlohmann/json](https://github.com/nlohmann/json)
 
-## Installation
+## Include Model
 
-**Consolix** is a `header-only` library. To start using it, simply add it to your project:
+Consolix is designed primarily around aggregate entry headers.
 
-1. Download or clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/Consolix.git
-   ```
-   
-2. Add the path to the include files in your project configuration:
-   ```
-   Consolix/include
-   ```
-
-3. Include the header in your code:
-   ```cpp
-   #include <consolix/consolix.hpp>
-   ```
-
-### Dependencies
-
-Consolix supports integration with external libraries via macros that can be enabled or disabled as needed:
-
-- **LogIt** (enabled with `CONSOLIX_USE_LOGIT 1`):
-    - Used for logging.
-    - [LogIt GitHub Repository](https://github.com/NewYaroslav/log-it-cpp.git).
-    - Depends on [time-shield](https://github.com/NewYaroslav/time-shield-cpp.git).
-    - Both are *header-only* libraries, so adding their headers to your project is sufficient.
-- **cxxopts** (enabled with `CONSOLIX_USE_CXXOPTS 1`):
-    - Used for command-line argument parsing.
-    - [cxxopts GitHub Repository](https://github.com/jarro2783/cxxopts.git).
-    - A *header-only* library.
-- **nlohmann/json** (enabled with `CONSOLIX_USE_JSON 1`):
-    - Used for JSON parsing, including support for comments.
-    - [nlohmann/json GitHub Repository](https://github.com/nlohmann/json.git).
-    - A *header-only* library.
-
-To specify which dependencies to use, define the respective macros before including Consolix:
+For normal consumer code, prefer:
 
 ```cpp
-// Disable LogIt and cxxopts, but enable nlohmann/json
+#include <consolix/consolix.hpp>
+```
+
+or one of the module-level entry headers:
+
+```cpp
+#include <consolix/core.hpp>
+#include <consolix/components.hpp>
+#include <consolix/utils.hpp>
+```
+
+The utility leaf headers below are also supported as direct includes:
+
+```cpp
+#include <consolix/utils/json_utils.hpp>
+#include <consolix/utils/path_utils.hpp>
+#include <consolix/utils/enums.hpp>
+#include <consolix/utils/types.hpp>
+```
+
+Other internal leaf headers should be treated as implementation details of the aggregate entry points unless the documentation says otherwise.
+
+## Feature Macros
+
+All optional integrations are disabled by default.
+
+```cpp
 #define CONSOLIX_USE_LOGIT   0
 #define CONSOLIX_USE_CXXOPTS 0
-#define CONSOLIX_USE_JSON    1
+#define CONSOLIX_USE_JSON    0
 
 #include <consolix/consolix.hpp>
 ```
 
-To include dependencies, add their header paths to your project:
+Enable only the features you need before including Consolix headers.
 
-```
-log-it-cpp/include
-time-shield-cpp/include
-cxxopts/include
-nlohmann-json/include
+## CMake
+
+```cmake
+cmake_minimum_required(VERSION 3.14)
+project(MyApp LANGUAGES CXX)
+
+set(CONSOLIX_CXX_STANDARD 17 CACHE STRING "")
+set(CONSOLIX_USE_LOGIT ON CACHE BOOL "")
+set(CONSOLIX_USE_CXXOPTS ON CACHE BOOL "")
+set(CONSOLIX_USE_JSON ON CACHE BOOL "")
+
+add_subdirectory(path/to/Consolix)
+
+add_executable(my_app main.cpp)
+target_link_libraries(my_app PRIVATE Consolix::Consolix)
 ```
 
-## Example Usage
+Supported values for `CONSOLIX_CXX_STANDARD` are `11`, `14`, and `17`.
+
+On GNU toolchains, `Consolix::Consolix` links `stdc++fs` automatically for `C++11` and `C++14` builds that use experimental filesystem support.
+
+## Example
 
 ```cpp
-#include <consolix/components.hpp>
+#define CONSOLIX_USE_LOGIT   1
+#define CONSOLIX_USE_CXXOPTS 1
+#define CONSOLIX_USE_JSON    1
+
+#include <consolix/core.hpp>
+
+struct AppConfig {
+    std::string text;
+    std::vector<std::string> items;
+    int period;
+    bool debug_mode;
+
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(AppConfig, text, items, period, debug_mode)
+};
 
 int main(int argc, char* argv[]) {
-    // Set the console title to the application name
-    consolix::add<consolix::TitleComponent>(u8"Consolix - консольное приложение");
-    
-    // Add logging functionality
+    consolix::add<consolix::TitleComponent>("Consolix demo");
     consolix::add<consolix::LoggerComponent>();
+    consolix::add<consolix::CliComponent>(
+        "Consolix",
+        "Example application",
+        [](consolix::CliOptions& options) {
+            options.add_options()
+                ("c,config", "Path to the configuration file", cxxopts::value<std::string>())
+                ("d,debug", "Enable debug mode", cxxopts::value<bool>()->default_value("false"));
+        },
+        argc,
+        argv);
+    consolix::add<consolix::ConfigComponent<AppConfig>>("config.json", "config");
 
-    // Display an ASCII logo in the console
-    consolix::add<consolix::LogoComponent>(consolix::TextColor::DarkYellow);
-
-    // Handle command-line arguments
-    consolix::add<consolix::CliComponent>("MyApp", "Program description", [](auto& options) {
-        options.add_options()("debug", "Enable debug mode");
-    }, argc, argv);
-
-    // Load configuration from a JSON file
-    consolix::add<consolix::ConfigComponent<MyConfig>>("config.json");
-
-    // Execute the main loop
     consolix::run([]() {
-        CONSOLIX_STREAM() << "Executing main loop...";
+        CONSOLIX_STREAM() << "Running...";
     });
-
-    return 0;
 }
 ```
 
-## Modules
-
-### Core Modules
-- **ServiceLocator:** Manage global services.
-- **ConsoleApplication:** Framework for managing console applications.
-
-### Components
-- **TitleComponent:** Manages the console window title. Supports UTF-8. 
-- **LoggerComponent:** Centralized logging. Supports UTF-8 with conversion to CP866.
-- **CliComponent:** Simplified command-line argument handling.
-- **ConfigComponent:** Work with JSON configurations, including comments.
-- **LogoComponent:** Render ASCII logos.
-- **LoopComponent:** Support for user-defined execution loops.
-
-### Utilities
-- **path_utils.hpp:** Work with file and directory paths.
-- **json_utils.hpp:** Remove comments and handle JSON data.
-- **ColorManipulator.hpp:** Style console text output.
-
 ## Documentation
 
-The complete documentation is available [here](https://newyaroslav.github.io/Consolix/). It includes installation instructions, module descriptions, usage examples, and more.
+Additional repository guidance:
 
-## License
+- developer guidelines: `docs/header-implementation-guidelines.md`
+- agent playbook: `agents/header-implementation-guidelines.md`
 
-Consolix is distributed under the MIT License. See the LICENSE file for details.
+API documentation: https://newyaroslav.github.io/Consolix/

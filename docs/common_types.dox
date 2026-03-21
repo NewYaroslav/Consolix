@@ -3,32 +3,39 @@
 
 # Common Types and Enumerations
 
-This module provides commonly used type definitions and enumerations
-that are shared across various parts of the Consolix framework.
+The utilities below are intended to be safe direct includes:
 
-## Key Enumerations:
-- `consolix::TextColor`: Defines the available text colors for console output.
+- `#include <consolix/utils/enums.hpp>`
+- `#include <consolix/utils/types.hpp>`
 
-## Key Types:
-- `consolix::CliOptions`: Alias for `cxxopts::Options` (available when `CONSOLIX_USE_CXXOPTS == 1`).
-- `consolix::CliArguments`: Alias for `cxxopts::ParseResult` (available when `CONSOLIX_USE_CXXOPTS == 1`).
+## Enumerations
 
-## Example:
+- `consolix::TextColor`: text colors for console output
+
+## Type Aliases
+
+When `CONSOLIX_USE_CXXOPTS == 1`:
+
+- `consolix::CliOptions`: alias for `cxxopts::Options`
+- `consolix::CliArguments`: alias for `cxxopts::ParseResult`
+
+## Example
+
 ```cpp
+#define CONSOLIX_USE_CXXOPTS 1
+
 #include <consolix/utils/enums.hpp>
 #include <consolix/utils/types.hpp>
 
 int main() {
     consolix::TextColor color = consolix::TextColor::Blue;
-    std::cout << "Color set to: " << static_cast<int>(color) << std::endl;
 
 #if CONSOLIX_USE_CXXOPTS == 1
-    consolix::CliOptions options("MyApp");
+    consolix::CliOptions options("MyApp", "Example");
     options.add_options()("help", "Show help");
-    std::cout << "CLI options configured." << std::endl;
 #endif
 
-    return 0;
+    return static_cast<int>(color);
 }
 ```
 */

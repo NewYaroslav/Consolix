@@ -10,12 +10,13 @@
 #include <LogIt.hpp>
 #endif
 
+#include "std_compat.hpp"
+
 #include <unordered_map>
 #include <functional>
 #include <memory>
 #include <typeindex>
 #include <stdexcept>
-#include <shared_mutex>
 #include <mutex>
 
 namespace consolix {
@@ -41,7 +42,9 @@ namespace consolix {
         /// \throws `std::runtime_error` if the resource is already registered.
         template <typename T>
         void register_service(std::function<std::shared_ptr<T>()> creator) {
-            std::unique_lock<std::shared_mutex> lock(m_mutex);
+            std::shared_ptr<T> service = creator();
+
+            std::unique_lock<compat::shared_mutex> lock(m_mutex);
             const auto type = std::type_index(typeid(T));
             if (m_services.find(type) != m_services.end()) {
 #               if CONSOLIX_USE_LOGIT == 1
@@ -49,10 +52,7 @@ namespace consolix {
 #               endif
                 throw std::runtime_error("Service already registered: " + std::string(typeid(T).name()));
             }
-            lock.unlock();
-            auto ptr = creator();
-            lock.lock();
-            m_services[type] = std::move(ptr);
+            m_services[type] = std::move(service);
         }
 
         /// \brief Registers a resource with default construction.
@@ -60,7 +60,7 @@ namespace consolix {
         /// \throws `std::runtime_error` if the resource is already registered.
         template <typename T>
         void register_service() {
-            std::unique_lock<std::shared_mutex> lock(m_mutex);
+            std::unique_lock<compat::shared_mutex> lock(m_mutex);
             const auto type = std::type_index(typeid(T));
             if (m_services.find(type) != m_services.end()) {
 #               if CONSOLIX_USE_LOGIT == 1
@@ -77,7 +77,7 @@ namespace consolix {
         /// \throws `std::runtime_error` if the resource is not registered.
         template <typename T>
         T& get_service() {
-            std::shared_lock<std::shared_mutex> lock(m_mutex);
+            compat::shared_lock<compat::shared_mutex> lock(m_mutex);
             const auto type = std::type_index(typeid(T));
             auto it = m_services.find(type);
             if (it == m_services.end()) {
@@ -94,14 +94,14 @@ namespace consolix {
         /// \return `true` if the resource is registered, `false` otherwise.
         template <typename T>
         bool has_service() {
-            std::shared_lock<std::shared_mutex> lock(m_mutex);
+            compat::shared_lock<compat::shared_mutex> lock(m_mutex);
             const auto type_id = std::type_index(typeid(T));
             return m_services.find(type_id) != m_services.end();
         }
 
         /// \brief Clears all registered resources.
         void clear_all() {
-            std::unique_lock<std::shared_mutex> lock(m_mutex);
+            std::unique_lock<compat::shared_mutex> lock(m_mutex);
             m_services.clear();
         }
 
@@ -109,7 +109,7 @@ namespace consolix {
         std::unordered_map<
             std::type_index,
             std::shared_ptr<void>> m_services; ///< Registered services.
-        std::shared_mutex          m_mutex;    ///< Mutex for thread-safe access.
+        compat::shared_mutex       m_mutex;    ///< Mutex for thread-safe access.
 
         ServiceLocator() = default;
         ~ServiceLocator() = default;

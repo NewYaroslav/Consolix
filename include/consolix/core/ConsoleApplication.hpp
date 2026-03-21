@@ -7,6 +7,8 @@
 /// \ingroup Core
 
 #include <csignal>
+#include <cstdlib>
+#include <iostream>
 
 namespace consolix {
 
@@ -276,7 +278,7 @@ namespace consolix {
 #           if CONSOLIX_USE_LOGIT == 1
             LOGIT_PRINT_INFO("POSIX signal received: ", signal_name, ", exit code: ", exit_code);
 #           endif
-            ConsoleApplication::get_instance().cleanup(exit_code);
+            ConsoleApplication::get_instance().shutdown(exit_code);
         }
 
 #       endif

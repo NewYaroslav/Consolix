@@ -144,6 +144,7 @@ namespace consolix {
         /// \brief Initializes the logging component.
         /// \return `true` if initialization is successful, `false` otherwise.
         bool initialize() override {
+#           if CONSOLIX_USE_CXXOPTS == 1
             if (!has_service<CliOptions>()) {
                 m_is_init = true;
                 return true;
@@ -153,6 +154,7 @@ namespace consolix {
             if (args.count("debug") || args.count("d")) {
                 CONSOLIX_SET_DEBUG_MODE(true);
             }
+#           endif
             m_is_init = true;
             return true;
         }

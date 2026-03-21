@@ -3,47 +3,54 @@
 
 # Installation and Configuration
 
-Consolix is a header-only library, meaning no compilation or building is required. 
-To use the library, simply add it to your project and configure the paths to the header files.
+Consolix is a `header-only` library. The recommended consumption model is through the aggregate entry headers:
 
-## Steps for Configuration:
+- `#include <consolix/consolix.hpp>`
+- `#include <consolix/core.hpp>`
+- `#include <consolix/components.hpp>`
+- `#include <consolix/utils.hpp>`
 
-1. **Download Consolix**
-   - Place the `Consolix` folder in your project directory.
+The utility headers below are also intended to work as standalone direct includes:
 
-2. **Add paths to header files**
-   - Set the path `Consolix/include` in your compiler settings.
+- `consolix/utils/json_utils.hpp`
+- `consolix/utils/path_utils.hpp`
+- `consolix/utils/enums.hpp`
+- `consolix/utils/types.hpp`
 
-3. **Include Consolix headers**
-   - Include the main library using:
-     ```cpp
-     #include <consolix/consolix.hpp>
-     ```
-   - This header includes all necessary "Entry point" files required for Consolix.
+## Supported Standards
 
-## Managing Dependencies
-Consolix supports integration with external libraries through macros.
-You can enable or disable dependencies by defining the respective macros before including Consolix:
+Consolix supports `C++11`, `C++14`, and `C++17`.
 
-### Available Macros:
-| Macro                     | Description                                  | Default Value |
-|---------------------------|----------------------------------------------|---------------|
-| `CONSOLIX_USE_LOGIT`      | Enables the use of the LogIt library         | `1`           |
-| `CONSOLIX_USE_CXXOPTS`    | Enables the use of the cxxopts library       | `1`           |
-| `CONSOLIX_USE_JSON`       | Enables the use of nlohmann/json library     | `1`           |
+## Feature Macros
 
-### Configuration Example:
+Optional integrations are disabled by default.
+
+| Macro | Description | Default |
+|---|---|---|
+| `CONSOLIX_USE_LOGIT` | Enables LogIt integration | `0` |
+| `CONSOLIX_USE_CXXOPTS` | Enables cxxopts integration | `0` |
+| `CONSOLIX_USE_JSON` | Enables nlohmann/json integration | `0` |
+
+## Configuration Example
+
 ```cpp
-// Disable LogIt and JSON, but use cxxopts
-#define CONSOLIX_USE_LOGIT 0
-#define CONSOLIX_USE_JSON 0
+#define CONSOLIX_USE_LOGIT   0
 #define CONSOLIX_USE_CXXOPTS 1
+#define CONSOLIX_USE_JSON    1
 
 #include <consolix/consolix.hpp>
 ```
 
-## Included Dependencies
-- [LogIt](https://github.com/NewYaroslav/log-it-cpp) — for logging management.
-- [cxxopts](https://github.com/jarro2783/cxxopts) — for handling command-line arguments.
-- [nlohmann/json](https://github.com/nlohmann/json) — for working with JSON.
+## CMake
+
+The repository exports the `Consolix::Consolix` `INTERFACE` target.
+
+```cmake
+set(CONSOLIX_CXX_STANDARD 17 CACHE STRING "")
+add_subdirectory(path/to/Consolix)
+
+target_link_libraries(my_target PRIVATE Consolix::Consolix)
+```
+
+Allowed values for `CONSOLIX_CXX_STANDARD` are `11`, `14`, and `17`.
 */

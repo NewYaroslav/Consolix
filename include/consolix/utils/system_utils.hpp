@@ -5,14 +5,16 @@
 /// \file system_utils.hpp
 /// \brief Provides system-related utility functions such as clipboard handling, OS detection, and system information retrieval.
 
-#include <string>
-#include <cstdlib>
 #include <chrono>
+#include <cstdlib>
+#include <cstdint>
+#include <cstring>
+#include <string>
+
 #ifdef _WIN32
 #include <windows.h>
 #elif defined(__linux__) || defined(__APPLE__)
 #include <unistd.h>
-#include <sys/sysinfo.h>
 #include <sys/types.h>
 #include <pwd.h>
 #endif
@@ -26,13 +28,13 @@ namespace consolix {
 #       ifdef _WIN32
         if (OpenClipboard(nullptr)) {
             EmptyClipboard();
-            size_t size = (text.size() + 1) * sizeof(char);
+            const std::size_t size = (text.size() + 1) * sizeof(char);
             HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE, size);
             if (!hMem) {
                 CloseClipboard();
                 return false;
             }
-            memcpy(GlobalLock(hMem), text.c_str(), size);
+            std::memcpy(GlobalLock(hMem), text.c_str(), size);
             GlobalUnlock(hMem);
             SetClipboardData(CF_TEXT, hMem);
             CloseClipboard();
@@ -40,11 +42,11 @@ namespace consolix {
         }
         return false;
 #       elif defined(__APPLE__)
-        std::string command = "echo \"" + text + "\" | pbcopy";
-        return system(command.c_str()) == 0;
+        const std::string command = "echo \"" + text + "\" | pbcopy";
+        return std::system(command.c_str()) == 0;
 #       elif defined(__linux__)
-        std::string command = "echo \"" + text + "\" | xclip -selection clipboard";
-        return system(command.c_str()) == 0;
+        const std::string command = "echo \"" + text + "\" | xclip -selection clipboard";
+        return std::system(command.c_str()) == 0;
 #       else
         return false;
 #       endif
@@ -61,14 +63,14 @@ namespace consolix {
             return "";
         }
         char* text = static_cast<char*>(GlobalLock(hData));
-        std::string result(text ? text : "");
+        const std::string result(text ? text : "");
         GlobalUnlock(hData);
         CloseClipboard();
         return result;
 #       elif defined(__APPLE__)
-        return system("pbpaste") == 0 ? "(clipboard contents)" : "";
+        return std::system("pbpaste") == 0 ? "(clipboard contents)" : "";
 #       elif defined(__linux__)
-        return system("xclip -selection clipboard -o") == 0 ? "(clipboard contents)" : "";
+        return std::system("xclip -selection clipboard -o") == 0 ? "(clipboard contents)" : "";
 #       else
         return "";
 #       endif
@@ -90,10 +92,10 @@ namespace consolix {
 
     /// \brief Gets the current system time in milliseconds.
     /// \return System time in milliseconds.
-    inline uint64_t get_system_time_ms() {
-        return std::chrono::duration_cast<std::chrono::milliseconds>(
+    inline std::uint64_t get_system_time_ms() {
+        return static_cast<std::uint64_t>(std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now().time_since_epoch()
-        ).count();
+        ).count());
     }
 
     /// \brief Gets the number of logical CPU cores.
@@ -102,9 +104,9 @@ namespace consolix {
 #       ifdef _WIN32
         SYSTEM_INFO sysinfo;
         GetSystemInfo(&sysinfo);
-        return sysinfo.dwNumberOfProcessors;
+        return static_cast<int>(sysinfo.dwNumberOfProcessors);
 #       elif defined(__linux__) || defined(__APPLE__)
-        return sysconf(_SC_NPROCESSORS_ONLN);
+        return static_cast<int>(sysconf(_SC_NPROCESSORS_ONLN));
 #       else
         return 1;
 #       endif
@@ -114,7 +116,7 @@ namespace consolix {
     /// \return A string containing the home directory path.
     inline std::string get_home_directory() {
 #       ifdef _WIN32
-        char* home = getenv("USERPROFILE");
+        const char* home = std::getenv("USERPROFILE");
         return home ? std::string(home) : "";
 #       elif defined(__linux__) || defined(__APPLE__)
         struct passwd* pw = getpwuid(getuid());
@@ -132,7 +134,7 @@ namespace consolix {
         GetTempPathA(MAX_PATH, tempPath);
         return std::string(tempPath);
 #       elif defined(__linux__) || defined(__APPLE__)
-        char* temp = getenv("TMPDIR");
+        const char* temp = std::getenv("TMPDIR");
         return temp ? std::string(temp) : "/tmp";
 #       else
         return "";
@@ -143,7 +145,7 @@ namespace consolix {
     /// \param var_name The name of the environment variable.
     /// \return The value of the environment variable, or an empty string if not found.
     inline std::string get_env_var(const std::string& var_name) {
-        const char* value = getenv(var_name.c_str());
+        const char* value = std::getenv(var_name.c_str());
         return value ? std::string(value) : "";
     }
 

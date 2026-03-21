@@ -87,25 +87,19 @@
 
 // Core interfaces needed for all components
 #include "interfaces.hpp"                   ///< Core interfaces for component interaction.
+#include "utils.hpp"                        ///< Shared utility context for the aggregate component entry point.
 
 // Service management utilities required by LoggerComponent, CliComponent, ConfigComponent
-#include "core/platform_includes.hpp"       ///< Platform-specific includes and definitions.
 #include "core/ServiceLocator.hpp"          ///< Service locator for managing shared resources.
 #include "core/service_utils.hpp"           ///< Utility functions for working with services.
-
-// Utilities required for encoding transformations in LoggerComponent and CliComponent
-#include "utils/encoding_utils.hpp"         ///< Tools for character encoding transformations.
 
 // Core components of the Consolix framework
 #include "components/TitleComponent.hpp"	///< Component for managing the console window title across platforms.
 #include "components/LoggerComponent.hpp"   ///< Component for managing logging.
 #include "components/LogoComponent.hpp"     ///< Component for rendering logos in the console.
 #include "components/BaseLoopComponent.hpp" ///< Base class for implementing loop-based components.
+#include "components/LoopComponent.hpp"     ///< Component with configurable initialization, loop, and shutdown callbacks.
 #include "components/CliComponent.hpp"      ///< Component for handling command-line arguments.
-
-// Required by ConfigComponent
-#include "utils/path_utils.hpp"             ///< Utilities for working with file and directory paths.
-#include "utils/json_utils.hpp"             ///< Utilities for processing and manipulating JSON strings.
 
 // JSON configuration management
 #include "components/ConfigComponent.hpp"   ///< Component for loading and managing configuration data.

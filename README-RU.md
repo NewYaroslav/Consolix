@@ -11,132 +11,131 @@
   ░░░░░░░░░   ░░░░░░  ░░░░ ░░░░░ ░░░░░░   ░░░░░░  ░░░░░ ░░░░░ ░░░░░ ░░░░░ 
 ```
 
-**Consolix** — это `header-only` C++ библиотека, предоставляющая компоненты и утилиты для разработки консольных приложений.
+Consolix — это `header-only` библиотека C++ для консольных приложений с компонентной моделью, service locator и набором утилит.
 
-## Особенности
+## Основное
 
-- **Компонентная архитектура:** Легко подключаемые модули, такие как логирование, управление конфигурациями и обработка командной строки.
-- **Глобальный локатор сервисов:** Удобный механизм для управления зависимостями и сервисами.
-- **Поддержка UTF-8:**
-	- Заголовок программы (`TitleComponent`) поддерживает установку текста в `UTF-8` с автоматической конвертацией в `UTF-16` для Windows и использованием `ANSI escape` последовательностей на POSIX-системах.
-	- Вывод в консоль (`LoggerComponent`) поддерживает `UTF-8` с автоматической конвертацией в `CP866` на Windows для совместимости с устаревшими кодировками.
-- **Кастомизируемые циклы выполнения:** Поддержка структурированных циклов для выполнения пользовательских задач.
-- **Расширенное логирование:** Интеграция с [LogIt](https://github.com/NewYaroslav/log-it-cpp).
-- **Поддержка JSON с комментариями:** Загрузка конфигураций JSON с комментариями благодаря [nlohmann/json](https://github.com/nlohmann/json).
-- **Кроссплатформенность:** Работа на Windows и POSIX-совместимых системах. *(Для POSIX не протестировано)*.
-- **Совместимость с C++17:** Требует компилятора с поддержкой стандарта C++17 (GCC 7.1+, Clang 5.0+, MSVC 15.3+).
+- поставляется как `header-only`
+- в CMake экспортируется как `Consolix::Consolix` через `INTERFACE` target
+- основные публичные точки входа:
+  - `#include <consolix/consolix.hpp>`
+  - `#include <consolix/core.hpp>`
+  - `#include <consolix/components.hpp>`
+  - `#include <consolix/utils.hpp>`
+- intended standalone utility headers:
+  - `#include <consolix/utils/json_utils.hpp>`
+  - `#include <consolix/utils/path_utils.hpp>`
+  - `#include <consolix/utils/enums.hpp>`
+  - `#include <consolix/utils/types.hpp>`
+- поддерживаются стандарты `C++11`, `C++14`, `C++17`
+- опциональные зависимости:
+  - [LogIt](https://github.com/NewYaroslav/log-it-cpp)
+  - [cxxopts](https://github.com/jarro2783/cxxopts)
+  - [nlohmann/json](https://github.com/nlohmann/json)
 
-## Установка
+## Модель подключений
 
-**Consolix** — это `header-only` библиотека. Для начала работы просто добавьте её в ваш проект:
-
-1. Скачайте библиотеку или клонируйте репозиторий:
-   ```bash
-   git clone https://github.com/yourusername/Consolix.git
-   ```
-   
-2. Добавьте путь к заголовочным файлам в настройки вашего проекта:
-    ```
-    Consolix/include
-    ```
-
-3. Подключите заголовок в вашем коде:
-    ```
-    #include <consolix/consolix.hpp>
-    ```
-    
-### Зависимости
-
-Consolix поддерживает интеграцию с внешними библиотеками через макросы, которые можно включать или отключать в зависимости от ваших нужд:
-
-- **LogIt** (включается через устанвоку макроса `CONSOLIX_USE_LOGIT 1`):
-    - Используется для логирования.
-    - LogIt на [GitHub](https://github.com/NewYaroslav/log-it-cpp.git).
-    - Зависит от библиотеки [time-shield](https://github.com/NewYaroslav/time-shield-cpp.git). 
-    - Обе библиотеки являются *header-only*, поэтому достаточно добавить их заголовки в проект.
-- **cxxopts** (включается через устанвоку макроса `CONSOLIX_USE_CXXOPTS 1`):
-    - Используется для обработки аргументов командной строки.
-    - cxxopts на [GitHub](https://github.com/jarro2783/cxxopts.git).
-    - *header-only* библиотека.
-- **nlohmann/json** (включается через устанвоку макроса `CONSOLIX_USE_JSON 1`):
-    - Используется для работы с JSON, включая поддержку комментариев.
-    - nlohmann/json на [GitHub](https://github.com/nlohmann/json.git).
-    - *header-only* библиотека.
-
-Чтобы указать, какие зависимости использовать, задайте соответствующие макросы перед подключением Consolix:
+Consolix спроектирован в aggregate-first стиле. Для обычного использования предпочитайте агрегирующие заголовки:
 
 ```cpp
-// Отключение LogIt и cxxopts, но включение nlohmann/json
+#include <consolix/consolix.hpp>
+```
+
+или модульные entry points:
+
+```cpp
+#include <consolix/core.hpp>
+#include <consolix/components.hpp>
+#include <consolix/utils.hpp>
+```
+
+Прямое подключение leaf headers считается поддерживаемым только для следующих утилит:
+
+```cpp
+#include <consolix/utils/json_utils.hpp>
+#include <consolix/utils/path_utils.hpp>
+#include <consolix/utils/enums.hpp>
+#include <consolix/utils/types.hpp>
+```
+
+Остальные внутренние leaf headers следует считать деталями реализации aggregate entry points, если документация явно не говорит обратное.
+
+## Макросы возможностей
+
+Все опциональные зависимости по умолчанию выключены:
+
+```cpp
 #define CONSOLIX_USE_LOGIT   0
 #define CONSOLIX_USE_CXXOPTS 0
-#define CONSOLIX_USE_JSON    1
+#define CONSOLIX_USE_JSON    0
 
 #include <consolix/consolix.hpp>
 ```
 
-Для включения зависимостей добавьте пути к их заголовкам в ваш проект:
+Включайте только те подсистемы, которые действительно нужны вашему приложению.
 
-```
-log-it-cpp/include
-time-shield-cpp/include
-cxxopts/include
-nlohmann-json/include
+## CMake
+
+```cmake
+cmake_minimum_required(VERSION 3.14)
+project(MyApp LANGUAGES CXX)
+
+set(CONSOLIX_CXX_STANDARD 17 CACHE STRING "")
+set(CONSOLIX_USE_LOGIT ON CACHE BOOL "")
+set(CONSOLIX_USE_CXXOPTS ON CACHE BOOL "")
+set(CONSOLIX_USE_JSON ON CACHE BOOL "")
+
+add_subdirectory(path/to/Consolix)
+
+add_executable(my_app main.cpp)
+target_link_libraries(my_app PRIVATE Consolix::Consolix)
 ```
 
-## Пример использования
+Допустимые значения `CONSOLIX_CXX_STANDARD`: `11`, `14`, `17`.
+
+Для GNU toolchains в режимах `C++11` и `C++14` target автоматически добавляет `stdc++fs`, если нужен experimental filesystem.
+
+## Короткий пример
 
 ```cpp
-#include <consolix/components.hpp>
+#define CONSOLIX_USE_LOGIT   1
+#define CONSOLIX_USE_CXXOPTS 1
+#define CONSOLIX_USE_JSON    1
+
+#include <consolix/core.hpp>
+
+struct AppConfig {
+    std::string text;
+    std::vector<std::string> items;
+    int period;
+    bool debug_mode;
+
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(AppConfig, text, items, period, debug_mode)
+};
 
 int main(int argc, char* argv[]) {
-    // Добавление заголовка программы
-    consolix::add<consolix::TitleComponent>(u8"Consolix - консольное приложение");
-
-    // Добавление логгера
+    consolix::add<consolix::TitleComponent>("Consolix demo");
     consolix::add<consolix::LoggerComponent>();
+    consolix::add<consolix::CliComponent>(
+        "Consolix",
+        "Example application",
+        [](consolix::CliOptions& options) {
+            options.add_options()
+                ("c,config", "Path to configuration file", cxxopts::value<std::string>())
+                ("d,debug", "Enable debug mode", cxxopts::value<bool>()->default_value("false"));
+        },
+        argc,
+        argv);
+    consolix::add<consolix::ConfigComponent<AppConfig>>("config.json", "config");
 
-    // Вывод ASCII-логотипа в консоль
-    consolix::add<consolix::LogoComponent>(consolix::TextColor::DarkYellow);
-
-    // Обработка аргументов командной строки
-    consolix::add<consolix::CliComponent>("MyApp", "Описание программы", [](auto& options) {
-        options.add_options()("debug", "Включить режим отладки");
-    }, argc, argv);
-
-    // Загрузка конфигурации из JSON
-    consolix::add<consolix::ConfigComponent<MyConfig>>("config.json");
-
-    // Выполнение главного цикла
     consolix::run([]() {
-        CONSOLIX_STREAM() << "Выполнение главного цикла...";
+        CONSOLIX_STREAM() << "Running...";
     });
-
-    return 0;
 }
 ```
 
-## Модули
-
-### Основные модули
-- **ServiceLocator:** Управление глобальными сервисами.
-- **ConsoleApplication:** Фреймворк для управления консольными приложениями.
-
-### Компоненты
-- **TitleComponent:** Управление заголовком окна консоли. Поддерживает UTF-8.
-- **LoggerComponent:** Централизованное логирование. Поддерживает UTF-8 с конвертацией в CP866.
-- **CliComponent:** Упрощённая работа с аргументами командной строки.
-- **ConfigComponent:** Работа с конфигурациями JSON с комментариями.
-- **LogoComponent:** Вывод ASCII-логотипов.
-- **LoopComponent:** Поддержка пользовательских циклов выполнения.
-
-### Утилиты
-- **path_utils.hpp:** Работа с путями и директориями.
-- **json_utils.hpp:** Удаление комментариев и работа с JSON.
-- **ColorManipulator.hpp:** Стилизация текста в консоли.
-
 ## Документация
 
-Полная документация доступна [здесь](https://newyaroslav.github.io/Consolix/). Она включает руководство по установке, описания модулей, примеры использования и многое другое.
-
-## Лицензия
-Consolix распространяется под лицензией MIT. Полный текст лицензии доступен в файле LICENSE.
+- developer guidelines: `docs/header-implementation-guidelines.md`
+- agent playbook: `agents/header-implementation-guidelines.md`
+- API docs: https://newyaroslav.github.io/Consolix/

@@ -130,7 +130,7 @@ Resolve paths relative to the executable directory:
 
 int main() {
     std::string relative_path = "config/settings.json";
-    std::string absolute_path = consolix::resolve_to_executable_dir(relative_path);
+    std::string absolute_path = consolix::resolve_exec_path(relative_path);
 
     std::cout << "Absolute Path: " << absolute_path << std::endl;
 }

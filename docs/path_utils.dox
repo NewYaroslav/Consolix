@@ -10,7 +10,7 @@ It includes:
 - Constructing relative paths.
 
 ## Key Functions:
-- `resolve_executable_path`: Returns the directory where the executable is located.
+- `resolve_exec_path`: Resolves a path relative to the executable directory.
 - `make_relative`: Builds a path from a base directory to a target file.
 - `create_directories`: Creates directories for the specified path.
 
@@ -20,7 +20,7 @@ It includes:
 
 int main() {
     // Retrieve the directory of the executable
-    std::string exe_path = consolix::resolve_executable_path();
+    std::string exe_path = consolix::resolve_exec_path(".");
     std::cout << "Executable Path: " << exe_path << std::endl;
 
     return 0;

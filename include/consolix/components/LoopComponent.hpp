@@ -79,14 +79,13 @@ namespace consolix {
 #               else
                 CONSOLIX_STREAM() << "Unhandled exception during initialization: " << e.what() << std::endl;
 #               endif
-                stop();
                 throw;
             }
         }
 
         /// \brief Checks if the component is initialized.
         /// \return `true` if the component is initialized, `false` otherwise.
-        bool is_initialized() override const {
+        bool is_initialized() const override {
             return m_is_init;
         }
 
@@ -94,17 +93,16 @@ namespace consolix {
         ///
         /// Calls the `on_execute` function repeatedly. If no function is provided,
         /// the loop idles with a short sleep.
-        void execute() override {
+        void process() override {
             try {
                 if (m_on_execute) m_on_execute();
                 else std::this_thread::sleep_for(std::chrono::milliseconds(1));
             } catch (const std::exception& e) {
 #               if CONSOLIX_USE_LOGIT == 1
-                LOGIT_PRINT_ERROR("Unhandled exception during execution: , e.what());
+                LOGIT_PRINT_ERROR("Unhandled exception during execution: ", e.what());
 #               else
-                CONSOLIX_STREAM() << "Unhandled exception during execution:  << e.what() << std::endl;
+                CONSOLIX_STREAM() << "Unhandled exception during execution: " << e.what() << std::endl;
 #               endif
-                stop();
                 throw;
             }
         }
@@ -114,7 +112,6 @@ namespace consolix {
         void shutdown(int signal) override {
             try {
                 if (m_on_shutdown) m_on_shutdown(signal);
-                stop();
             } catch (const std::exception& e) {
 #               if CONSOLIX_USE_LOGIT == 1
                 LOGIT_PRINT_ERROR("Unhandled exception during shutdown: ", e.what());
