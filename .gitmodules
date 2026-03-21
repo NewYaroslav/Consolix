@@ -4,6 +4,7 @@
 [submodule "libs/time-shield-cpp"]
 	path = libs/time-shield-cpp
 	url = https://github.com/NewYaroslav/time-shield-cpp.git
+	branch = main
 [submodule "libs/cxxopts"]
 	path = libs/cxxopts
 	url = https://github.com/jarro2783/cxxopts.git

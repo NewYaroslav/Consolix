@@ -41,7 +41,7 @@ if(CONSOLIX_USE_LOGIT)
     target_include_directories(Consolix
         SYSTEM INTERFACE
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libs/log-it-cpp/include/logit_cpp>
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libs/time-shield-cpp/include/time_shield_cpp>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libs/time-shield-cpp/include>
     )
 endif()
 
