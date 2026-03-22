@@ -114,18 +114,10 @@ if(CONSOLIX_BUILD_TESTS)
 
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_strip_json_comments.cpp")
         consolix_add_test(test_strip_json_comments "tests/test_strip_json_comments.cpp")
-
-        file(GLOB CONSOLIX_TEST_JSONS CONFIGURE_DEPENDS
-            "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.json"
+        target_compile_definitions(test_strip_json_comments
+            PRIVATE
+                CONSOLIX_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/tests"
         )
-        foreach(test_json IN LISTS CONSOLIX_TEST_JSONS)
-            get_filename_component(test_json_name "${test_json}" NAME)
-            add_custom_command(TARGET test_strip_json_comments POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy
-                    "${test_json}"
-                    "$<TARGET_FILE_DIR:test_strip_json_comments>/${test_json_name}"
-            )
-        endforeach()
     endif()
 
     if(UNIX AND NOT WIN32 AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_posix_signal_shutdown.cpp")
