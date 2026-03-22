@@ -10,8 +10,13 @@
 /// On Windows, it converts UTF-8 strings to CP866 for compatibility with legacy console encoding,
 /// while on Linux/macOS, it directly outputs UTF-8 strings with ANSI color codes.
 
+#include "../../config_macros.hpp"
+#include "../../utils/enums.hpp"
+#include "../../utils/encoding_utils.hpp"
+
 #include <iostream>
 #include <sstream>
+#include <string>
 
 namespace consolix {
 
@@ -58,15 +63,15 @@ namespace consolix {
 
         /// \brief Destructor to flush the accumulated log content.
         ~MultiStream() {
+#           if defined(_WIN32)
 #           if CONSOLIX_USE_LOGIT == 1
             auto str = utf8_to_cp866(m_stream.str());
 #           else
-#           if defined(_WIN32)
             auto str = m_use_utf8 ? utf8_to_cp866(m_stream.str()) : m_stream.str();
+#           endif // if CONSOLIX_USE_LOGIT == 1
 #           else
             auto str = m_stream.str();
 #           endif // if defined(_WIN32)
-#           endif // if CONSOLIX_USE_LOGIT == 1
 
 #           if CONSOLIX_USE_LOGIT == 1
             if (LOGIT_IS_SINGLE_MODE(CONSOLIX_LOGIT_CONSOLE_INDEX)) {
