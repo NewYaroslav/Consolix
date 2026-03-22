@@ -1,0 +1,15 @@
+            
+
+	{"aaa": "qwerty",   
+	"bbb": 1234                                 
+	,"ccc": true                            
+	,"dd\"d":                                      null,
+	"ee//e": "example of any symbols in key including inactive comments",
+	"multiline1"                                                                                  :[36.8,false       ,
+		"/**/",[1,2,3,4,[       
+		5,6,[[     7,{"x":      "x"}],8]],{}]  ],
+	"mayBeAnyStructure":{"a":1    ,"b":2},
+"lineEnd\\\\":"end"
+}            
+
+               

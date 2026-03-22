@@ -33,9 +33,3 @@
 
 # Build directories
 tests/build_tests/
-
-# Test output files
-tests/test_output_no_whitespace_no_newlines.json
-tests/test_output_no_whitespace_preserve_newlines.json
-tests/test_output_whitespace_no_newlines.json
-tests/test_output_whitespace_preserve_newlines.json
