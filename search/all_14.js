@@ -1,9 +1,14 @@
 var searchData=
 [
-  ['white_0',['White',['../namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a25a81701fbfa4a1efdf660a950c1d006',1,'consolix']]],
-  ['windows_20console_20color_20conversion_3a_1',['Windows Console Color Conversion:',['../color_utils.html#autotoc_md26',1,'']]],
-  ['with_20logit_2',['Logging with LogIt',['../examples_page.html#autotoc_md36',1,'']]],
-  ['with_20path_20utilities_3',['Working with Path Utilities',['../examples_page.html#autotoc_md37',1,'']]],
-  ['working_20with_20path_20utilities_4',['Working with Path Utilities',['../examples_page.html#autotoc_md37',1,'']]],
-  ['write_5ffile_5',['write_file',['../test__strip__json__comments_8cpp.html#afc81cc554d35b7b7938f104a801e1a74',1,'test_strip_json_comments.cpp']]]
+  ['unlock_0',['unlock',['../classconsolix_1_1compat_1_1shared__mutex.html#ae0531102dd4418df9d3d0d1fa7ce5a0f',1,'consolix::compat::shared_mutex']]],
+  ['unlock_5fshared_1',['unlock_shared',['../classconsolix_1_1compat_1_1shared__mutex.html#afc97b009b080d73201f3471c7c888464',1,'consolix::compat::shared_mutex']]],
+  ['usage_2',['Example Usage',['../index.html#autotoc_md18',1,'']]],
+  ['usage_20examples_3',['Usage Examples',['../examples_page.html',1,'Usage Examples'],['../examples_page.html#autotoc_md33',1,'Usage Examples']]],
+  ['usage_20of_20application_20utilities_4',['Example usage of application utilities.',['../application__utils_8hpp.html#autotoc_md10',1,'']]],
+  ['usage_20of_20the_20servicelocator_5',['Example usage of the ServiceLocator.',['../service__utils_8hpp.html#autotoc_md11',1,'']]],
+  ['usage_3a_6',['Usage:',['../group__Components.html#autotoc_md3',1,'Example Usage:'],['../group__Core.html#autotoc_md9',1,'Example Usage:'],['../group__Utilities.html#autotoc_md13',1,'Example Usage:'],['../config__macros_8hpp.html#autotoc_md5',1,'Usage:']]],
+  ['using_20the_20servicelocator_7',['Using the ServiceLocator',['../examples_page.html#autotoc_md35',1,'']]],
+  ['utilities_8',['Utilities',['../color_utils.html',1,'Console Color Utilities'],['../color_utils.html#autotoc_md23',1,'Console Color Utilities'],['../json_utils.html',1,'JSON Utilities'],['../json_utils.html#autotoc_md41',1,'JSON Utilities'],['../path_utils.html',1,'Path Utilities'],['../path_utils.html#autotoc_md44',1,'Path Utilities'],['../group__Utilities.html',1,'Utilities'],['../examples_page.html#autotoc_md40',1,'Working with Path Utilities']]],
+  ['utilities_9',['Example usage of application utilities.',['../application__utils_8hpp.html#autotoc_md10',1,'']]],
+  ['utils_2ehpp_10',['utils.hpp',['../utils_8hpp.html',1,'']]]
 ];

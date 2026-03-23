@@ -18,5 +18,7 @@ var hierarchy =
       [ "consolix::LoopComponent", "classconsolix_1_1LoopComponent.html", null ]
     ] ],
     [ "consolix::MultiStream", "classconsolix_1_1MultiStream.html", null ],
-    [ "consolix::ServiceLocator", "classconsolix_1_1ServiceLocator.html", null ]
+    [ "consolix::ConsoleApplication::PosixTerminationSignalMaskGuard", "classconsolix_1_1ConsoleApplication_1_1PosixTerminationSignalMaskGuard.html", null ],
+    [ "consolix::ServiceLocator", "classconsolix_1_1ServiceLocator.html", null ],
+    [ "consolix::compat::shared_mutex", "classconsolix_1_1compat_1_1shared__mutex.html", null ]
 ];

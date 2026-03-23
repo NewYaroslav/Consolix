@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['enabled_0',['enabled',['../namespaceconsolix.html#a052d62f5f31694781064ea4faa4f225e',1,'consolix']]]
+  ['items_0',['items',['../structAppConfig.html#a5505cf5df40236c5f42e65f91d51b5d0',1,'AppConfig']]]
 ];

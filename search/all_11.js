@@ -1,22 +1,13 @@
 var searchData=
 [
-  ['sections_3a_0',['Main Sections:',['../index.html#autotoc_md18',1,'']]],
-  ['service_5futils_2ehpp_1',['service_utils.hpp',['../service__utils_8hpp.html',1,'']]],
-  ['servicelocator_2',['ServiceLocator',['../service__utils_8hpp.html#autotoc_md11',1,'Example usage of the ServiceLocator.'],['../classconsolix_1_1ServiceLocator.html',1,'consolix::ServiceLocator'],['../classconsolix_1_1ServiceLocator.html#aa73ed4b22f731513cac3daa5556d3127',1,'consolix::ServiceLocator::ServiceLocator()=default'],['../classconsolix_1_1ServiceLocator.html#acb1b1e9b644a25cabefbd38540483db3',1,'consolix::ServiceLocator::ServiceLocator(const ServiceLocator &amp;)=delete'],['../classconsolix_1_1ServiceLocator.html#a32167a4b74748d3e775161cc72d4197d',1,'consolix::ServiceLocator::ServiceLocator(ServiceLocator &amp;&amp;)=delete'],['../examples_page.html#autotoc_md33',1,'Using the ServiceLocator']]],
-  ['servicelocator_2ehpp_3',['ServiceLocator.hpp',['../ServiceLocator_8hpp.html',1,'']]],
-  ['set_5fconsole_5fcolor_4',['set_console_color',['../classconsolix_1_1LogoComponent.html#a4261aaeff66148f799376e05c449237e',1,'consolix::LogoComponent']]],
-  ['set_5flogo_5',['set_logo',['../classconsolix_1_1LogoComponent.html#a18e66f2371e1b11a25bc7bc11294fe40',1,'consolix::LogoComponent']]],
-  ['set_5ftitle_6',['set_title',['../classconsolix_1_1TitleComponent.html#a7e30b4dba39d5583419f3fe7bd891f91',1,'consolix::TitleComponent']]],
-  ['setup_7',['Basic Setup',['../examples_page.html#autotoc_md32',1,'']]],
-  ['setup_2edox_8',['setup.dox',['../setup_8dox.html',1,'']]],
-  ['setup_5fsignal_5fhandlers_9',['setup_signal_handlers',['../classconsolix_1_1ConsoleApplication.html#a298542991c6ed0bf81df37935b95ace7',1,'consolix::ConsoleApplication']]],
-  ['shutdown_10',['shutdown',['../classconsolix_1_1BaseLoopComponent.html#a0474549d8e97f7b0127e340bdf7e238d',1,'consolix::BaseLoopComponent::shutdown()'],['../classconsolix_1_1LoopComponent.html#acd2171b030f9beb8c0decc76db495a9c',1,'consolix::LoopComponent::shutdown()'],['../classconsolix_1_1AppComponentManager.html#a2c07cb98fa40a317b788dd3266ed8a1f',1,'consolix::AppComponentManager::shutdown()'],['../classconsolix_1_1ConsoleApplication.html#aff65ed89e8acb1de04bd966e86cc9a51',1,'consolix::ConsoleApplication::shutdown()'],['../classconsolix_1_1IShutdownable.html#ada47e0d8efdaa5686f848216ce14861f',1,'consolix::IShutdownable::shutdown()']]],
-  ['signal_5fhandler_11',['signal_handler',['../classconsolix_1_1ConsoleApplication.html#a7fd328e8f7994a16593d4909aaadb81f',1,'consolix::ConsoleApplication']]],
-  ['steps_20for_20configuration_3a_12',['Steps for Configuration:',['../setup.html#autotoc_md47',1,'']]],
-  ['stop_13',['stop',['../classconsolix_1_1ConsoleApplication.html#ade308c149829dfa0820f625702cb3fa9',1,'consolix::ConsoleApplication::stop()'],['../namespaceconsolix.html#af2f50c8eaefc3a6cd072b260afd6badb',1,'consolix::stop()']]],
-  ['strip_5fjson_5fcomments_14',['strip_json_comments',['../namespaceconsolix.html#a06af929a9275c39404c2a5fe1748c833',1,'consolix']]],
-  ['structure_15',['Structure',['../index.html#autotoc_md17',1,'Documentation Structure'],['../project_structure.html',1,'Project Structure']]],
-  ['structure_3a_16',['Structure:',['../index.html#autotoc_md19',1,'']]],
-  ['supported_20colors_3a_17',['Supported Colors:',['../color_utils.html#autotoc_md24',1,'']]],
-  ['system_5futils_2ehpp_18',['system_utils.hpp',['../system__utils_8hpp.html',1,'']]]
+  ['read_5ffile_0',['read_file',['../test__strip__json__comments_8cpp.html#a045f050081deaffd409cfa063de929e3',1,'test_strip_json_comments.cpp']]],
+  ['red_1',['Red',['../namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027aee38e4d5dd68c4e440825018d549cb47',1,'consolix']]],
+  ['register_5fservice_2',['register_service',['../classconsolix_1_1ServiceLocator.html#a343d604ad8e8c6aebc04dd5569beec27',1,'consolix::ServiceLocator::register_service(std::function&lt; std::shared_ptr&lt; T &gt;()&gt; creator)'],['../classconsolix_1_1ServiceLocator.html#ac7110f92891261ab5570eda61a7f17d1',1,'consolix::ServiceLocator::register_service()'],['../namespaceconsolix.html#adb9039f7c16d60957081acc0b49b77d4',1,'consolix::register_service(std::function&lt; std::shared_ptr&lt; T &gt;()&gt; creator)'],['../namespaceconsolix.html#a5343def4943412d22c34f9f6d0a54052',1,'consolix::register_service()']]],
+  ['relative_3',['relative',['../namespaceconsolix_1_1compat.html#afeafaf215bffdeaeb132bfc6fe4fafb0',1,'consolix::compat']]],
+  ['reset_5fconsole_5fcolor_4',['reset_console_color',['../classconsolix_1_1LogoComponent.html#a8e7876142c71ace07a8e34e205b74cd5',1,'consolix::LogoComponent']]],
+  ['reset_5fsignal_5fstate_5',['reset_signal_state',['../classconsolix_1_1ConsoleApplication.html#acdecc2e1177af81fe294b35a78ef2920',1,'consolix::ConsoleApplication']]],
+  ['resolve_5fexec_5fpath_6',['resolve_exec_path',['../namespaceconsolix.html#a3810adaa879f2f8148f937856be891dc',1,'consolix']]],
+  ['resolve_5fstop_5fexit_5fcode_7',['resolve_stop_exit_code',['../classconsolix_1_1ConsoleApplication.html#afcea6fc76b50c8cbcfe644cae32a85c5',1,'consolix::ConsoleApplication']]],
+  ['resource_20cleanup_20and_20worker_20shutdown_8',['Resource Cleanup and Worker Shutdown',['../examples_page.html#autotoc_md38',1,'']]],
+  ['run_9',['run',['../classconsolix_1_1ConsoleApplication.html#a6effcac158617ee29fd4e17419cc6a6e',1,'consolix::ConsoleApplication::run()'],['../classconsolix_1_1ConsoleApplication.html#a70d4c982a192c6a7be178a4324dc49f6',1,'consolix::ConsoleApplication::run(IterationAction iteration_action)'],['../namespaceconsolix.html#a932b34e93d57ce83e5d74bba59d8ba9a',1,'consolix::run()'],['../namespaceconsolix.html#ac0742cee6523c1fb3827ae242fe0f7be',1,'consolix::run(IterationAction iteration_action)']]]
 ];

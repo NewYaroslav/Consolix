@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['enumerations_0',['Common Types and Enumerations',['../common_types.html',1,'']]],
-  ['examples_1',['Usage Examples',['../examples_page.html',1,'']]]
+  ['documentation_0',['Consolix Framework Documentation',['../index.html',1,'']]],
+  ['documentation_20structure_1',['Documentation Structure',['../index.html#autotoc_md19',1,'']]]
 ];

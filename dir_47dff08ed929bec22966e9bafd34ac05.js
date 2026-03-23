@@ -5,5 +5,6 @@ var dir_47dff08ed929bec22966e9bafd34ac05 =
     [ "ConsoleApplication.hpp", "ConsoleApplication_8hpp.html", "ConsoleApplication_8hpp" ],
     [ "platform_includes.hpp", "platform__includes_8hpp.html", "platform__includes_8hpp" ],
     [ "service_utils.hpp", "service__utils_8hpp.html", "service__utils_8hpp" ],
-    [ "ServiceLocator.hpp", "ServiceLocator_8hpp.html", "ServiceLocator_8hpp" ]
+    [ "ServiceLocator.hpp", "ServiceLocator_8hpp.html", "ServiceLocator_8hpp" ],
+    [ "std_compat.hpp", "std__compat_8hpp.html", "std__compat_8hpp" ]
 ];
