@@ -8,6 +8,6 @@ var searchData=
   ['reset_5fsignal_5fstate_5',['reset_signal_state',['../classconsolix_1_1ConsoleApplication.html#acdecc2e1177af81fe294b35a78ef2920',1,'consolix::ConsoleApplication']]],
   ['resolve_5fexec_5fpath_6',['resolve_exec_path',['../namespaceconsolix.html#a3810adaa879f2f8148f937856be891dc',1,'consolix']]],
   ['resolve_5fstop_5fexit_5fcode_7',['resolve_stop_exit_code',['../classconsolix_1_1ConsoleApplication.html#afcea6fc76b50c8cbcfe644cae32a85c5',1,'consolix::ConsoleApplication']]],
-  ['resource_20cleanup_20and_20worker_20shutdown_8',['Resource Cleanup and Worker Shutdown',['../examples_page.html#autotoc_md38',1,'']]],
+  ['resource_20cleanup_20and_20worker_20shutdown_8',['Resource Cleanup and Worker Shutdown',['../examples_page.html#autotoc_md39',1,'']]],
   ['run_9',['run',['../classconsolix_1_1ConsoleApplication.html#a6effcac158617ee29fd4e17419cc6a6e',1,'consolix::ConsoleApplication::run()'],['../classconsolix_1_1ConsoleApplication.html#a70d4c982a192c6a7be178a4324dc49f6',1,'consolix::ConsoleApplication::run(IterationAction iteration_action)'],['../namespaceconsolix.html#a932b34e93d57ce83e5d74bba59d8ba9a',1,'consolix::run()'],['../namespaceconsolix.html#ac0742cee6523c1fb3827ae242fe0f7be',1,'consolix::run(IterationAction iteration_action)']]]
 ];

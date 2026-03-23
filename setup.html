@@ -103,7 +103,7 @@ $(function(){initNavTree('setup.html','',''); });
   <div class="headertitle"><div class="title">Installation and Configuration </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
+<div class="textblock"><h1 class="doxsection"><a class="anchor" id="autotoc_md51"></a>
 Installation and Configuration</h1>
 <p>Consolix is a <span class="tt">header-only</span> library. The recommended consumption model is through the aggregate entry headers:</p>
 <ul>
@@ -119,10 +119,20 @@ Installation and Configuration</h1>
 <li><span class="tt"><a class="el" href="enums_8hpp.html" title="Contains enumerations and utility functions for text colors.">consolix/utils/enums.hpp</a></span></li>
 <li><span class="tt"><a class="el" href="types_8hpp.html" title="Contains common type.">consolix/utils/types.hpp</a></span></li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md50"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md52"></a>
 Supported Standards</h2>
 <p>Consolix supports <span class="tt">C++11</span>, <span class="tt">C++14</span>, and <span class="tt">C++17</span>.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md51"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
+Dependencies</h2>
+<p>The repository vendors external libraries under <span class="tt">libs/</span>.</p>
+<ul>
+<li><span class="tt">libs/log-it-cpp</span> — optional logging integration used by <span class="tt">LoggerComponent</span> when <span class="tt"><a class="el" href="LogoComponent_8hpp.html#abc86d8e297b196d80003a22d12ae36cf" title="Enables or disables LogIt for logo rendering.">CONSOLIX_USE_LOGIT</a>=1</span></li>
+<li><span class="tt">libs/time-shield-cpp</span> — vendored dependency used by the LogIt integration; this dependency is normally indirect from a Consolix consumer perspective</li>
+<li><span class="tt">libs/cxxopts</span> — optional command-line parsing dependency used when <span class="tt"><a class="el" href="config__macros_8hpp.html#a9d914f68b81e5966ef42ee2d64269408" title="Enables or disables the use of the cxxopts library for command-line arguments.">CONSOLIX_USE_CXXOPTS</a>=1</span></li>
+<li><span class="tt">libs/json</span> — optional JSON dependency used when <span class="tt"><a class="el" href="config__macros_8hpp.html#a57c0a36583c244db28894fea9deef003" title="Enables or disables the use of the nlohmann/json library for JSON handling.">CONSOLIX_USE_JSON</a>=1</span></li>
+</ul>
+<p>Consolix remains <span class="tt">header-only</span>, but optional subsystems can rely on these vendored external libraries when their feature macros are enabled.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md54"></a>
 Feature Macros</h2>
 <p>Optional integrations are disabled by default.</p>
 <table class="markdownTable">
@@ -135,7 +145,7 @@ Feature Macros</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt"><a class="el" href="config__macros_8hpp.html#a57c0a36583c244db28894fea9deef003" title="Enables or disables the use of the nlohmann/json library for JSON handling.">CONSOLIX_USE_JSON</a></span>  </td><td class="markdownTableBodyNone">Enables nlohmann/json integration  </td><td class="markdownTableBodyNone"><span class="tt">0</span>  </td></tr>
 </table>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md52"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md55"></a>
 Configuration Example</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#define CONSOLIX_USE_LOGIT   0</span></div>
 <div class="line"><span class="preprocessor">#define CONSOLIX_USE_CXXOPTS 1</span></div>
@@ -143,14 +153,15 @@ Configuration Example</h2>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="consolix_8hpp.html">consolix/consolix.hpp</a>&gt;</span></div>
 <div class="ttc" id="aconsolix_8hpp_html"><div class="ttname"><a href="consolix_8hpp.html">consolix.hpp</a></div><div class="ttdoc">Single include header for Consolix framework.</div></div>
-</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
 CMake</h2>
 <p>The repository exports the <span class="tt">Consolix::Consolix</span> <span class="tt">INTERFACE</span> target.</p>
 <div class="fragment"><div class="line">set(CONSOLIX_CXX_STANDARD 17 CACHE STRING &quot;&quot;)</div>
 <div class="line">add_subdirectory(path/to/Consolix)</div>
 <div class="line"> </div>
 <div class="line">target_link_libraries(my_target PRIVATE Consolix::Consolix)</div>
-</div><!-- fragment --><p>Allowed values for <span class="tt">CONSOLIX_CXX_STANDARD</span> are <span class="tt">11</span>, <span class="tt">14</span>, and <span class="tt">17</span>. </p>
+</div><!-- fragment --><p>Allowed values for <span class="tt">CONSOLIX_CXX_STANDARD</span> are <span class="tt">11</span>, <span class="tt">14</span>, and <span class="tt">17</span>.</p>
+<p>For normal consumer code, prefer the aggregate entry headers and the exported <span class="tt">Consolix::Consolix</span> target rather than reaching into vendored dependencies directly. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

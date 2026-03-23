@@ -103,7 +103,7 @@ $(function(){initNavTree('project_structure.html','',''); });
   <div class="headertitle"><div class="title">Project Structure </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
+<div class="textblock"><h1 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
 Project Structure</h1>
 <div class="fragment"><div class="line">consolix/</div>
 <div class="line">|-- core/</div>
@@ -138,7 +138,7 @@ Project Structure</h1>
 <div class="line">|-- components.hpp</div>
 <div class="line">|-- core.hpp</div>
 <div class="line">`-- consolix.hpp</div>
-</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
 Public Include Contract</h2>
 <p>Consolix uses an aggregate-first public include model.</p>
 <p>Preferred public entry headers:</p>
@@ -155,7 +155,17 @@ Public Include Contract</h2>
 <li><span class="tt"><a class="el" href="enums_8hpp.html" title="Contains enumerations and utility functions for text colors.">consolix/utils/enums.hpp</a></span></li>
 <li><span class="tt"><a class="el" href="types_8hpp.html" title="Contains common type.">consolix/utils/types.hpp</a></span></li>
 </ul>
-<p>Other internal leaf headers are primarily implementation details behind the aggregate entry headers. </p>
+<p>Other internal leaf headers are primarily implementation details behind the aggregate entry headers.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md50"></a>
+Vendored Dependencies</h2>
+<p>The repository also contains external submodules under <span class="tt">libs/</span>, for example:</p>
+<ul>
+<li><span class="tt">libs/log-it-cpp</span></li>
+<li><span class="tt">libs/time-shield-cpp</span></li>
+<li><span class="tt">libs/cxxopts</span></li>
+<li><span class="tt">libs/json</span></li>
+</ul>
+<p>These directories are vendored dependencies used by optional Consolix integrations. They are not part of the public Consolix header tree itself. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

@@ -116,16 +116,16 @@ $(function(){initNavTree('index.html','',''); });
 <h2 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
 Overview</h2>
 <p>Consolix is designed for console applications that need more structure than a single source file, but do not want the weight of a large framework.</p>
-<p>It helps organize application startup, shared services, logging, CLI parsing, configuration loading, and common utility tasks so console applications remain easier to grow and maintain.</p>
+<p>It helps organize application startup, shared services, logging, CLI parsing, configuration loading, and common utility tasks so console applications remain easier to grow and maintain. It also targets the recurring runtime concerns of console tools: startup and shutdown flow, termination-signal-driven stop requests, logo and title output, and keeping the main loop readable instead of scattering that logic across <span class="tt">main.cpp</span>.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
 Capabilities</h2>
 <ul>
-<li><b>Header-only delivery</b> with an official <span class="tt">Consolix::Consolix</span> CMake <span class="tt">INTERFACE</span> target</li>
-<li><b>Component-Based Architecture</b> for logging, configuration management, console titles, logos, and application loops</li>
-<li><b>Aggregate-first public entry headers</b> for normal consumer code</li>
-<li><b>Intended standalone utility leaves</b> for focused direct includes</li>
-<li><b>Compatibility with C++11, C++14, and C++17</b></li>
-<li><b>Optional integrations</b> with LogIt, cxxopts, and nlohmann/json</li>
+<li><b>Component-based application structure</b> built around reusable components and a shared service locator</li>
+<li><b>Lifecycle and loop management</b> for startup, execution, and controlled shutdown flows</li>
+<li><b>Console-oriented presentation helpers</b> for titles, ASCII logos, colors, and logging</li>
+<li><b>CLI and configuration components</b> for command-line parsing and JSON-backed settings</li>
+<li><b>Utility helpers</b> for paths, encodings, system tasks, and other recurring console-app support code</li>
+<li><b>Lightweight delivery model</b> with <span class="tt">header-only</span> consumption, <span class="tt">C++11</span>/<span class="tt">14</span>/<span class="tt">17</span> support, and opt-in integrations only when needed</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
 Key Modules</h2>
@@ -162,6 +162,15 @@ Quick Start</h2>
 <li>If you use CMake, link against <span class="tt">Consolix::Consolix</span>.</li>
 </ol>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
+Dependencies</h2>
+<p>Consolix vendors several external libraries in <span class="tt">libs/</span>.</p>
+<ul>
+<li><b>LogIt</b> is used by the optional logging integration and powers <span class="tt">LoggerComponent</span> when <span class="tt"><a class="el" href="LogoComponent_8hpp.html#abc86d8e297b196d80003a22d12ae36cf" title="Enables or disables LogIt for logo rendering.">CONSOLIX_USE_LOGIT</a>=1</span></li>
+<li><b>time-shield-cpp</b> is a vendored dependency used by the LogIt integration; it is not intended as a primary Consolix-facing API layer</li>
+<li><b>cxxopts</b> is used by <span class="tt">CliComponent</span> when <span class="tt"><a class="el" href="config__macros_8hpp.html#a9d914f68b81e5966ef42ee2d64269408" title="Enables or disables the use of the cxxopts library for command-line arguments.">CONSOLIX_USE_CXXOPTS</a>=1</span></li>
+<li><b>nlohmann/json</b> is used by <span class="tt">ConfigComponent</span> when <span class="tt"><a class="el" href="config__macros_8hpp.html#a57c0a36583c244db28894fea9deef003" title="Enables or disables the use of the nlohmann/json library for JSON handling.">CONSOLIX_USE_JSON</a>=1</span></li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
 Example Usage</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="components_8hpp.html">consolix/components.hpp</a>&gt;</span></div>
 <div class="line"> </div>
@@ -191,9 +200,9 @@ Example Usage</h2>
 <div class="ttc" id="anamespaceconsolix_html_a249589349d7cc5f6457145883e9b384b"><div class="ttname"><a href="namespaceconsolix.html#a249589349d7cc5f6457145883e9b384b">consolix::add</a></div><div class="ttdeci">std::shared_ptr&lt; Component &gt; add(Args &amp;&amp;... args)</div><div class="ttdoc">Adds a new component to the application. Creates a new instance of the specified component type and a...</div><div class="ttdef"><b>Definition</b> <a href="application__utils_8hpp_source.html#l00050">application_utils.hpp:50</a></div></div>
 <div class="ttc" id="anamespaceconsolix_html_a932b34e93d57ce83e5d74bba59d8ba9a"><div class="ttname"><a href="namespaceconsolix.html#a932b34e93d57ce83e5d74bba59d8ba9a">consolix::run</a></div><div class="ttdeci">void run()</div><div class="ttdoc">Runs the application. Processes all components in the application&#39;s main loop.</div><div class="ttdef"><b>Definition</b> <a href="application__utils_8hpp_source.html#l00063">application_utils.hpp:63</a></div></div>
 <div class="ttc" id="atest__strip__json__comments_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="test__strip__json__comments_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition</b> <a href="test__strip__json__comments_8cpp_source.html#l00028">test_strip_json_comments.cpp:28</a></div></div>
-</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
 Documentation Structure</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
 Main Sections</h3>
 <ol type="1">
 <li><b>General Guidance</b><ul>
@@ -218,7 +227,7 @@ Main Sections</h3>
 </ul>
 </li>
 </ol>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
 Structure</h3>
 <ul>
 <li><b>Core</b> — foundational classes and utilities</li>
@@ -226,7 +235,7 @@ Structure</h3>
 <li><b>Utilities</b> — helper functions and reusable support modules</li>
 <li><b>Interfaces</b> — interface classes defining component contracts</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
 License</h2>
 <p>Consolix is distributed under the MIT License. For details, see the LICENSE file. </p>
 </div></div><!-- PageDoc -->

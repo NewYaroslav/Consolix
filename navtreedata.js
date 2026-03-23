@@ -27,56 +27,58 @@ var NAVTREE =
   [ "Consolix", "index.html", [
     [ "Consolix Framework Documentation", "index.html", null ],
     [ "Console Color Utilities", "color_utils.html", [
-      [ "Console Color Utilities", "color_utils.html#autotoc_md23", [
-        [ "Key Functions:", "color_utils.html#autotoc_md24", null ],
-        [ "ColorManipulator Class:", "color_utils.html#autotoc_md25", null ],
-        [ "Supported Colors:", "color_utils.html#autotoc_md26", [
-          [ "ANSI Escape Code Conversion:", "color_utils.html#autotoc_md27", null ],
-          [ "Windows Console Color Conversion:", "color_utils.html#autotoc_md28", null ]
+      [ "Console Color Utilities", "color_utils.html#autotoc_md24", [
+        [ "Key Functions:", "color_utils.html#autotoc_md25", null ],
+        [ "ColorManipulator Class:", "color_utils.html#autotoc_md26", null ],
+        [ "Supported Colors:", "color_utils.html#autotoc_md27", [
+          [ "ANSI Escape Code Conversion:", "color_utils.html#autotoc_md28", null ],
+          [ "Windows Console Color Conversion:", "color_utils.html#autotoc_md29", null ]
         ] ]
       ] ]
     ] ],
     [ "Common Types and Enumerations", "common_types.html", [
-      [ "Common Types and Enumerations", "common_types.html#autotoc_md29", [
-        [ "Enumerations", "common_types.html#autotoc_md30", null ],
-        [ "Type Aliases", "common_types.html#autotoc_md31", null ],
-        [ "Example", "common_types.html#autotoc_md32", null ]
+      [ "Common Types and Enumerations", "common_types.html#autotoc_md30", [
+        [ "Enumerations", "common_types.html#autotoc_md31", null ],
+        [ "Type Aliases", "common_types.html#autotoc_md32", null ],
+        [ "Example", "common_types.html#autotoc_md33", null ]
       ] ]
     ] ],
     [ "Usage Examples", "examples_page.html", [
-      [ "Usage Examples", "examples_page.html#autotoc_md33", [
-        [ "Basic Setup", "examples_page.html#autotoc_md34", null ],
-        [ "Using the ServiceLocator", "examples_page.html#autotoc_md35", null ],
-        [ "JSON Configuration Management", "examples_page.html#autotoc_md36", null ],
-        [ "Custom Loop Example", "examples_page.html#autotoc_md37", null ],
-        [ "Resource Cleanup and Worker Shutdown", "examples_page.html#autotoc_md38", null ],
-        [ "Logging with LogIt", "examples_page.html#autotoc_md39", null ],
-        [ "Working with Path Utilities", "examples_page.html#autotoc_md40", null ]
+      [ "Usage Examples", "examples_page.html#autotoc_md34", [
+        [ "Basic Setup", "examples_page.html#autotoc_md35", null ],
+        [ "Using the ServiceLocator", "examples_page.html#autotoc_md36", null ],
+        [ "JSON Configuration Management", "examples_page.html#autotoc_md37", null ],
+        [ "Custom Loop Example", "examples_page.html#autotoc_md38", null ],
+        [ "Resource Cleanup and Worker Shutdown", "examples_page.html#autotoc_md39", null ],
+        [ "Logging with LogIt", "examples_page.html#autotoc_md40", null ],
+        [ "Working with Path Utilities", "examples_page.html#autotoc_md41", null ]
       ] ]
     ] ],
     [ "JSON Utilities", "json_utils.html", [
-      [ "JSON Utilities", "json_utils.html#autotoc_md41", [
-        [ "Key Functions:", "json_utils.html#autotoc_md42", null ],
-        [ "Example:", "json_utils.html#autotoc_md43", null ]
+      [ "JSON Utilities", "json_utils.html#autotoc_md42", [
+        [ "Key Functions:", "json_utils.html#autotoc_md43", null ],
+        [ "Example:", "json_utils.html#autotoc_md44", null ]
       ] ]
     ] ],
     [ "Path Utilities", "path_utils.html", [
-      [ "Path Utilities", "path_utils.html#autotoc_md44", [
-        [ "Key Functions:", "path_utils.html#autotoc_md45", null ],
-        [ "Example:", "path_utils.html#autotoc_md46", null ]
+      [ "Path Utilities", "path_utils.html#autotoc_md45", [
+        [ "Key Functions:", "path_utils.html#autotoc_md46", null ],
+        [ "Example:", "path_utils.html#autotoc_md47", null ]
       ] ]
     ] ],
     [ "Project Structure", "project_structure.html", [
-      [ "Project Structure", "project_structure.html#autotoc_md47", [
-        [ "Public Include Contract", "project_structure.html#autotoc_md48", null ]
+      [ "Project Structure", "project_structure.html#autotoc_md48", [
+        [ "Public Include Contract", "project_structure.html#autotoc_md49", null ],
+        [ "Vendored Dependencies", "project_structure.html#autotoc_md50", null ]
       ] ]
     ] ],
     [ "Installation and Configuration", "setup.html", [
-      [ "Installation and Configuration", "setup.html#autotoc_md49", [
-        [ "Supported Standards", "setup.html#autotoc_md50", null ],
-        [ "Feature Macros", "setup.html#autotoc_md51", null ],
-        [ "Configuration Example", "setup.html#autotoc_md52", null ],
-        [ "CMake", "setup.html#autotoc_md53", null ]
+      [ "Installation and Configuration", "setup.html#autotoc_md51", [
+        [ "Supported Standards", "setup.html#autotoc_md52", null ],
+        [ "Dependencies", "setup.html#autotoc_md53", null ],
+        [ "Feature Macros", "setup.html#autotoc_md54", null ],
+        [ "Configuration Example", "setup.html#autotoc_md55", null ],
+        [ "CMake", "setup.html#autotoc_md56", null ]
       ] ]
     ] ],
     [ "Topics", "topics.html", "topics" ],
@@ -116,7 +118,7 @@ var NAVTREEINDEX =
 [
 "AppComponentManager_8hpp.html",
 "classconsolix_1_1MultiStream.html",
-"structAppConfig.html#abace0c48ed7b52cbda1e7ef43a80404c"
+"structAppConfig.html#a4d6acfacbd24bb0555a3e381f677342c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

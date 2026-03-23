@@ -8,6 +8,7 @@ var searchData=
   ['darkred_5',['DarkRed',['../namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a8746d21f8164452063398744f06307dd',1,'consolix']]],
   ['darkyellow_6',['DarkYellow',['../namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a42d873bb34e1055e40aad0ec45039e8b',1,'consolix']]],
   ['debug_5fmode_7',['debug_mode',['../structAppConfig.html#a4d6acfacbd24bb0555a3e381f677342c',1,'AppConfig']]],
-  ['documentation_8',['Consolix Framework Documentation',['../index.html',1,'']]],
-  ['documentation_20structure_9',['Documentation Structure',['../index.html#autotoc_md19',1,'']]]
+  ['dependencies_8',['Dependencies',['../index.html#autotoc_md18',1,'Dependencies'],['../setup.html#autotoc_md53',1,'Dependencies'],['../project_structure.html#autotoc_md50',1,'Vendored Dependencies']]],
+  ['documentation_9',['Consolix Framework Documentation',['../index.html',1,'']]],
+  ['documentation_20structure_10',['Documentation Structure',['../index.html#autotoc_md20',1,'']]]
 ];
