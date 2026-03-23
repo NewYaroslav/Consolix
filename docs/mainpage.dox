@@ -21,15 +21,16 @@ Welcome to the **Consolix Framework**, a `header-only` C++ library for structure
 Consolix is designed for console applications that need more structure than a single source file, but do not want the weight of a large framework.
 
 It helps organize application startup, shared services, logging, CLI parsing, configuration loading, and common utility tasks so console applications remain easier to grow and maintain.
+It also targets the recurring runtime concerns of console tools: startup and shutdown flow, termination-signal-driven stop requests, logo and title output, and keeping the main loop readable instead of scattering that logic across `main.cpp`.
 
 ## Capabilities
 
-- **Header-only delivery** with an official `Consolix::Consolix` CMake `INTERFACE` target
-- **Component-Based Architecture** for logging, configuration management, console titles, logos, and application loops
-- **Aggregate-first public entry headers** for normal consumer code
-- **Intended standalone utility leaves** for focused direct includes
-- **Compatibility with C++11, C++14, and C++17**
-- **Optional integrations** with LogIt, cxxopts, and nlohmann/json
+- **Component-based application structure** built around reusable components and a shared service locator
+- **Lifecycle and loop management** for startup, execution, and controlled shutdown flows
+- **Console-oriented presentation helpers** for titles, ASCII logos, colors, and logging
+- **CLI and configuration components** for command-line parsing and JSON-backed settings
+- **Utility helpers** for paths, encodings, system tasks, and other recurring console-app support code
+- **Lightweight delivery model** with `header-only` consumption, `C++11`/`14`/`17` support, and opt-in integrations only when needed
 
 ## Key Modules
 
@@ -59,6 +60,15 @@ For most projects, the shortest path is:
 2. Enable only the optional integrations you need.
 3. Include an aggregate entry header such as `#include <consolix/consolix.hpp>`.
 4. If you use CMake, link against `Consolix::Consolix`.
+
+## Dependencies
+
+Consolix vendors several external libraries in `libs/`.
+
+- **LogIt** is used by the optional logging integration and powers `LoggerComponent` when `CONSOLIX_USE_LOGIT=1`
+- **time-shield-cpp** is a vendored dependency used by the LogIt integration; it is not intended as a primary Consolix-facing API layer
+- **cxxopts** is used by `CliComponent` when `CONSOLIX_USE_CXXOPTS=1`
+- **nlohmann/json** is used by `ConfigComponent` when `CONSOLIX_USE_JSON=1`
 
 ## Example Usage
 

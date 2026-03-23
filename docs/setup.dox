@@ -21,6 +21,17 @@ The utility headers below are also intended to work as standalone direct include
 
 Consolix supports `C++11`, `C++14`, and `C++17`.
 
+## Dependencies
+
+The repository vendors external libraries under `libs/`.
+
+- `libs/log-it-cpp` — optional logging integration used by `LoggerComponent` when `CONSOLIX_USE_LOGIT=1`
+- `libs/time-shield-cpp` — vendored dependency used by the LogIt integration; this dependency is normally indirect from a Consolix consumer perspective
+- `libs/cxxopts` — optional command-line parsing dependency used when `CONSOLIX_USE_CXXOPTS=1`
+- `libs/json` — optional JSON dependency used when `CONSOLIX_USE_JSON=1`
+
+Consolix remains `header-only`, but optional subsystems can rely on these vendored external libraries when their feature macros are enabled.
+
 ## Feature Macros
 
 Optional integrations are disabled by default.
@@ -53,4 +64,6 @@ target_link_libraries(my_target PRIVATE Consolix::Consolix)
 ```
 
 Allowed values for `CONSOLIX_CXX_STANDARD` are `11`, `14`, and `17`.
+
+For normal consumer code, prefer the aggregate entry headers and the exported `Consolix::Consolix` target rather than reaching into vendored dependencies directly.
 */

@@ -17,27 +17,16 @@ Consolix is a `header-only` C++ library for building structured console applicat
 
 Consolix is designed for console applications that need more structure than a single `main.cpp`, but still want a lightweight, easy-to-integrate setup.
 
-It provides a component-based application model, shared services, path and JSON helpers, and optional integrations for logging, CLI parsing, and configuration loading. The goal is to make console apps easier to assemble, extend, and maintain without introducing a heavy runtime framework.
+It helps with the recurring problems that show up in real console tools: organizing startup and shutdown, reacting to termination signals, wiring shared services, showing a logo or title, parsing arguments, loading configuration, and keeping the main loop readable. The goal is to make console apps easier to assemble, extend, and maintain without introducing a heavy runtime framework.
 
 ## Capabilities
 
-- `header-only` delivery with an official `Consolix::Consolix` CMake `INTERFACE` target
-- component-based application architecture for logging, configuration, titles, logos, and execution loops
-- aggregate-first public entry headers for normal consumption:
-  - `#include <consolix/consolix.hpp>`
-  - `#include <consolix/core.hpp>`
-  - `#include <consolix/components.hpp>`
-  - `#include <consolix/utils.hpp>`
-- intended standalone utility leaves for focused direct includes:
-  - `#include <consolix/utils/json_utils.hpp>`
-  - `#include <consolix/utils/path_utils.hpp>`
-  - `#include <consolix/utils/enums.hpp>`
-  - `#include <consolix/utils/types.hpp>`
-- compatibility with `C++11`, `C++14`, and `C++17`
-- optional integration with:
-  - [LogIt](https://github.com/NewYaroslav/log-it-cpp)
-  - [cxxopts](https://github.com/jarro2783/cxxopts)
-  - [nlohmann/json](https://github.com/nlohmann/json)
+- structure console applications around reusable components and a shared service locator instead of a monolithic `main.cpp`
+- manage application lifecycle, execution loops, and graceful shutdown flows, including termination-signal-driven stop requests
+- add console title handling, ASCII logo output, and logging without repeating boilerplate in every tool
+- parse command-line arguments and load JSON-based configuration through dedicated components
+- reuse common helpers for paths, colors, encodings, and system-oriented console tasks
+- stay lightweight with `header-only` delivery, `C++11`/`14`/`17` support, and opt-in integrations only when a project needs them
 
 ## Quick Start
 
@@ -96,6 +85,15 @@ All optional integrations are disabled by default.
 
 Enable only the features you need before including Consolix headers.
 
+## Dependencies
+
+The repository vendors several external libraries as submodules under `libs/`.
+
+- [LogIt](https://github.com/NewYaroslav/log-it-cpp) powers `LoggerComponent` and the LogIt-backed logging path when `CONSOLIX_USE_LOGIT=1`
+- [time-shield-cpp](https://github.com/NewYaroslav/time-shield-cpp) is a vendored dependency used by the LogIt integration; most Consolix users do not interact with it directly through the Consolix API
+- [cxxopts](https://github.com/jarro2783/cxxopts) enables `CliComponent` and related CLI aliases when `CONSOLIX_USE_CXXOPTS=1`
+- [nlohmann/json](https://github.com/nlohmann/json) enables `ConfigComponent` and JSON-backed configuration loading when `CONSOLIX_USE_JSON=1`
+
 ## CMake
 
 ```cmake
@@ -116,6 +114,8 @@ target_link_libraries(my_app PRIVATE Consolix::Consolix)
 Supported values for `CONSOLIX_CXX_STANDARD` are `11`, `14`, and `17`.
 
 On GNU toolchains, `Consolix::Consolix` links `stdc++fs` automatically for `C++11` and `C++14` builds that use experimental filesystem support.
+
+Consolix is published as a `header-only` library and exports the official `Consolix::Consolix` `INTERFACE` target for normal CMake consumption.
 
 ## Example
 

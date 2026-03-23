@@ -58,4 +58,15 @@ Intended standalone utility leaf headers:
 - `consolix/utils/types.hpp`
 
 Other internal leaf headers are primarily implementation details behind the aggregate entry headers.
+
+## Vendored Dependencies
+
+The repository also contains external submodules under `libs/`, for example:
+
+- `libs/log-it-cpp`
+- `libs/time-shield-cpp`
+- `libs/cxxopts`
+- `libs/json`
+
+These directories are vendored dependencies used by optional Consolix integrations. They are not part of the public Consolix header tree itself.
 */
