@@ -97,7 +97,7 @@ namespace consolix {
                 m_event_bus->clear_pending();
             }
             if (m_task_manager) {
-                m_task_manager->cancel_all();
+                m_task_manager->clear_pending();
             }
         }
 
