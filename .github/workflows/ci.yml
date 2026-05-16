@@ -35,12 +35,6 @@ jobs:
             cxx_standard: 17
           - platform: macos
             os: macos-latest
-            cxx_standard: 11
-          - platform: macos
-            os: macos-latest
-            cxx_standard: 14
-          - platform: macos
-            os: macos-latest
             cxx_standard: 17
 
     steps:
