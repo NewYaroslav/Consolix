@@ -28,8 +28,9 @@ var searchData=
   ['mainpage_2edox_25',['mainpage.dox',['../mainpage_8dox.html',1,'']]],
   ['make_5frelative_26',['make_relative',['../namespaceconsolix.html#af6d350f8f8e10243f251d2bb59120610',1,'consolix']]],
   ['management_27',['JSON Configuration Management',['../examples_page.html#autotoc_md37',1,'']]],
-  ['modules_28',['Key Modules',['../index.html#autotoc_md16',1,'']]],
-  ['modules_3a_29',['Included Modules:',['../group__Utilities.html#autotoc_md12',1,'']]],
-  ['multistream_30',['MultiStream',['../classconsolix_1_1MultiStream.html',1,'consolix::MultiStream'],['../classconsolix_1_1MultiStream.html#ab7183010a2a915dd8906c6460fc46f1e',1,'consolix::MultiStream::MultiStream()']]],
-  ['multistream_2ehpp_31',['MultiStream.hpp',['../MultiStream_8hpp.html',1,'']]]
+  ['modulehubcomponent_2ehpp_28',['ModuleHubComponent.hpp',['../ModuleHubComponent_8hpp.html',1,'']]],
+  ['modules_29',['Key Modules',['../index.html#autotoc_md16',1,'']]],
+  ['modules_3a_30',['Included Modules:',['../group__Utilities.html#autotoc_md12',1,'']]],
+  ['multistream_31',['MultiStream',['../classconsolix_1_1MultiStream.html',1,'consolix::MultiStream'],['../classconsolix_1_1MultiStream.html#ab7183010a2a915dd8906c6460fc46f1e',1,'consolix::MultiStream::MultiStream()']]],
+  ['multistream_2ehpp_32',['MultiStream.hpp',['../MultiStream_8hpp.html',1,'']]]
 ];

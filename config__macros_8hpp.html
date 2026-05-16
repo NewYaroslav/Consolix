@@ -118,6 +118,8 @@ Macros</h2></td></tr>
 <tr class="memdesc:a9d914f68b81e5966ef42ee2d64269408"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables the use of the cxxopts library for command-line arguments.  <br /></td></tr>
 <tr class="memitem:a57c0a36583c244db28894fea9deef003" id="r_a57c0a36583c244db28894fea9deef003"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a57c0a36583c244db28894fea9deef003">CONSOLIX_USE_JSON</a>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:a57c0a36583c244db28894fea9deef003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables the use of the nlohmann/json library for JSON handling.  <br /></td></tr>
+<tr class="memitem:aeb48640015b1ac385795734e40c3a62b" id="r_aeb48640015b1ac385795734e40c3a62b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aeb48640015b1ac385795734e40c3a62b">CONSOLIX_USE_EVENT_HUB</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:aeb48640015b1ac385795734e40c3a62b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables optional event-hub-cpp integration.  <br /></td></tr>
 <tr class="memitem:a3a1254284e06c02b92506eae97295d1f" id="r_a3a1254284e06c02b92506eae97295d1f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a3a1254284e06c02b92506eae97295d1f">CONSOLIX_BASE_PATH</a>&#160;&#160;&#160;{}</td></tr>
 <tr class="memdesc:a3a1254284e06c02b92506eae97295d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the base path for resolving relative paths.  <br /></td></tr>
 <tr class="memitem:aa9bc4138c6d343946adb42adaeca7de3" id="r_aa9bc4138c6d343946adb42adaeca7de3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa9bc4138c6d343946adb42adaeca7de3">CONSOLIX_CONSOLE_PATTERN</a>&#160;&#160;&#160;LOGIT_CONSOLE_PATTERN</td></tr>
@@ -189,7 +191,7 @@ Usage:</h3>
 <p>Defines the base path for resolving relative paths. </p>
 <p>Set to an empty object <span class="tt">{}</span> by default. \default <span class="tt">{}</span> </p>
 
-<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00055">55</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00063">63</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -208,7 +210,7 @@ Usage:</h3>
 <p>Debug console log message pattern. </p>
 <p>A specialized format for detailed debug messages. \default <span class="tt">"H:M:S.e | [%25!g:%#] [l] %^v%$"</span> </p>
 
-<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00071">71</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00079">79</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -227,7 +229,7 @@ Usage:</h3>
 <p>Console log message pattern. </p>
 <p>Specifies the default format for log messages printed to the console. \default <span class="tt">LOGIT_CONSOLE_PATTERN</span> </p>
 
-<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00063">63</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00071">71</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -246,7 +248,7 @@ Usage:</h3>
 <p>Default text color for console output. </p>
 <p>Sets the default color for console output to LightGray. \default <span class="tt"><a class="el" href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027afb55202637692de4a494e9ade4cff2dd">consolix::TextColor::LightGray</a></span> </p>
 
-<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00119">119</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00127">127</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -265,7 +267,7 @@ Usage:</h3>
 <p>Auto-delete log files older than the specified number of days. </p>
 <p>Automatically removes log files that exceed the defined retention period. \default <span class="tt">LOGIT_FILE_LOGGER_AUTO_DELETE_DAYS</span> </p>
 
-<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00103">103</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00111">111</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -284,7 +286,7 @@ Usage:</h3>
 <p>Default file logger path. </p>
 <p>Specifies the directory where general log files are stored. \default <span class="tt">LOGIT_FILE_LOGGER_PATH</span> </p>
 
-<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00087">87</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00095">95</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -303,7 +305,7 @@ Usage:</h3>
 <p>File log message pattern. </p>
 <p>Specifies the default format for log messages written to files. \default <span class="tt">LOGIT_FILE_LOGGER_PATTERN</span> </p>
 
-<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00079">79</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00087">87</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -322,7 +324,7 @@ Usage:</h3>
 <p>Default hash length for unique file names. </p>
 <p>Determines the number of characters in the hash portion of unique file names. \default <span class="tt">LOGIT_UNIQUE_FILE_LOGGER_HASH_LENGTH</span> </p>
 
-<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00111">111</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00119">119</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -341,7 +343,7 @@ Usage:</h3>
 <p>Default unique file logger path. </p>
 <p>Specifies the directory where unique log files are stored. \default <span class="tt">LOGIT_UNIQUE_FILE_LOGGER_PATH</span> </p>
 
-<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00095">95</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00103">103</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -361,6 +363,25 @@ Usage:</h3>
 <p>Set to <span class="tt">1</span> to enable cxxopts, or <span class="tt">0</span> to disable it. \default <span class="tt">0</span> </p>
 
 <p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00039">39</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeb48640015b1ac385795734e40c3a62b" name="aeb48640015b1ac385795734e40c3a62b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb48640015b1ac385795734e40c3a62b">&#9670;&#160;</a></span>CONSOLIX_USE_EVENT_HUB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CONSOLIX_USE_EVENT_HUB&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables or disables optional event-hub-cpp integration. </p>
+<p>Set to <span class="tt">1</span> to enable EventHubComponent and the event-hub-cpp headers. \default <span class="tt">0</span> </p>
+
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00055">55</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -417,7 +438,7 @@ Usage:</h3>
 <p>Enables or disables waiting for user input before exiting on a fatal error. </p>
 <p>Set to <span class="tt">1</span> to wait for Enter after a fatal error (useful for debugging), or <span class="tt">0</span> to exit immediately. \default <span class="tt">0</span> </p>
 
-<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00128">128</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__macros_8hpp_source.html#l00136">136</a> of file <a class="el" href="config__macros_8hpp_source.html">config_macros.hpp</a>.</p>
 
 </div>
 </div>

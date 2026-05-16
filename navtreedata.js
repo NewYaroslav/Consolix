@@ -117,8 +117,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AppComponentManager_8hpp.html",
-"classconsolix_1_1MultiStream.html",
-"structAppConfig.html#a4d6acfacbd24bb0555a3e381f677342c"
+"classconsolix_1_1LoopComponent.html#af74d2115f15c0467e6c3fc9f4a31a071",
+"std__compat_8hpp.html#a39f6873ef638c5a25142a5ab9cc881ae"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

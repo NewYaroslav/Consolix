@@ -4,13 +4,14 @@ var searchData=
   ['enumerations_1',['Enumerations',['../common_types.html',1,'Common Types and Enumerations'],['../common_types.html#autotoc_md30',1,'Common Types and Enumerations'],['../common_types.html#autotoc_md31',1,'Enumerations']]],
   ['enums_2ehpp_2',['enums.hpp',['../enums_8hpp.html',1,'']]],
   ['escape_20code_20conversion_3a_3',['ANSI Escape Code Conversion:',['../color_utils.html#autotoc_md28',1,'']]],
-  ['example_4',['Example',['../setup.html#autotoc_md55',1,'Configuration Example'],['../examples_page.html#autotoc_md38',1,'Custom Loop Example'],['../common_types.html#autotoc_md33',1,'Example']]],
-  ['example_20usage_5',['Example Usage',['../index.html#autotoc_md19',1,'']]],
-  ['example_20usage_20of_20application_20utilities_6',['Example usage of application utilities.',['../application__utils_8hpp.html#autotoc_md10',1,'']]],
-  ['example_20usage_20of_20the_20servicelocator_7',['Example usage of the ServiceLocator.',['../service__utils_8hpp.html#autotoc_md11',1,'']]],
-  ['example_20usage_3a_8',['Example Usage:',['../group__Components.html#autotoc_md3',1,'Example Usage:'],['../group__Core.html#autotoc_md9',1,'Example Usage:'],['../group__Utilities.html#autotoc_md13',1,'Example Usage:']]],
-  ['example_3a_9',['Example:',['../json_utils.html#autotoc_md44',1,'Example:'],['../path_utils.html#autotoc_md47',1,'Example:']]],
-  ['example_5fapplication_5fmain_5floop_2ecpp_10',['example_application_main_loop.cpp',['../example__application__main__loop_8cpp.html',1,'']]],
-  ['examples_11',['Examples',['../examples_page.html',1,'Usage Examples'],['../examples_page.html#autotoc_md34',1,'Usage Examples']]],
-  ['examples_2edox_12',['examples.dox',['../examples_8dox.html',1,'']]]
+  ['eventhubcomponent_2ehpp_4',['EventHubComponent.hpp',['../EventHubComponent_8hpp.html',1,'']]],
+  ['example_5',['Example',['../setup.html#autotoc_md55',1,'Configuration Example'],['../examples_page.html#autotoc_md38',1,'Custom Loop Example'],['../common_types.html#autotoc_md33',1,'Example']]],
+  ['example_20usage_6',['Example Usage',['../index.html#autotoc_md19',1,'']]],
+  ['example_20usage_20of_20application_20utilities_7',['Example usage of application utilities.',['../application__utils_8hpp.html#autotoc_md10',1,'']]],
+  ['example_20usage_20of_20the_20servicelocator_8',['Example usage of the ServiceLocator.',['../service__utils_8hpp.html#autotoc_md11',1,'']]],
+  ['example_20usage_3a_9',['Example Usage:',['../group__Components.html#autotoc_md3',1,'Example Usage:'],['../group__Core.html#autotoc_md9',1,'Example Usage:'],['../group__Utilities.html#autotoc_md13',1,'Example Usage:']]],
+  ['example_3a_10',['Example:',['../json_utils.html#autotoc_md44',1,'Example:'],['../path_utils.html#autotoc_md47',1,'Example:']]],
+  ['example_5fapplication_5fmain_5floop_2ecpp_11',['example_application_main_loop.cpp',['../example__application__main__loop_8cpp.html',1,'']]],
+  ['examples_12',['Examples',['../examples_page.html',1,'Usage Examples'],['../examples_page.html#autotoc_md34',1,'Usage Examples']]],
+  ['examples_2edox_13',['examples.dox',['../examples_8dox.html',1,'']]]
 ];

@@ -4,8 +4,10 @@ var group__Components =
     [ "BaseLoopComponent.hpp", "BaseLoopComponent_8hpp.html", null ],
     [ "CliComponent.hpp", "CliComponent_8hpp.html", null ],
     [ "ConfigComponent.hpp", "ConfigComponent_8hpp.html", null ],
+    [ "EventHubComponent.hpp", "EventHubComponent_8hpp.html", null ],
     [ "LoggerComponent.hpp", "LoggerComponent_8hpp.html", null ],
     [ "LogoComponent.hpp", "LogoComponent_8hpp.html", null ],
     [ "LoopComponent.hpp", "LoopComponent_8hpp.html", null ],
+    [ "ModuleHubComponent.hpp", "ModuleHubComponent_8hpp.html", null ],
     [ "TitleComponent.hpp", "TitleComponent_8hpp.html", null ]
 ];

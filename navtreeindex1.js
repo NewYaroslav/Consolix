@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"classconsolix_1_1LoopComponent.html#af74d2115f15c0467e6c3fc9f4a31a071":[9,0,0,5,12],
+"classconsolix_1_1LoopComponent.html#af74d2115f15c0467e6c3fc9f4a31a071":[10,0,0,5,12],
 "classconsolix_1_1MultiStream.html":[9,0,0,3],
 "classconsolix_1_1MultiStream.html":[10,0,0,3],
 "classconsolix_1_1MultiStream.html#a58d7d762e6e9e086164febcd7ac1b8c5":[9,0,0,3,3],
@@ -101,16 +103,17 @@ var NAVTREEINDEX1 =
 "config__macros_8hpp.html#a13a715fa9b693ed81ebac76852355696":[11,0,2,0,5,0],
 "config__macros_8hpp.html#a25561dae702c433db09433b429d48c4b":[11,0,2,0,5,6],
 "config__macros_8hpp.html#a3a1254284e06c02b92506eae97295d1f":[11,0,2,0,5,1],
-"config__macros_8hpp.html#a57c0a36583c244db28894fea9deef003":[11,0,2,0,5,11],
+"config__macros_8hpp.html#a57c0a36583c244db28894fea9deef003":[11,0,2,0,5,12],
 "config__macros_8hpp.html#a643a693c954dcf845975b8d4ab95f665":[11,0,2,0,5,9],
 "config__macros_8hpp.html#a673cf89c701f38886a7fe0c74e45abbe":[11,0,2,0,5,8],
-"config__macros_8hpp.html#a7c2aa07b29b2966e512d19a3b06572e0":[11,0,2,0,5,13],
+"config__macros_8hpp.html#a7c2aa07b29b2966e512d19a3b06572e0":[11,0,2,0,5,14],
 "config__macros_8hpp.html#a9d914f68b81e5966ef42ee2d64269408":[11,0,2,0,5,10],
 "config__macros_8hpp.html#aa9bc4138c6d343946adb42adaeca7de3":[11,0,2,0,5,3],
 "config__macros_8hpp.html#ab84f17bf9f3f6ab81962f5b0980f508f":[11,0,2,0,5,4],
-"config__macros_8hpp.html#abc86d8e297b196d80003a22d12ae36cf":[11,0,2,0,5,12],
+"config__macros_8hpp.html#abc86d8e297b196d80003a22d12ae36cf":[11,0,2,0,5,13],
 "config__macros_8hpp.html#ac1040dffd99c6c2a47d7d758514e16d7":[11,0,2,0,5,5],
 "config__macros_8hpp.html#ac3bdea8f77047e1fc39368ff8dd5694d":[11,0,2,0,5,2],
+"config__macros_8hpp.html#aeb48640015b1ac385795734e40c3a62b":[11,0,2,0,5,11],
 "config__macros_8hpp_source.html":[11,0,2,0,5],
 "consolix_8hpp.html":[11,0,2,0,6],
 "consolix_8hpp.html#a18800871ab22dd13938819cbe27f266e":[11,0,2,0,6,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX1 =
 "setup.html#autotoc_md54":[7,0,2],
 "setup.html#autotoc_md55":[7,0,3],
 "setup.html#autotoc_md56":[7,0,4],
-"std__compat_8hpp.html":[11,0,2,0,1,6],
-"std__compat_8hpp.html#a39f6873ef638c5a25142a5ab9cc881ae":[11,0,2,0,1,6,1],
-"std__compat_8hpp_source.html":[11,0,2,0,1,6],
-"structAppConfig.html":[10,0,1]
+"std__compat_8hpp.html":[11,0,2,0,1,6]
 };

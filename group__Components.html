@@ -117,12 +117,16 @@ Files</h2></td></tr>
 <tr class="memdesc:CliComponent_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component for handling command-line arguments using cxxopts library. <br /></td></tr>
 <tr class="memitem:ConfigComponent_2Ehpp" id="r_ConfigComponent_2Ehpp"><td class="memItemLeft">file &#160;</td><td class="memItemRight"><a class="el" href="ConfigComponent_8hpp.html">ConfigComponent.hpp</a></td></tr>
 <tr class="memdesc:ConfigComponent_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component for loading and managing configuration data from JSON files. <br /></td></tr>
+<tr class="memitem:EventHubComponent_2Ehpp" id="r_EventHubComponent_2Ehpp"><td class="memItemLeft">file &#160;</td><td class="memItemRight"><a class="el" href="EventHubComponent_8hpp.html">EventHubComponent.hpp</a></td></tr>
+<tr class="memdesc:EventHubComponent_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines optional event-hub-cpp processing component. <br /></td></tr>
 <tr class="memitem:LoggerComponent_2Ehpp" id="r_LoggerComponent_2Ehpp"><td class="memItemLeft">file &#160;</td><td class="memItemRight"><a class="el" href="LoggerComponent_8hpp.html">LoggerComponent.hpp</a></td></tr>
 <tr class="memdesc:LoggerComponent_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logger component for managing application logging with LogIt. <br /></td></tr>
 <tr class="memitem:LogoComponent_2Ehpp" id="r_LogoComponent_2Ehpp"><td class="memItemLeft">file &#160;</td><td class="memItemRight"><a class="el" href="LogoComponent_8hpp.html">LogoComponent.hpp</a></td></tr>
 <tr class="memdesc:LogoComponent_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a component for displaying a customizable ASCII logo. <br /></td></tr>
 <tr class="memitem:LoopComponent_2Ehpp" id="r_LoopComponent_2Ehpp"><td class="memItemLeft">file &#160;</td><td class="memItemRight"><a class="el" href="LoopComponent_8hpp.html">LoopComponent.hpp</a></td></tr>
 <tr class="memdesc:LoopComponent_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a component for running a customizable execution loop. <br /></td></tr>
+<tr class="memitem:ModuleHubComponent_2Ehpp" id="r_ModuleHubComponent_2Ehpp"><td class="memItemLeft">file &#160;</td><td class="memItemRight"><a class="el" href="ModuleHubComponent_8hpp.html">ModuleHubComponent.hpp</a></td></tr>
+<tr class="memdesc:ModuleHubComponent_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines optional event-hub-cpp ModuleHub processing component. <br /></td></tr>
 <tr class="memitem:TitleComponent_2Ehpp" id="r_TitleComponent_2Ehpp"><td class="memItemLeft">file &#160;</td><td class="memItemRight"><a class="el" href="TitleComponent_8hpp.html">TitleComponent.hpp</a></td></tr>
 <tr class="memdesc:TitleComponent_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component for managing console window titles in a platform-independent way. <br /></td></tr>
 </table>
@@ -149,6 +153,8 @@ Main Components:</h3>
 <li><b>ConfigComponent</b>: Loads and manages configuration from JSON files.</li>
 <li><b>BaseLoopComponent</b>: A base class for loop-based components.</li>
 <li><b>LoopComponent</b>: A component with customizable execution loops.</li>
+<li><b>EventHubComponent</b>: Optional bridge to event-hub-cpp EventBus and TaskManager.</li>
+<li><b>ModuleHubComponent</b>: Optional bridge to event-hub-cpp ModuleHub.</li>
 </ul>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
 Key Features:</h3>
@@ -157,6 +163,7 @@ Key Features:</h3>
 <li>Convenient handling of command-line arguments.</li>
 <li>Lightweight JSON configuration management, including support for comments.</li>
 <li>Support for custom execution loops using either a base class or the LoopComponent.</li>
+<li>Optional event-hub-cpp processing from the Consolix component loop.</li>
 <li>UTF-8 support for program titles on all platforms:<ul>
 <li>Automatically converted to UTF-16 on Windows for proper Unicode rendering.</li>
 <li>Displayed via ANSI escape sequences on Linux/macOS.</li>
@@ -180,6 +187,8 @@ Included Headers:</h3>
 <li><span class="tt"><a class="el" href="ConfigComponent_8hpp.html" title="Component for loading and managing configuration data from JSON files.">components/ConfigComponent.hpp</a></span></li>
 <li><span class="tt"><a class="el" href="BaseLoopComponent_8hpp.html" title="Provides a base class for implementing looping application components.">components/BaseLoopComponent.hpp</a></span></li>
 <li><span class="tt"><a class="el" href="LoopComponent_8hpp.html" title="Defines a component for running a customizable execution loop.">components/LoopComponent.hpp</a></span></li>
+<li><span class="tt"><a class="el" href="EventHubComponent_8hpp.html" title="Defines optional event-hub-cpp processing component.">components/EventHubComponent.hpp</a></span> when <span class="tt"><a class="el" href="config__macros_8hpp.html#aeb48640015b1ac385795734e40c3a62b" title="Enables or disables optional event-hub-cpp integration.">CONSOLIX_USE_EVENT_HUB</a>=1</span></li>
+<li><span class="tt"><a class="el" href="ModuleHubComponent_8hpp.html" title="Defines optional event-hub-cpp ModuleHub processing component.">components/ModuleHubComponent.hpp</a></span> when <span class="tt"><a class="el" href="config__macros_8hpp.html#aeb48640015b1ac385795734e40c3a62b" title="Enables or disables optional event-hub-cpp integration.">CONSOLIX_USE_EVENT_HUB</a>=1</span></li>
 </ul>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
 Example Usage:</h3>

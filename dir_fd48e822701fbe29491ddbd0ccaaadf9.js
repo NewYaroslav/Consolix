@@ -4,8 +4,10 @@ var dir_fd48e822701fbe29491ddbd0ccaaadf9 =
     [ "BaseLoopComponent.hpp", "BaseLoopComponent_8hpp.html", "BaseLoopComponent_8hpp" ],
     [ "CliComponent.hpp", "CliComponent_8hpp.html", "CliComponent_8hpp" ],
     [ "ConfigComponent.hpp", "ConfigComponent_8hpp.html", "ConfigComponent_8hpp" ],
+    [ "EventHubComponent.hpp", "EventHubComponent_8hpp.html", "EventHubComponent_8hpp" ],
     [ "LoggerComponent.hpp", "LoggerComponent_8hpp.html", "LoggerComponent_8hpp" ],
     [ "LogoComponent.hpp", "LogoComponent_8hpp.html", "LogoComponent_8hpp" ],
     [ "LoopComponent.hpp", "LoopComponent_8hpp.html", "LoopComponent_8hpp" ],
+    [ "ModuleHubComponent.hpp", "ModuleHubComponent_8hpp.html", "ModuleHubComponent_8hpp" ],
     [ "TitleComponent.hpp", "TitleComponent_8hpp.html", "TitleComponent_8hpp" ]
 ];

@@ -107,35 +107,43 @@ $(function(){initNavTree('components_8hpp_source.html','',''); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef _CONSOLIX_COMPONENTS_HPP_INCLUDED</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="components_8hpp.html#a19b3e4edfa972628e176a5dd5e75e8df">    3</a></span><span class="preprocessor">#define _CONSOLIX_COMPONENTS_HPP_INCLUDED</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#include &quot;<a class="code" href="config__macros_8hpp.html">config_macros.hpp</a>&quot;</span>                </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">// Core interfaces needed for all components</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#include &quot;<a class="code" href="interfaces_8hpp.html">interfaces.hpp</a>&quot;</span>                   </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#include &quot;<a class="code" href="utils_8hpp.html">utils.hpp</a>&quot;</span>                        </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">// Service management utilities required by LoggerComponent, CliComponent, ConfigComponent</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#include &quot;<a class="code" href="ServiceLocator_8hpp.html">core/ServiceLocator.hpp</a>&quot;</span>          </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#include &quot;<a class="code" href="service__utils_8hpp.html">core/service_utils.hpp</a>&quot;</span>           </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">// Core components of the Consolix framework</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#include &quot;<a class="code" href="TitleComponent_8hpp.html">components/TitleComponent.hpp</a>&quot;</span>    </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#include &quot;<a class="code" href="LoggerComponent_8hpp.html">components/LoggerComponent.hpp</a>&quot;</span>   </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">#include &quot;<a class="code" href="LogoComponent_8hpp.html">components/LogoComponent.hpp</a>&quot;</span>     </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#include &quot;<a class="code" href="BaseLoopComponent_8hpp.html">components/BaseLoopComponent.hpp</a>&quot;</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#include &quot;<a class="code" href="LoopComponent_8hpp.html">components/LoopComponent.hpp</a>&quot;</span>     </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#include &quot;<a class="code" href="CliComponent_8hpp.html">components/CliComponent.hpp</a>&quot;</span>      </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">// JSON configuration management</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="preprocessor">#include &quot;<a class="code" href="ConfigComponent_8hpp.html">components/ConfigComponent.hpp</a>&quot;</span>   </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#endif </span><span class="comment">// _CONSOLIX_COMPONENTS_HPP_INCLUDED</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#include &quot;<a class="code" href="config__macros_8hpp.html">config_macros.hpp</a>&quot;</span>                </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">// Core interfaces needed for all components</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#include &quot;<a class="code" href="interfaces_8hpp.html">interfaces.hpp</a>&quot;</span>                   </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#include &quot;<a class="code" href="utils_8hpp.html">utils.hpp</a>&quot;</span>                        </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">// Service management utilities required by LoggerComponent, CliComponent, ConfigComponent</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#include &quot;<a class="code" href="ServiceLocator_8hpp.html">core/ServiceLocator.hpp</a>&quot;</span>          </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">#include &quot;<a class="code" href="service__utils_8hpp.html">core/service_utils.hpp</a>&quot;</span>           </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">// Core components of the Consolix framework</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#include &quot;<a class="code" href="TitleComponent_8hpp.html">components/TitleComponent.hpp</a>&quot;</span>    </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#include &quot;<a class="code" href="LoggerComponent_8hpp.html">components/LoggerComponent.hpp</a>&quot;</span>   </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#include &quot;<a class="code" href="LogoComponent_8hpp.html">components/LogoComponent.hpp</a>&quot;</span>     </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="preprocessor">#include &quot;<a class="code" href="BaseLoopComponent_8hpp.html">components/BaseLoopComponent.hpp</a>&quot;</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#include &quot;<a class="code" href="LoopComponent_8hpp.html">components/LoopComponent.hpp</a>&quot;</span>     </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#if CONSOLIX_USE_EVENT_HUB == 1</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#include &quot;<a class="code" href="EventHubComponent_8hpp.html">components/EventHubComponent.hpp</a>&quot;</span>  </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">#include &quot;<a class="code" href="ModuleHubComponent_8hpp.html">components/ModuleHubComponent.hpp</a>&quot;</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#include &quot;<a class="code" href="CliComponent_8hpp.html">components/CliComponent.hpp</a>&quot;</span>      </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">// JSON configuration management</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#include &quot;<a class="code" href="ConfigComponent_8hpp.html">components/ConfigComponent.hpp</a>&quot;</span>   </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#endif </span><span class="comment">// _CONSOLIX_COMPONENTS_HPP_INCLUDED</span></div>
 <div class="ttc" id="aBaseLoopComponent_8hpp_html"><div class="ttname"><a href="BaseLoopComponent_8hpp.html">BaseLoopComponent.hpp</a></div><div class="ttdoc">Provides a base class for implementing looping application components.</div></div>
 <div class="ttc" id="aCliComponent_8hpp_html"><div class="ttname"><a href="CliComponent_8hpp.html">CliComponent.hpp</a></div><div class="ttdoc">Component for handling command-line arguments using cxxopts library.</div></div>
 <div class="ttc" id="aConfigComponent_8hpp_html"><div class="ttname"><a href="ConfigComponent_8hpp.html">ConfigComponent.hpp</a></div><div class="ttdoc">Component for loading and managing configuration data from JSON files.</div></div>
+<div class="ttc" id="aEventHubComponent_8hpp_html"><div class="ttname"><a href="EventHubComponent_8hpp.html">EventHubComponent.hpp</a></div><div class="ttdoc">Defines optional event-hub-cpp processing component.</div></div>
 <div class="ttc" id="aLoggerComponent_8hpp_html"><div class="ttname"><a href="LoggerComponent_8hpp.html">LoggerComponent.hpp</a></div><div class="ttdoc">Logger component for managing application logging with LogIt.</div></div>
 <div class="ttc" id="aLogoComponent_8hpp_html"><div class="ttname"><a href="LogoComponent_8hpp.html">LogoComponent.hpp</a></div><div class="ttdoc">Defines a component for displaying a customizable ASCII logo.</div></div>
 <div class="ttc" id="aLoopComponent_8hpp_html"><div class="ttname"><a href="LoopComponent_8hpp.html">LoopComponent.hpp</a></div><div class="ttdoc">Defines a component for running a customizable execution loop.</div></div>
+<div class="ttc" id="aModuleHubComponent_8hpp_html"><div class="ttname"><a href="ModuleHubComponent_8hpp.html">ModuleHubComponent.hpp</a></div><div class="ttdoc">Defines optional event-hub-cpp ModuleHub processing component.</div></div>
 <div class="ttc" id="aServiceLocator_8hpp_html"><div class="ttname"><a href="ServiceLocator_8hpp.html">ServiceLocator.hpp</a></div><div class="ttdoc">Provides a universal service locator for managing shared resources.</div></div>
 <div class="ttc" id="aTitleComponent_8hpp_html"><div class="ttname"><a href="TitleComponent_8hpp.html">TitleComponent.hpp</a></div><div class="ttdoc">Component for managing console window titles in a platform-independent way.</div></div>
 <div class="ttc" id="aconfig__macros_8hpp_html"><div class="ttname"><a href="config__macros_8hpp.html">config_macros.hpp</a></div><div class="ttdoc">Configuration macros for the Consolix framework.</div></div>
