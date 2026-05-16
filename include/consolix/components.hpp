@@ -32,6 +32,7 @@
 /// - **BaseLoopComponent**: A base class for loop-based components.
 /// - **LoopComponent**: A component with customizable execution loops.
 /// - **EventHubComponent**: Optional bridge to event-hub-cpp EventBus and TaskManager.
+/// - **ModuleHubComponent**: Optional bridge to event-hub-cpp ModuleHub.
 ///
 /// ### Key Features:
 /// - Easy integration of logging and logo rendering.
@@ -57,6 +58,7 @@
 /// - `components/BaseLoopComponent.hpp`
 /// - `components/LoopComponent.hpp`
 /// - `components/EventHubComponent.hpp` when `CONSOLIX_USE_EVENT_HUB=1`
+/// - `components/ModuleHubComponent.hpp` when `CONSOLIX_USE_EVENT_HUB=1`
 ///
 /// ### Example Usage:
 ///
@@ -104,7 +106,8 @@
 #include "components/LoopComponent.hpp"     ///< Component with configurable initialization, loop, and shutdown callbacks.
 
 #if CONSOLIX_USE_EVENT_HUB == 1
-#include "components/EventHubComponent.hpp" ///< Optional event-hub-cpp integration component.
+#include "components/EventHubComponent.hpp"  ///< Optional event-hub-cpp EventBus/TaskManager integration component.
+#include "components/ModuleHubComponent.hpp" ///< Optional event-hub-cpp ModuleHub integration component.
 #endif
 
 #include "components/CliComponent.hpp"      ///< Component for handling command-line arguments.
