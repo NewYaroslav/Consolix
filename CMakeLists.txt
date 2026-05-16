@@ -12,8 +12,13 @@ endif()
 option(CONSOLIX_USE_LOGIT "Use LogIt++ logging library" ON)
 option(CONSOLIX_USE_JSON "Use nlohmann/json" ON)
 option(CONSOLIX_USE_CXXOPTS "Use cxxopts for argument parsing" ON)
+option(CONSOLIX_USE_EVENT_HUB "Use optional event-hub-cpp integration" OFF)
 option(CONSOLIX_BUILD_EXAMPLES "Build Consolix examples" ON)
 option(CONSOLIX_BUILD_TESTS "Build Consolix tests" ON)
+
+if(CONSOLIX_USE_EVENT_HUB AND CONSOLIX_CXX_STANDARD LESS 17)
+    message(FATAL_ERROR "CONSOLIX_USE_EVENT_HUB requires CONSOLIX_CXX_STANDARD=17")
+endif()
 
 set(CMAKE_CXX_STANDARD ${CONSOLIX_CXX_STANDARD})
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -34,29 +39,42 @@ target_compile_definitions(Consolix
         CONSOLIX_USE_LOGIT=$<BOOL:${CONSOLIX_USE_LOGIT}>
         CONSOLIX_USE_JSON=$<BOOL:${CONSOLIX_USE_JSON}>
         CONSOLIX_USE_CXXOPTS=$<BOOL:${CONSOLIX_USE_CXXOPTS}>
+        CONSOLIX_USE_EVENT_HUB=$<BOOL:${CONSOLIX_USE_EVENT_HUB}>
         CONSOLIX_BASE_PATH="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
 if(CONSOLIX_USE_LOGIT)
     target_include_directories(Consolix
         SYSTEM INTERFACE
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libs/log-it-cpp/include/logit_cpp>
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libs/time-shield-cpp/include>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external/log-it-cpp/include/logit_cpp>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external/time-shield-cpp/include>
     )
 endif()
 
 if(CONSOLIX_USE_JSON)
     target_include_directories(Consolix
         SYSTEM INTERFACE
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libs/json/include>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external/json/include>
     )
 endif()
 
 if(CONSOLIX_USE_CXXOPTS)
     target_include_directories(Consolix
         SYSTEM INTERFACE
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libs/cxxopts/include>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external/cxxopts/include>
     )
+endif()
+
+if(CONSOLIX_USE_EVENT_HUB)
+    set(EVENT_HUB_CPP_BUILD_EXAMPLES OFF CACHE BOOL "Build event-hub-cpp examples" FORCE)
+    set(EVENT_HUB_CPP_BUILD_TESTS OFF CACHE BOOL "Build event-hub-cpp tests" FORCE)
+    set(EVENT_HUB_CPP_USE_TIME_SHIELD OFF CACHE BOOL "Enable optional time-shield-cpp integration" FORCE)
+
+    add_subdirectory(
+        ${CMAKE_CURRENT_SOURCE_DIR}/external/event-hub-cpp
+        ${CMAKE_CURRENT_BINARY_DIR}/external/event-hub-cpp
+    )
+    target_link_libraries(Consolix INTERFACE event_hub::event_hub)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CONSOLIX_CXX_STANDARD LESS 17)
@@ -124,5 +142,15 @@ if(CONSOLIX_BUILD_TESTS)
         consolix_add_test(test_posix_signal_shutdown "tests/test_posix_signal_shutdown.cpp")
         target_compile_definitions(test_posix_signal_shutdown PRIVATE CONSOLIX_WAIT_ON_ERROR=0)
         set_tests_properties(test_posix_signal_shutdown PROPERTIES TIMEOUT 15)
+    endif()
+
+    if(CONSOLIX_USE_EVENT_HUB AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_event_hub_component.cpp")
+        consolix_add_test(test_event_hub_component "tests/test_event_hub_component.cpp")
+        set_tests_properties(test_event_hub_component PROPERTIES TIMEOUT 15)
+    endif()
+
+    if(CONSOLIX_USE_EVENT_HUB AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_module_hub_component.cpp")
+        consolix_add_test(test_module_hub_component "tests/test_module_hub_component.cpp")
+        set_tests_properties(test_module_hub_component PROPERTIES TIMEOUT 15)
     endif()
 endif()

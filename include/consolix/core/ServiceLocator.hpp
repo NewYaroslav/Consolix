@@ -7,7 +7,7 @@
 /// \ingroup Core
 
 #if CONSOLIX_USE_LOGIT == 1
-#include <LogIt.hpp>
+#include <logit.hpp>
 #endif
 
 #include "std_compat.hpp"

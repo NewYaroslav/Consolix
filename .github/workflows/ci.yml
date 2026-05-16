@@ -2,16 +2,40 @@ name: ci
 
 on:
   push:
+    branches:
+      - main
   pull_request:
   workflow_dispatch:
 
 jobs:
-  build-and-test-linux:
-    runs-on: ubuntu-22.04
+  build-and-test:
+    name: build-and-test-${{ matrix.platform }} (${{ matrix.cxx_standard }})
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        cxx_standard: [11, 14, 17]
+        include:
+          - platform: linux
+            os: ubuntu-22.04
+            cxx_standard: 11
+          - platform: linux
+            os: ubuntu-22.04
+            cxx_standard: 14
+          - platform: linux
+            os: ubuntu-22.04
+            cxx_standard: 17
+          - platform: windows
+            os: windows-latest
+            cxx_standard: 11
+          - platform: windows
+            os: windows-latest
+            cxx_standard: 14
+          - platform: windows
+            os: windows-latest
+            cxx_standard: 17
+          - platform: macos
+            os: macos-latest
+            cxx_standard: 17
 
     steps:
       - name: Checkout repository
@@ -21,8 +45,42 @@ jobs:
 
       - name: Configure
         run: >
-          cmake -S . -B build
+          cmake -S . -B build -G Ninja
           -DCONSOLIX_CXX_STANDARD=${{ matrix.cxx_standard }}
+          -DCONSOLIX_BUILD_EXAMPLES=ON
+          -DCONSOLIX_BUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+  build-and-test-event-hub:
+    name: build-and-test-event-hub-${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux
+            os: ubuntu-22.04
+          - platform: windows
+            os: windows-latest
+          - platform: macos
+            os: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Configure
+        run: >
+          cmake -S . -B build -G Ninja
+          -DCONSOLIX_CXX_STANDARD=17
+          -DCONSOLIX_USE_EVENT_HUB=ON
           -DCONSOLIX_BUILD_EXAMPLES=ON
           -DCONSOLIX_BUILD_TESTS=ON
 

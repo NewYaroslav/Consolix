@@ -31,12 +31,15 @@
 /// - **ConfigComponent**: Loads and manages configuration from JSON files.
 /// - **BaseLoopComponent**: A base class for loop-based components.
 /// - **LoopComponent**: A component with customizable execution loops.
+/// - **EventHubComponent**: Optional bridge to event-hub-cpp EventBus and TaskManager.
+/// - **ModuleHubComponent**: Optional bridge to event-hub-cpp ModuleHub.
 ///
 /// ### Key Features:
 /// - Easy integration of logging and logo rendering.
 /// - Convenient handling of command-line arguments.
 /// - Lightweight JSON configuration management, including support for comments.
 /// - Support for custom execution loops using either a base class or the LoopComponent.
+/// - Optional event-hub-cpp processing from the Consolix component loop.
 /// - UTF-8 support for program titles on all platforms:
 ///   - Automatically converted to UTF-16 on Windows for proper Unicode rendering.
 ///   - Displayed via ANSI escape sequences on Linux/macOS.
@@ -54,6 +57,8 @@
 /// - `components/ConfigComponent.hpp`
 /// - `components/BaseLoopComponent.hpp`
 /// - `components/LoopComponent.hpp`
+/// - `components/EventHubComponent.hpp` when `CONSOLIX_USE_EVENT_HUB=1`
+/// - `components/ModuleHubComponent.hpp` when `CONSOLIX_USE_EVENT_HUB=1`
 ///
 /// ### Example Usage:
 ///
@@ -94,11 +99,17 @@
 #include "core/service_utils.hpp"           ///< Utility functions for working with services.
 
 // Core components of the Consolix framework
-#include "components/TitleComponent.hpp"	///< Component for managing the console window title across platforms.
+#include "components/TitleComponent.hpp"    ///< Component for managing the console window title across platforms.
 #include "components/LoggerComponent.hpp"   ///< Component for managing logging.
 #include "components/LogoComponent.hpp"     ///< Component for rendering logos in the console.
 #include "components/BaseLoopComponent.hpp" ///< Base class for implementing loop-based components.
 #include "components/LoopComponent.hpp"     ///< Component with configurable initialization, loop, and shutdown callbacks.
+
+#if CONSOLIX_USE_EVENT_HUB == 1
+#include "components/EventHubComponent.hpp"  ///< Optional event-hub-cpp EventBus/TaskManager integration component.
+#include "components/ModuleHubComponent.hpp" ///< Optional event-hub-cpp ModuleHub integration component.
+#endif
+
 #include "components/CliComponent.hpp"      ///< Component for handling command-line arguments.
 
 // JSON configuration management
