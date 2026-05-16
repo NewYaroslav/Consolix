@@ -1,16 +1,21 @@
-[submodule "libs/log-it-cpp"]
-	path = libs/log-it-cpp
+[submodule "external/log-it-cpp"]
+	path = external/log-it-cpp
 	url = https://github.com/NewYaroslav/log-it-cpp.git
-[submodule "libs/time-shield-cpp"]
-	path = libs/time-shield-cpp
+	branch = main
+[submodule "external/time-shield-cpp"]
+	path = external/time-shield-cpp
 	url = https://github.com/NewYaroslav/time-shield-cpp.git
 	branch = main
-[submodule "libs/cxxopts"]
-	path = libs/cxxopts
+[submodule "external/cxxopts"]
+	path = external/cxxopts
 	url = https://github.com/jarro2783/cxxopts.git
-[submodule "libs/json"]
-	path = libs/json
+[submodule "external/json"]
+	path = external/json
 	url = https://github.com/nlohmann/json.git
+[submodule "external/event-hub-cpp"]
+	path = external/event-hub-cpp
+	url = https://github.com/NewYaroslav/event-hub-cpp.git
+	branch = main
 [submodule ".github/doxygen-awesome-css"]
 	path = .github/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git

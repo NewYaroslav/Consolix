@@ -31,3 +31,26 @@ jobs:
 
       - name: Test
         run: ctest --test-dir build --output-on-failure
+
+  build-and-test-event-hub:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Configure
+        run: >
+          cmake -S . -B build
+          -DCONSOLIX_CXX_STANDARD=17
+          -DCONSOLIX_USE_EVENT_HUB=ON
+          -DCONSOLIX_BUILD_EXAMPLES=ON
+          -DCONSOLIX_BUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure

@@ -47,6 +47,14 @@
 #define CONSOLIX_USE_JSON 0
 #endif
 
+/// \def CONSOLIX_USE_EVENT_HUB
+/// \brief Enables or disables optional event-hub-cpp integration.
+/// \details Set to `1` to enable EventHubComponent and the event-hub-cpp headers.
+/// \default `0`
+#ifndef CONSOLIX_USE_EVENT_HUB
+#define CONSOLIX_USE_EVENT_HUB 0
+#endif
+
 /// \def CONSOLIX_BASE_PATH
 /// \brief Defines the base path for resolving relative paths.
 /// \details Set to an empty object `{}` by default.
