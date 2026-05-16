@@ -6,8 +6,6 @@
 /// \brief Defines optional event-hub-cpp ModuleHub processing component.
 /// \ingroup Components
 
-#include "../config_macros.hpp"
-
 #if CONSOLIX_USE_EVENT_HUB == 1
 
 #include <cstddef>
