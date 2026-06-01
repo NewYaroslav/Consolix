@@ -101,7 +101,8 @@ namespace consolix {
 
         /// \brief Shuts down all components with "soft shutdown" support.
         ///
-        /// Calls `shutdown(signal)` on components implementing the `IShutdownable` interface.
+        /// Calls `shutdown(signal)` on components implementing the `IShutdownable` interface
+        /// in reverse registration order. Components must not modify this manager during shutdown.
         /// If any component throws an exception during shutdown, the error is logged and
         /// stored, and the shutdown process continues for the remaining components.
         /// At the end, a summary of all errors is logged, and a `std::runtime_error` is thrown
@@ -117,7 +118,8 @@ namespace consolix {
             LOGIT_PRINT_INFO("Starting shutdown with signal: ", signal);
 #           endif
             std::vector<std::string> errors; // Собираем ошибки
-            for (size_t index = 0; index < m_components.size(); ++index) {
+            for (size_t remaining = m_components.size(); remaining > 0; --remaining) {
+                const size_t index = remaining - 1;
                 const auto& component = m_components[index];
                 try {
                     if (auto shutdownable = std::dynamic_pointer_cast<IShutdownable>(component)) {
