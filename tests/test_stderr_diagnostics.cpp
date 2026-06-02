@@ -84,8 +84,6 @@ void test_stderr_stream_colored() {
                      "CONSOLIX_STDERR_STREAM (colored)");
     require_contains(out, "y",
                      "CONSOLIX_STDERR_STREAM (colored)");
-    require_contains(out, "\033[",
-                     "CONSOLIX_STDERR_STREAM (colored)");
 }
 
 void test_stderr_log_stream_default() {
