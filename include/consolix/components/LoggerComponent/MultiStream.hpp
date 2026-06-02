@@ -10,11 +10,6 @@
 /// On Windows, it converts UTF-8 strings to CP866 for compatibility with legacy console encoding,
 /// while on Linux/macOS, it directly outputs UTF-8 strings with ANSI color codes.
 
-#include "../../config_macros.hpp"
-#include "../../utils/enums.hpp"
-#include "../../utils/ColorManipulator.hpp"
-#include "../../utils/encoding_utils.hpp"
-
 #include <initializer_list>
 #include <iostream>
 #include <sstream>
@@ -38,9 +33,10 @@ namespace consolix {
 #if     CONSOLIX_USE_LOGIT == 1
         /// \brief Default constructor for MultiStream with LogIt integration.
         MultiStream()
-            : m_level(logit::LogLevel::LOG_LVL_TRACE), m_file(__FILE__),
-            m_line(__LINE__),
-            m_function(logit::make_relative(__FILE__, LOGIT_BASE_PATH)) {
+            : m_level(logit::LogLevel::LOG_LVL_TRACE), 
+              m_file(__FILE__),
+              m_line(__LINE__),
+              m_function(logit::make_relative(__FILE__, LOGIT_BASE_PATH)) {
         }
 
         /// \brief Parameterized constructor for LogIt integration.
