@@ -138,6 +138,10 @@ if(CONSOLIX_BUILD_TESTS)
         )
     endif()
 
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_stderr_diagnostics.cpp")
+        consolix_add_test(test_stderr_diagnostics "tests/test_stderr_diagnostics.cpp")
+    endif()
+
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_app_component_manager_shutdown_order.cpp")
         consolix_add_test(test_app_component_manager_shutdown_order "tests/test_app_component_manager_shutdown_order.cpp")
     endif()
