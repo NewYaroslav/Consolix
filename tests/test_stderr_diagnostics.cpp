@@ -79,7 +79,12 @@ void test_stderr_stream_colored() {
             << "y";
     }
 
-    require_contains(captured.str(), "[stderr-colored]xy",
+    const std::string out = captured.str();
+    require_contains(out, "[stderr-colored]x",
+                     "CONSOLIX_STDERR_STREAM (colored)");
+    require_contains(out, "y",
+                     "CONSOLIX_STDERR_STREAM (colored)");
+    require_contains(out, "\033[",
                      "CONSOLIX_STDERR_STREAM (colored)");
 }
 
