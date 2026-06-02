@@ -156,6 +156,37 @@ int main(int argc, char* argv[]) {
 }
 ```
 
+## Diagnostic Streams
+
+Consolix provides five diagnostic macros for stderr-only and multi-target logging:
+
+| Macro | stderr | File logger | Extra backends | Color |
+|---|---|---|---|---|
+| `CONSOLIX_STDERR_STREAM(level)` | yes | — | — | via `<< color(...)` |
+| `CONSOLIX_STDERR_LOG_STREAM(level)` | yes | — | `CONSOLIX_LOGIT_DEFAULT_BACKENDS` | via `<< color(...)` |
+| `CONSOLIX_STDERR_LOG_STREAM_EX(level, ...)` | yes | — | inline indices | via `<< color(...)` |
+| `CONSOLIX_LOG_STREAM(level)` | yes | yes | `CONSOLIX_LOGIT_DEFAULT_BACKENDS` | via `<< color(...)` |
+| `CONSOLIX_LOG_STREAM_EX(level, ...)` | yes | yes | inline indices | via `<< color(...)` |
+
+The `level` argument is mandatory (`logit::LogLevel::LOG_LVL_ERROR` and so on). Color is applied explicitly by the caller through `<< consolix::color(consolix::TextColor::Red)`.
+
+**Default backends.** The config macro `CONSOLIX_LOGIT_DEFAULT_BACKENDS` (defined in `include/consolix/config_macros.hpp`) controls the extra LogIt backends that `CONSOLIX_STDERR_LOG_STREAM` and `CONSOLIX_LOG_STREAM` fan out to. It is empty by default. To add backends 8 and 9, define it before including the header:
+
+```cpp
+#define CONSOLIX_LOGIT_DEFAULT_BACKENDS 8, 9
+#include <consolix/core.hpp>
+```
+
+Or via `-DCONSOLIX_LOGIT_DEFAULT_BACKENDS=8,9` in compile flags.
+
+**Inline override.** To specify a backend list at the call site (bypassing the default), use the `_EX` variants:
+
+```cpp
+CONSOLIX_STDERR_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_ERROR, 0, 2, 5);
+```
+
+See `examples/example_stderr_diagnostics.cpp` for a runnable example that exercises all five macros.
+
 ## Documentation
 
 Additional repository guidance:
@@ -163,5 +194,6 @@ Additional repository guidance:
 - developer guidelines: `docs/header-implementation-guidelines.md`
 - agent playbook: `agents/header-implementation-guidelines.md`
 - lifecycle example: `examples/example_shutdown_and_resources.cpp`
+- diagnostic streams: `examples/example_stderr_diagnostics.cpp`
 
 API documentation: https://newyaroslav.github.io/Consolix/

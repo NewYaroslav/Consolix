@@ -25,3 +25,15 @@ Additional policy:
   * If a build directory is an intentional development build for the project, it may live in a normal project location instead of `tmp/agent-work/`.
   * Existing or intended development build directories such as `build-mingw` are not violations of this rule.
   * Do not move, delete, or redefine established development build directories unless the user explicitly asks for that change.
+
+## Umbrella-Header Policy
+
+In Consolix, every public header is reachable through the **umbrella headers**:
+
+- `<consolix/core.hpp>` — the main entry point, aggregates `components.hpp`, `utils.hpp`, `interfaces.hpp`, and `core/*`.
+- `<consolix/components.hpp>` — every component (`LoggerComponent`, `EventHubComponent`, `ModuleHubComponent`, etc.).
+- `<consolix/utils.hpp>` — utilities (`ColorManipulator`, `TextColor`, `encoding_utils`).
+
+**Rule for contributors and AI agents:** internal headers (for example `include/consolix/components/LoggerComponent/MultiStream.hpp`) **must not** explicitly `#include` sibling internal headers (`../../config_macros.hpp`, `../../utils/enums.hpp`, etc.) when those siblings already arrive transitively through the umbrella header. This lets us move and refactor internal headers without cascading edits. If you are writing a new internal header and you need `TextColor` / `ColorManipulator` / `CONSOLIX_USE_LOGIT` / `logit::LogLevel` — they are already available through `<consolix/components.hpp>` or `<consolix/core.hpp>`, which are included earlier anyway.
+
+**Exception:** only header files **outside** `include/consolix/` (examples, tests, documentation) should explicitly `#include <consolix/core.hpp>`.
