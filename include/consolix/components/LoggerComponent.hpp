@@ -47,20 +47,38 @@
         __LINE__,                                        \
         LOGIT_FUNCTION)
 
-/// \brief Defines a stderr-only diagnostic stream.
-/// This stream bypasses LogIt and writes directly to std::cerr.
-#define CONSOLIX_STDERR_STREAM() \
-    consolix::StderrStream()
+/// \brief Defines a stderr-only diagnostic stream at a fixed level.
+/// \param level LogIt level to assume for the stderr-side diagnostic message.
+/// \details Writes exclusively to std::cerr. No LogIt backends are touched.
+///          Pass `logit::LogLevel::LOG_LVL_ERROR` (or any other level) explicitly.
+#define CONSOLIX_STDERR_STREAM(level)                              \
+    consolix::StderrStream(                                        \
+        (level),                                                   \
+        logit::make_relative(__FILE__, LOGIT_BASE_PATH),           \
+        __LINE__,                                                  \
+        LOGIT_FUNCTION,                                            \
+        {})
 
-/// \brief Defines a red stderr-only diagnostic stream.
-/// This stream bypasses LogIt and writes directly to std::cerr.
-#define CONSOLIX_STDERR_ERROR_STREAM() \
-    (consolix::StderrStream() << consolix::color(consolix::TextColor::Red))
+/// \brief Defines a stderr diagnostic stream that also fans out to the
+///        Consolix default LogIt backend set.
+/// \param level LogIt level for the targeted backends.
+/// \details The set of duplicated LogIt backends is taken from the
+///          `CONSOLIX_LOGIT_DEFAULT_BACKENDS` macro (empty by default).
+///          Override that macro (e.g. `-DCONSOLIX_LOGIT_DEFAULT_BACKENDS=8,9`)
+///          to redirect the duplicated output.
+#define CONSOLIX_STDERR_LOG_STREAM(level)                          \
+    consolix::StderrStream(                                        \
+        (level),                                                   \
+        logit::make_relative(__FILE__, LOGIT_BASE_PATH),           \
+        __LINE__,                                                  \
+        LOGIT_FUNCTION,                                            \
+        {CONSOLIX_LOGIT_DEFAULT_BACKENDS})
 
-/// \brief Defines a stderr diagnostic stream with explicit LogIt backend targets.
-/// \param level LogIt level for targeted backends.
-/// \param ... Explicit LogIt backend indices.
-#define CONSOLIX_STDERR_LOG_STREAM(level, ...)                     \
+/// \brief Defines a stderr diagnostic stream that also fans out to an
+///        explicit inline list of LogIt backend indices.
+/// \param level LogIt level for the targeted backends.
+/// \param ... Comma-separated LogIt backend indices (e.g. `0,3`).
+#define CONSOLIX_STDERR_LOG_STREAM_EX(level, ...)                  \
     consolix::StderrStream(                                        \
         (level),                                                   \
         logit::make_relative(__FILE__, LOGIT_BASE_PATH),           \
@@ -68,15 +86,34 @@
         LOGIT_FUNCTION,                                            \
         {__VA_ARGS__})
 
-/// \brief Defines a stderr diagnostic stream duplicated to the Consolix file logger.
-/// \param level LogIt level for the file backend.
-#define CONSOLIX_STDERR_FILE_STREAM(level) \
-    CONSOLIX_STDERR_LOG_STREAM((level), CONSOLIX_LOGIT_LOGGER_INDEX)
+/// \brief Defines a multi-target log stream (file logger + console + default LogIt backends).
+/// \param level LogIt level for the multi-target stream.
+/// \details Uses `CONSOLIX_LOGIT_DEFAULT_BACKENDS` (empty by default) to select
+///          additional backends; override that macro to extend the set.
+#define CONSOLIX_LOG_STREAM(level)                                 \
+    consolix::MultiStream(                                         \
+        (level),                                                   \
+        logit::make_relative(__FILE__, LOGIT_BASE_PATH),           \
+        __LINE__,                                                  \
+        LOGIT_FUNCTION,                                            \
+        {CONSOLIX_LOGIT_DEFAULT_BACKENDS})
 
-/// \brief Defines a red stderr diagnostic stream duplicated to the Consolix file logger.
-/// \param level LogIt level for the file backend.
-#define CONSOLIX_STDERR_FILE_ERROR_STREAM(level) \
-    (CONSOLIX_STDERR_FILE_STREAM(level) << consolix::color(consolix::TextColor::Red))
+/// \brief Defines a multi-target log stream with an explicit inline list of
+///        additional LogIt backend indices.
+/// \param level LogIt level for the multi-target stream.
+/// \param ... Comma-separated LogIt backend indices (e.g. `0,3`).
+#define CONSOLIX_LOG_STREAM_EX(level, ...)                         \
+    consolix::MultiStream(                                         \
+        (level),                                                   \
+        logit::make_relative(__FILE__, LOGIT_BASE_PATH),           \
+        __LINE__,                                                  \
+        LOGIT_FUNCTION,                                            \
+        {__VA_ARGS__})
+
+/// \note The legacy `_ERROR_STREAM` and `_FILE_*` stderr variants have been
+///       removed. To colorize a stderr message, prepend the color manipulator
+///       in the chain, e.g.
+///       `CONSOLIX_STDERR_STREAM(logit::LogLevel::LOG_LVL_ERROR) << consolix::color(consolix::TextColor::Red)`.
 
 /// \brief Defines the log stream for application logos.
 /// This stream is dedicated to rendering logo-specific logs.
@@ -247,25 +284,28 @@ namespace consolix {
 #define CONSOLIX_STREAM() \
     consolix::MultiStream()
 
-/// \brief Fallback stderr-only diagnostic stream.
-#define CONSOLIX_STDERR_STREAM() \
+/// \brief Fallback stderr-only diagnostic stream. The `level` argument is
+///        ignored when LogIt is disabled.
+#define CONSOLIX_STDERR_STREAM(level) \
     consolix::StderrStream()
 
-/// \brief Fallback red stderr-only diagnostic stream.
-#define CONSOLIX_STDERR_ERROR_STREAM() \
-    (consolix::StderrStream() << consolix::color(consolix::TextColor::Red))
-
-/// \brief Fallback stderr diagnostic stream with ignored LogIt targets.
-#define CONSOLIX_STDERR_LOG_STREAM(level, ...) \
+/// \brief Fallback stderr diagnostic stream. Both `level` and backend
+///        indices are ignored when LogIt is disabled.
+#define CONSOLIX_STDERR_LOG_STREAM(level) \
     consolix::StderrStream()
 
-/// \brief Fallback stderr diagnostic stream with ignored LogIt file target.
-#define CONSOLIX_STDERR_FILE_STREAM(level) \
+/// \brief Fallback stderr diagnostic stream with an ignored backend list.
+#define CONSOLIX_STDERR_LOG_STREAM_EX(level, ...) \
     consolix::StderrStream()
 
-/// \brief Fallback red stderr diagnostic stream with ignored LogIt file target.
-#define CONSOLIX_STDERR_FILE_ERROR_STREAM(level) \
-    (consolix::StderrStream() << consolix::color(consolix::TextColor::Red))
+/// \brief Fallback multi-target log stream. The `level` argument is
+///        ignored when LogIt is disabled.
+#define CONSOLIX_LOG_STREAM(level) \
+    consolix::MultiStream()
+
+/// \brief Fallback multi-target log stream with an ignored backend list.
+#define CONSOLIX_LOG_STREAM_EX(level, ...) \
+    consolix::MultiStream()
 
 /// \brief Fallback for logo logging.
 #define CONSOLIX_LOGO_STREAM() \

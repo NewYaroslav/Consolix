@@ -63,6 +63,19 @@
 #define CONSOLIX_BASE_PATH {}
 #endif
 
+/// \def CONSOLIX_LOGIT_DEFAULT_BACKENDS
+/// \brief Comma-separated list of LogIt backend indices used as the
+///        default fan-out target for `CONSOLIX_STDERR_LOG_STREAM(level)` and
+///        `CONSOLIX_LOG_STREAM(level)`.
+/// \details Empty by default. Override via `-DCONSOLIX_LOGIT_DEFAULT_BACKENDS=8,9`
+///          on the compiler command line or via `#define` before
+///          `#include <consolix/core.hpp>`. The `_EX` variants accept an
+///          inline list and ignore this macro.
+/// \default empty
+#ifndef CONSOLIX_LOGIT_DEFAULT_BACKENDS
+#define CONSOLIX_LOGIT_DEFAULT_BACKENDS
+#endif
+
 /// \def CONSOLIX_CONSOLE_PATTERN
 /// \brief Console log message pattern.
 /// \details Specifies the default format for log messages printed to the console.
