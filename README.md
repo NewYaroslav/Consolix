@@ -165,8 +165,8 @@ Consolix provides five diagnostic macros for stderr-only and multi-target loggin
 | `CONSOLIX_STDERR_STREAM(level)` | yes | — | — | via `<< color(...)` |
 | `CONSOLIX_STDERR_LOG_STREAM(level)` | yes | — | `CONSOLIX_LOGIT_DEFAULT_BACKENDS` | via `<< color(...)` |
 | `CONSOLIX_STDERR_LOG_STREAM_EX(level, ...)` | yes | — | inline indices | via `<< color(...)` |
-| `CONSOLIX_LOG_STREAM(level)` | yes | yes | `CONSOLIX_LOGIT_DEFAULT_BACKENDS` | via `<< color(...)` |
-| `CONSOLIX_LOG_STREAM_EX(level, ...)` | yes | yes | inline indices | via `<< color(...)` |
+| `CONSOLIX_LOG_STREAM(level)` | — | yes | `CONSOLIX_LOGIT_DEFAULT_BACKENDS` | via `<< color(...)` |
+| `CONSOLIX_LOG_STREAM_EX(level, ...)` | — | yes | inline indices | via `<< color(...)` |
 
 The `level` argument is mandatory (`logit::LogLevel::LOG_LVL_ERROR` and so on). Color is applied explicitly by the caller through `<< consolix::color(consolix::TextColor::Red)`.
 

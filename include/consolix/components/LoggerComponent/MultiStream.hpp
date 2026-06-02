@@ -333,16 +333,9 @@ namespace consolix {
 #else
             if (!message.empty()) {
                 const bool has_ansi_color = message.find("\033[") != std::string::npos;
-                if (message.back() == '\n') {
-                    std::cerr << message;
-                } else {
-                    std::cerr << message;
-                }
+                std::cerr << message;
                 if (has_ansi_color) {
                     std::cerr << "\033[0m";
-                }
-                if (message.back() != '\n') {
-                    std::cerr << std::endl;
                 }
             }
 #endif
@@ -398,7 +391,7 @@ namespace consolix {
             if (start < message.size()) {
                 std::cerr << message.substr(start);
             }
-            if (!message.empty()) {
+            if (!message.empty() && message.back() != '\n') {
                 std::cerr << std::endl;
             }
 
