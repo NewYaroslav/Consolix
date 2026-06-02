@@ -47,6 +47,37 @@
         __LINE__,                                        \
         LOGIT_FUNCTION)
 
+/// \brief Defines a stderr-only diagnostic stream.
+/// This stream bypasses LogIt and writes directly to std::cerr.
+#define CONSOLIX_STDERR_STREAM() \
+    consolix::StderrStream()
+
+/// \brief Defines a red stderr-only diagnostic stream.
+/// This stream bypasses LogIt and writes directly to std::cerr.
+#define CONSOLIX_STDERR_ERROR_STREAM() \
+    (consolix::StderrStream() << consolix::color(consolix::TextColor::Red))
+
+/// \brief Defines a stderr diagnostic stream with explicit LogIt backend targets.
+/// \param level LogIt level for targeted backends.
+/// \param ... Explicit LogIt backend indices.
+#define CONSOLIX_STDERR_LOG_STREAM(level, ...)                     \
+    consolix::StderrStream(                                        \
+        (level),                                                   \
+        logit::make_relative(__FILE__, LOGIT_BASE_PATH),           \
+        __LINE__,                                                  \
+        LOGIT_FUNCTION,                                            \
+        {__VA_ARGS__})
+
+/// \brief Defines a stderr diagnostic stream duplicated to the Consolix file logger.
+/// \param level LogIt level for the file backend.
+#define CONSOLIX_STDERR_FILE_STREAM(level) \
+    CONSOLIX_STDERR_LOG_STREAM((level), CONSOLIX_LOGIT_LOGGER_INDEX)
+
+/// \brief Defines a red stderr diagnostic stream duplicated to the Consolix file logger.
+/// \param level LogIt level for the file backend.
+#define CONSOLIX_STDERR_FILE_ERROR_STREAM(level) \
+    (CONSOLIX_STDERR_FILE_STREAM(level) << consolix::color(consolix::TextColor::Red))
+
 /// \brief Defines the log stream for application logos.
 /// This stream is dedicated to rendering logo-specific logs.
 #define CONSOLIX_LOGO_STREAM() \
@@ -215,6 +246,26 @@ namespace consolix {
 /// \brief Fallback for general logging.
 #define CONSOLIX_STREAM() \
     consolix::MultiStream()
+
+/// \brief Fallback stderr-only diagnostic stream.
+#define CONSOLIX_STDERR_STREAM() \
+    consolix::StderrStream()
+
+/// \brief Fallback red stderr-only diagnostic stream.
+#define CONSOLIX_STDERR_ERROR_STREAM() \
+    (consolix::StderrStream() << consolix::color(consolix::TextColor::Red))
+
+/// \brief Fallback stderr diagnostic stream with ignored LogIt targets.
+#define CONSOLIX_STDERR_LOG_STREAM(level, ...) \
+    consolix::StderrStream()
+
+/// \brief Fallback stderr diagnostic stream with ignored LogIt file target.
+#define CONSOLIX_STDERR_FILE_STREAM(level) \
+    consolix::StderrStream()
+
+/// \brief Fallback red stderr diagnostic stream with ignored LogIt file target.
+#define CONSOLIX_STDERR_FILE_ERROR_STREAM(level) \
+    (consolix::StderrStream() << consolix::color(consolix::TextColor::Red))
 
 /// \brief Fallback for logo logging.
 #define CONSOLIX_LOGO_STREAM() \
