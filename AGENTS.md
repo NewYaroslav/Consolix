@@ -26,14 +26,27 @@ Additional policy:
   * Existing or intended development build directories such as `build-mingw` are not violations of this rule.
   * Do not move, delete, or redefine established development build directories unless the user explicitly asks for that change.
 
-## Umbrella-Header Policy
+## Header Inclusion Policy
 
-In Consolix, every public header is reachable through the **umbrella headers**:
+Public entry points for users are the umbrella headers:
 
-- `<consolix/core.hpp>` — the main entry point, aggregates `components.hpp`, `utils.hpp`, `interfaces.hpp`, and `core/*`.
-- `<consolix/components.hpp>` — every component (`LoggerComponent`, `EventHubComponent`, `ModuleHubComponent`, etc.).
-- `<consolix/utils.hpp>` — utilities (`ColorManipulator`, `TextColor`, `encoding_utils`).
+- `<consolix/core.hpp>`
+- `<consolix/components.hpp>`
+- `<consolix/utils.hpp>`
 
-**Rule for contributors and AI agents:** internal headers (for example `include/consolix/components/LoggerComponent/MultiStream.hpp`) **must not** explicitly `#include` sibling internal headers (`../../config_macros.hpp`, `../../utils/enums.hpp`, etc.) when those siblings already arrive transitively through the umbrella header. This lets us move and refactor internal headers without cascading edits. If you are writing a new internal header and you need `TextColor` / `ColorManipulator` / `CONSOLIX_USE_LOGIT` / `logit::LogLevel` — they are already available through `<consolix/components.hpp>` or `<consolix/core.hpp>`, which are included earlier anyway.
+Headers inside `include/consolix/components/*` are internal implementation headers.
+They are allowed to rely on the include context established by the owning aggregate
+header, for example `components.hpp`, when they are not intended to be included
+directly by users.
 
-**Exception:** only header files **outside** `include/consolix/` (examples, tests, documentation) should explicitly `#include <consolix/core.hpp>`.
+Do not include internal leaf headers directly from user code unless the header
+explicitly documents itself as standalone.
+
+When adding a new internal header, prefer one of two clear modes:
+
+1. **Standalone header**: include all direct dependencies explicitly;
+2. **Aggregate-owned header**: include it only from the corresponding umbrella header
+   after its required shared dependencies are already included.
+
+Avoid adding redundant relative includes only to satisfy direct inclusion of
+headers that are not part of the public include surface.
