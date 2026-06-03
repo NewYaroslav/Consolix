@@ -87,7 +87,7 @@ Enable only the features you need before including Consolix headers.
 
 ## Dependencies
 
-The repository vendors several external libraries as submodules under `libs/`.
+The repository vendors several external libraries as submodules under `external/`.
 
 - [LogIt](https://github.com/NewYaroslav/log-it-cpp) powers `LoggerComponent` and the LogIt-backed logging path when `CONSOLIX_USE_LOGIT=1`
 - [time-shield-cpp](https://github.com/NewYaroslav/time-shield-cpp) is a vendored dependency used by the LogIt integration; most Consolix users do not interact with it directly through the Consolix API
@@ -156,6 +156,31 @@ int main(int argc, char* argv[]) {
 }
 ```
 
+## Diagnostic Streams
+
+Consolix provides two multi-target log macros that route messages through
+LogIt backends. The console backend is configured so that `ERROR` and `FATAL`
+levels go to `std::cerr`, while `TRACE` through `WARN` go to `std::cout`.
+
+| Macro | Console backend | File logger | Extra backends | Color |
+|---|---|---|---|---|
+| `CONSOLIX_LOG_STREAM(level)` | yes (level-based routing) | yes | — | via `<< color(...)` |
+| `CONSOLIX_LOG_STREAM_EX(level, ...)` | yes (level-based routing) | yes | inline indices | via `<< color(...)` |
+
+The `level` argument is mandatory (`logit::LogLevel::LOG_LVL_INFO`,
+`LOG_LVL_ERROR`, etc.). Color is applied explicitly by the caller through
+`<< consolix::color(consolix::TextColor::Red)`.
+
+**Inline override.** To fan out to additional LogIt backends beyond the
+standard console and file logger, use the `_EX` variant:
+
+```cpp
+CONSOLIX_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_ERROR, 0, 2, 5)
+    << "Hello with extra backends" << std::endl;
+```
+
+See `examples/example_stderr_diagnostics.cpp` for a runnable example.
+
 ## Documentation
 
 Additional repository guidance:
@@ -163,5 +188,6 @@ Additional repository guidance:
 - developer guidelines: `docs/header-implementation-guidelines.md`
 - agent playbook: `agents/header-implementation-guidelines.md`
 - lifecycle example: `examples/example_shutdown_and_resources.cpp`
+- diagnostic streams: `examples/example_stderr_diagnostics.cpp`
 
 API documentation: https://newyaroslav.github.io/Consolix/

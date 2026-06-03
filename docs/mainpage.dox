@@ -63,7 +63,7 @@ For most projects, the shortest path is:
 
 ## Dependencies
 
-Consolix vendors several external libraries in `libs/`.
+Consolix vendors several external libraries in `external/`.
 
 - **LogIt** is used by the optional logging integration and powers `LoggerComponent` when `CONSOLIX_USE_LOGIT=1`
 - **time-shield-cpp** is a vendored dependency used by the LogIt integration; it is not intended as a primary Consolix-facing API layer

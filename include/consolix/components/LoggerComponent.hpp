@@ -47,6 +47,31 @@
         __LINE__,                                        \
         LOGIT_FUNCTION)
 
+/// \brief Defines a multi-target log stream (file logger + console + extra LogIt backends).
+/// \param level LogIt level for the multi-target stream.
+/// \details Routes the message to the standard file logger, the main console
+///          backend, and any explicit inline backend indices supplied via
+///          the `CONSOLIX_LOG_STREAM_EX` variant.
+#define CONSOLIX_LOG_STREAM(level)                                 \
+    consolix::MultiStream(                                         \
+        (level),                                                   \
+        logit::make_relative(__FILE__, LOGIT_BASE_PATH),           \
+        __LINE__,                                                  \
+        LOGIT_FUNCTION,                                            \
+        {})
+
+/// \brief Defines a multi-target log stream with an explicit inline list of
+///        additional LogIt backend indices.
+/// \param level LogIt level for the multi-target stream.
+/// \param ... Comma-separated LogIt backend indices (e.g. `0,3`).
+#define CONSOLIX_LOG_STREAM_EX(level, ...)                         \
+    consolix::MultiStream(                                         \
+        (level),                                                   \
+        logit::make_relative(__FILE__, LOGIT_BASE_PATH),           \
+        __LINE__,                                                  \
+        LOGIT_FUNCTION,                                            \
+        {__VA_ARGS__})
+
 /// \brief Defines the log stream for application logos.
 /// This stream is dedicated to rendering logo-specific logs.
 #define CONSOLIX_LOGO_STREAM() \
@@ -184,7 +209,23 @@ namespace consolix {
             if (is_once) return;
             is_once = true;
 
-            LOGIT_ADD_CONSOLE_SINGLE_MODE(console_pattern, true);
+            // Primary console backend with level-based routing:
+            // TRACE..WARN -> std::cout, ERROR..FATAL -> std::cerr.
+            // The config object's primary stream (std::cout by default) is only
+            // used as a fallback when no route matches; our routes cover all
+            // levels, so every record is dispatched by level.
+            logit::ConsoleLogger::Config console_cfg;
+            console_cfg.async = true;
+            console_cfg.routes.push_back(
+                logit::ConsoleStreamRoute::to_cout(
+                    logit::LogLevel::LOG_LVL_TRACE,
+                    logit::LogLevel::LOG_LVL_WARN));
+            console_cfg.routes.push_back(
+                logit::ConsoleStreamRoute::to_cerr(
+                    logit::LogLevel::LOG_LVL_ERROR,
+                    logit::LogLevel::LOG_LVL_FATAL));
+            LOGIT_ADD_CONSOLE_CONFIG(console_cfg, console_pattern);
+
             LOGIT_ADD_CONSOLE_SINGLE_MODE("%^%v%$", true); // Logo log stream
             LOGIT_ADD_CONSOLE(m_debug_pattern, true);      // Debug log stream
             CONSOLIX_SET_DEBUG_MODE(false);
@@ -214,6 +255,15 @@ namespace consolix {
 
 /// \brief Fallback for general logging.
 #define CONSOLIX_STREAM() \
+    consolix::MultiStream()
+
+/// \brief Fallback multi-target log stream. The `level` argument is
+///        ignored when LogIt is disabled.
+#define CONSOLIX_LOG_STREAM(level) \
+    consolix::MultiStream()
+
+/// \brief Fallback multi-target log stream with an ignored backend list.
+#define CONSOLIX_LOG_STREAM_EX(level, ...) \
     consolix::MultiStream()
 
 /// \brief Fallback for logo logging.

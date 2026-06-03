@@ -20,7 +20,7 @@ int main() {
     bool task_ran = false;
 
     event_hub::EventEndpoint endpoint(bus);
-    endpoint.subscribe<TestEvent>([&event_sum](const TestEvent& event) {
+    endpoint.subscribe<TestEvent>(event_hub::DeliveryPolicy::queued, [&event_sum](const TestEvent& event) {
         event_sum += event.value;
     });
 

@@ -10,13 +10,11 @@
 /// On Windows, it converts UTF-8 strings to CP866 for compatibility with legacy console encoding,
 /// while on Linux/macOS, it directly outputs UTF-8 strings with ANSI color codes.
 
-#include "../../config_macros.hpp"
-#include "../../utils/enums.hpp"
-#include "../../utils/encoding_utils.hpp"
-
+#include <initializer_list>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 namespace consolix {
 
@@ -35,9 +33,10 @@ namespace consolix {
 #if     CONSOLIX_USE_LOGIT == 1
         /// \brief Default constructor for MultiStream with LogIt integration.
         MultiStream()
-            : m_level(logit::LogLevel::LOG_LVL_TRACE), m_file(__FILE__),
-            m_line(__LINE__),
-            m_function(logit::make_relative(__FILE__, LOGIT_BASE_PATH)) {
+            : m_level(logit::LogLevel::LOG_LVL_TRACE),
+              m_file(__FILE__),
+              m_line(__LINE__),
+              m_function(logit::make_relative(__FILE__, LOGIT_BASE_PATH)) {
         }
 
         /// \brief Parameterized constructor for LogIt integration.
@@ -51,6 +50,27 @@ namespace consolix {
             int line,
             const std::string& function)
             : m_level(level), m_file(file), m_line(line), m_function(function) {
+        }
+
+        /// \brief Parameterized constructor for LogIt integration with
+        ///        explicit extra backend indices.
+        /// \param level The log level.
+        /// \param file Source file name.
+        /// \param line Line number in the source file.
+        /// \param function Function name.
+        /// \param logger_indices Extra LogIt backend indices to fan out to
+        ///        in addition to the standard file/console targets.
+        MultiStream(
+            logit::LogLevel level,
+            const std::string& file,
+            int line,
+            const std::string& function,
+            std::initializer_list<int> logger_indices)
+            : m_level(level),
+              m_file(file),
+              m_line(line),
+              m_function(function),
+              m_logger_indices(logger_indices) {
         }
 
 #       else
@@ -75,9 +95,12 @@ namespace consolix {
 
 #           if CONSOLIX_USE_LOGIT == 1
             if (LOGIT_IS_SINGLE_MODE(CONSOLIX_LOGIT_CONSOLE_INDEX)) {
-                LOGIT_STREAM_TRACE_TO(CONSOLIX_LOGIT_CONSOLE_INDEX) << str;
+                logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_CONSOLE_INDEX) << str;
             }
             logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_LOGGER_INDEX) << str;
+            for (int logger_index : m_logger_indices) {
+                logit::LogStream(m_level, m_file, m_line, m_function, logger_index) << str;
+            }
 #           else
 
 #           if defined(_WIN32)
@@ -115,6 +138,7 @@ namespace consolix {
         std::string         m_file;         ///< Source file name.
         int                 m_line;         ///< Line number.
         std::string         m_function;     ///< Function name.
+        std::vector<int>    m_logger_indices; ///< Extra LogIt backend indices for fan-out.
 #       else
         bool                m_use_utf8;     ///< Flag indicating whether UTF-8 encoding should be used.
 #       endif
