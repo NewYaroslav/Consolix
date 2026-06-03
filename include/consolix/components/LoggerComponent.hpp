@@ -209,7 +209,23 @@ namespace consolix {
             if (is_once) return;
             is_once = true;
 
-            LOGIT_ADD_CONSOLE_SINGLE_MODE(console_pattern, true);
+            // Primary console backend with level-based routing:
+            // TRACE..WARN -> std::cout, ERROR..FATAL -> std::cerr.
+            // The config object's primary stream (std::cout by default) is only
+            // used as a fallback when no route matches; our routes cover all
+            // levels, so every record is dispatched by level.
+            logit::ConsoleLogger::Config console_cfg;
+            console_cfg.async = true;
+            console_cfg.routes.push_back(
+                logit::ConsoleStreamRoute::to_cout(
+                    logit::LogLevel::LOG_LVL_TRACE,
+                    logit::LogLevel::LOG_LVL_WARN));
+            console_cfg.routes.push_back(
+                logit::ConsoleStreamRoute::to_cerr(
+                    logit::LogLevel::LOG_LVL_ERROR,
+                    logit::LogLevel::LOG_LVL_FATAL));
+            LOGIT_ADD_CONSOLE_CONFIG(console_cfg, console_pattern);
+
             LOGIT_ADD_CONSOLE_SINGLE_MODE("%^%v%$", true); // Logo log stream
             LOGIT_ADD_CONSOLE(m_debug_pattern, true);      // Debug log stream
             CONSOLIX_SET_DEBUG_MODE(false);
