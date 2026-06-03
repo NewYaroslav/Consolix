@@ -159,6 +159,6 @@ int main(int argc, char* argv[]) {
 ## Documentation
 
 - developer guidelines: `docs/header-implementation-guidelines.md`
-- agent playbook: `agents/header-implementation-guidelines.md`
+- agent playbook: `guides/header-implementation-guidelines.md`
 - lifecycle example: `examples/example_shutdown_and_resources.cpp`
 - API docs: https://newyaroslav.github.io/Consolix/
