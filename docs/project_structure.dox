@@ -61,12 +61,12 @@ Other internal leaf headers are primarily implementation details behind the aggr
 
 ## Vendored Dependencies
 
-The repository also contains external submodules under `libs/`, for example:
+The repository also contains external submodules under `external/`, for example:
 
-- `libs/log-it-cpp`
-- `libs/time-shield-cpp`
-- `libs/cxxopts`
-- `libs/json`
+- `external/log-it-cpp`
+- `external/time-shield-cpp`
+- `external/cxxopts`
+- `external/json`
 
 These directories are vendored dependencies used by optional Consolix integrations. They are not part of the public Consolix header tree itself.
 */

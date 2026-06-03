@@ -87,7 +87,7 @@ Consolix спроектирован в aggregate-first стиле.
 
 ## Зависимости
 
-Репозиторий хранит несколько внешних библиотек как submodules в `libs/`.
+Репозиторий хранит несколько внешних библиотек как submodules в `external/`.
 
 - [LogIt](https://github.com/NewYaroslav/log-it-cpp) используется для `LoggerComponent` и LogIt-based пути логирования при `CONSOLIX_USE_LOGIT=1`
 - [time-shield-cpp](https://github.com/NewYaroslav/time-shield-cpp) — vendored dependency, которая используется вместе с интеграцией `LogIt`; обычно пользователь Consolix напрямую с ней не работает

@@ -13,10 +13,10 @@ New-Item -ItemType Directory -Path $TempRoot | Out-Null
 
 $IncludeArgs = @(
     "-I$RepoRoot/include",
-    "-I$RepoRoot/libs/cxxopts/include",
-    "-I$RepoRoot/libs/json/include",
-    "-I$RepoRoot/libs/log-it-cpp/include/logit_cpp",
-    "-I$RepoRoot/libs/time-shield-cpp/include/time_shield_cpp"
+    "-I$RepoRoot/external/cxxopts/include",
+    "-I$RepoRoot/external/json/include",
+    "-I$RepoRoot/external/log-it-cpp/include/logit_cpp",
+    "-I$RepoRoot/external/time-shield-cpp/include/time_shield_cpp"
 )
 
 $Results = [System.Collections.Generic.List[object]]::new()
