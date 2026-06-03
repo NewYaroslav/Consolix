@@ -186,7 +186,7 @@ Quick Start</h2>
 </ol>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Dependencies</h2>
-<p>Consolix vendors several external libraries in <span class="tt">libs/</span>.</p>
+<p>Consolix vendors several external libraries in <span class="tt">external/</span>.</p>
 <ul>
 <li><b>LogIt</b> is used by the optional logging integration and powers <span class="tt">LoggerComponent</span> when <span class="tt"><a class="el" href="LogoComponent_8hpp.html#abc86d8e297b196d80003a22d12ae36cf" title="Enables or disables LogIt for logo rendering.">CONSOLIX_USE_LOGIT</a>=1</span></li>
 <li><b>time-shield-cpp</b> is a vendored dependency used by the LogIt integration; it is not intended as a primary Consolix-facing API layer</li>
@@ -217,7 +217,7 @@ Example Usage</h2>
 <div class="line">        <a class="code hl_define" href="LoggerComponent_8hpp.html#a188cf759d4bc30f22194e6ab319df750">CONSOLIX_STREAM</a>() &lt;&lt; <span class="stringliteral">&quot;Executing main loop...&quot;</span>;</div>
 <div class="line">    });</div>
 <div class="line">}</div>
-<div class="ttc" id="aLoggerComponent_8hpp_html_a188cf759d4bc30f22194e6ab319df750"><div class="ttname"><a href="LoggerComponent_8hpp.html#a188cf759d4bc30f22194e6ab319df750">CONSOLIX_STREAM</a></div><div class="ttdeci">#define CONSOLIX_STREAM()</div><div class="ttdoc">Fallback for general logging.</div><div class="ttdef"><b>Definition</b> <a href="LoggerComponent_8hpp_source.html#l00216">LoggerComponent.hpp:216</a></div></div>
+<div class="ttc" id="aLoggerComponent_8hpp_html_a188cf759d4bc30f22194e6ab319df750"><div class="ttname"><a href="LoggerComponent_8hpp.html#a188cf759d4bc30f22194e6ab319df750">CONSOLIX_STREAM</a></div><div class="ttdeci">#define CONSOLIX_STREAM()</div><div class="ttdoc">Fallback for general logging.</div><div class="ttdef"><b>Definition</b> <a href="LoggerComponent_8hpp_source.html#l00257">LoggerComponent.hpp:257</a></div></div>
 <div class="ttc" id="acomponents_8hpp_html"><div class="ttname"><a href="components_8hpp.html">components.hpp</a></div><div class="ttdoc">Entry point for including all Consolix components.</div></div>
 <div class="ttc" id="anamespaceconsolix_html_a20f98e5aa9f209dc251ceceb8cad2027a42d873bb34e1055e40aad0ec45039e8b"><div class="ttname"><a href="namespaceconsolix.html#a20f98e5aa9f209dc251ceceb8cad2027a42d873bb34e1055e40aad0ec45039e8b">consolix::TextColor::DarkYellow</a></div><div class="ttdeci">@ DarkYellow</div><div class="ttdef"><b>Definition</b> <a href="enums_8hpp_source.html#l00023">enums.hpp:23</a></div></div>
 <div class="ttc" id="anamespaceconsolix_html_a249589349d7cc5f6457145883e9b384b"><div class="ttname"><a href="namespaceconsolix.html#a249589349d7cc5f6457145883e9b384b">consolix::add</a></div><div class="ttdeci">std::shared_ptr&lt; Component &gt; add(Args &amp;&amp;... args)</div><div class="ttdoc">Adds a new component to the application. Creates a new instance of the specified component type and a...</div><div class="ttdef"><b>Definition</b> <a href="application__utils_8hpp_source.html#l00050">application_utils.hpp:50</a></div></div>

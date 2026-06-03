@@ -148,6 +148,10 @@ Macros</h2></td></tr>
 <tr class="memitem:af22a15b0dd2e4f159e1992815351977e" id="r_af22a15b0dd2e4f159e1992815351977e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af22a15b0dd2e4f159e1992815351977e">_CONSOLIX_LOGGER_COMPONENT_HPP_INCLUDED</a></td></tr>
 <tr class="memitem:a188cf759d4bc30f22194e6ab319df750" id="r_a188cf759d4bc30f22194e6ab319df750"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a188cf759d4bc30f22194e6ab319df750">CONSOLIX_STREAM</a>()</td></tr>
 <tr class="memdesc:a188cf759d4bc30f22194e6ab319df750"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fallback for general logging.  <br /></td></tr>
+<tr class="memitem:a5deca44aa81f53db45becadaa33a8886" id="r_a5deca44aa81f53db45becadaa33a8886"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5deca44aa81f53db45becadaa33a8886">CONSOLIX_LOG_STREAM</a>(level)</td></tr>
+<tr class="memdesc:a5deca44aa81f53db45becadaa33a8886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fallback multi-target log stream. The <span class="tt">level</span> argument is ignored when LogIt is disabled.  <br /></td></tr>
+<tr class="memitem:a48ad32c348f9563e53a572bae19748d7" id="r_a48ad32c348f9563e53a572bae19748d7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a48ad32c348f9563e53a572bae19748d7">CONSOLIX_LOG_STREAM_EX</a>(level, ...)</td></tr>
+<tr class="memdesc:a48ad32c348f9563e53a572bae19748d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fallback multi-target log stream with an ignored backend list.  <br /></td></tr>
 <tr class="memitem:afe67f762cd2ce2e8eb51b0a77579ab4a" id="r_afe67f762cd2ce2e8eb51b0a77579ab4a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#afe67f762cd2ce2e8eb51b0a77579ab4a">CONSOLIX_LOGO_STREAM</a>()</td></tr>
 <tr class="memdesc:afe67f762cd2ce2e8eb51b0a77579ab4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fallback for logo logging.  <br /></td></tr>
 </table>
@@ -172,6 +176,55 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="a5deca44aa81f53db45becadaa33a8886" name="a5deca44aa81f53db45becadaa33a8886"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5deca44aa81f53db45becadaa33a8886">&#9670;&#160;</a></span>CONSOLIX_LOG_STREAM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CONSOLIX_LOG_STREAM</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_class" href="classconsolix_1_1MultiStream.html">consolix::MultiStream</a>()</div>
+<div class="ttc" id="aclassconsolix_1_1MultiStream_html"><div class="ttname"><a href="classconsolix_1_1MultiStream.html">consolix::MultiStream</a></div><div class="ttdoc">A class for handling multi-target log streams.</div><div class="ttdef"><b>Definition</b> <a href="MultiStream_8hpp_source.html#l00030">MultiStream.hpp:30</a></div></div>
+</div><!-- fragment -->
+<p>Fallback multi-target log stream. The <span class="tt">level</span> argument is ignored when LogIt is disabled. </p>
+
+<p class="definition">Definition at line <a class="el" href="LoggerComponent_8hpp_source.html#l00262">262</a> of file <a class="el" href="LoggerComponent_8hpp_source.html">LoggerComponent.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a48ad32c348f9563e53a572bae19748d7" name="a48ad32c348f9563e53a572bae19748d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48ad32c348f9563e53a572bae19748d7">&#9670;&#160;</a></span>CONSOLIX_LOG_STREAM_EX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CONSOLIX_LOG_STREAM_EX</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>level</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em></em></span>...&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_class" href="classconsolix_1_1MultiStream.html">consolix::MultiStream</a>()</div>
+</div><!-- fragment -->
+<p>Fallback multi-target log stream with an ignored backend list. </p>
+
+<p class="definition">Definition at line <a class="el" href="LoggerComponent_8hpp_source.html#l00266">266</a> of file <a class="el" href="LoggerComponent_8hpp_source.html">LoggerComponent.hpp</a>.</p>
+
+</div>
+</div>
 <a id="afe67f762cd2ce2e8eb51b0a77579ab4a" name="afe67f762cd2ce2e8eb51b0a77579ab4a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe67f762cd2ce2e8eb51b0a77579ab4a">&#9670;&#160;</a></span>CONSOLIX_LOGO_STREAM</h2>
 
@@ -187,11 +240,10 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_class" href="classconsolix_1_1MultiStream.html">consolix::MultiStream</a>(<span class="keyword">false</span>)</div>
-<div class="ttc" id="aclassconsolix_1_1MultiStream_html"><div class="ttname"><a href="classconsolix_1_1MultiStream.html">consolix::MultiStream</a></div><div class="ttdoc">A class for handling multi-target log streams.</div><div class="ttdef"><b>Definition</b> <a href="MultiStream_8hpp_source.html#l00032">MultiStream.hpp:32</a></div></div>
 </div><!-- fragment -->
 <p>Fallback for logo logging. </p>
 
-<p class="definition">Definition at line <a class="el" href="LoggerComponent_8hpp_source.html#l00220">220</a> of file <a class="el" href="LoggerComponent_8hpp_source.html">LoggerComponent.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerComponent_8hpp_source.html#l00270">270</a> of file <a class="el" href="LoggerComponent_8hpp_source.html">LoggerComponent.hpp</a>.</p>
 
 </div>
 </div>
@@ -215,7 +267,7 @@ Macros</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="example_application_main_loop_8cpp-example.html#a9">example_application_main_loop.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="LoggerComponent_8hpp_source.html#l00216">216</a> of file <a class="el" href="LoggerComponent_8hpp_source.html">LoggerComponent.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LoggerComponent_8hpp_source.html#l00257">257</a> of file <a class="el" href="LoggerComponent_8hpp_source.html">LoggerComponent.hpp</a>.</p>
 
 </div>
 </div>
