@@ -28,8 +28,8 @@ public:
 
         CONSOLIX_LOG_STREAM_EX(
                 logit::LogLevel::LOG_LVL_WARN,
-                CONSOLIX_LOGIT_LOGGER_INDEX, 0)
-            << "[multi-ex] file+console+explicit backends (warn)";
+                5)
+            << "[multi-ex] file+console+explicit backend 5 (warn)";
 
         return true;
     }

@@ -171,6 +171,16 @@ The `level` argument is mandatory (`logit::LogLevel::LOG_LVL_INFO`,
 `LOG_LVL_ERROR`, etc.). Color is applied explicitly by the caller through
 `<< consolix::color(consolix::TextColor::Red)`.
 
+**Note on `_EX` variants.** The standard console backend (`CONSOLIX_LOGIT_CONSOLE_INDEX`)
+and file logger (`CONSOLIX_LOGIT_LOGGER_INDEX`) are already included by both
+`CONSOLIX_LOG_STREAM` and `CONSOLIX_LOG_STREAM_EX`. Only pass *additional*
+backend indices to `_EX`:
+
+```cpp
+CONSOLIX_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_ERROR, 5)
+    << "Hello with extra backend" << std::endl;
+```
+
 **Inline override.** To fan out to additional LogIt backends beyond the
 standard console and file logger, use the `_EX` variant:
 

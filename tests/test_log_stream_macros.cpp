@@ -1,4 +1,4 @@
-// tests/test_stderr_diagnostics.cpp
+// tests/test_log_stream_macros.cpp
 //
 // Verifies that CONSOLIX_LOG_STREAM and CONSOLIX_LOG_STREAM_EX compile
 // and execute without throwing. Actual log routing is covered by LogIt
@@ -27,7 +27,7 @@ void test_log_stream() {
 
 void test_log_stream_ex() {
     try {
-        CONSOLIX_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_WARN, 0)
+        CONSOLIX_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_WARN, 5)
             << "[log-stream-ex] smoke test";
     } catch (const std::exception& e) {
         throw std::runtime_error(
