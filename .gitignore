@@ -33,3 +33,6 @@
 
 # Build directories
 tests/build_tests/
+
+# Legacy vendored dependency snapshots (submodules live in external/)
+libs/
