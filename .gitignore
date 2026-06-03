@@ -36,3 +36,7 @@ tests/build_tests/
 
 # Legacy vendored dependency snapshots (submodules live in external/)
 libs/
+
+# Local Claude configuration (sensitive)
+.claude/proxy-config.json
+.claude/settings.local.json
