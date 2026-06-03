@@ -1,17 +1,15 @@
 /// \example example_stderr_diagnostics.cpp
-/// \brief Demonstrates the five CONSOLIX_STDERR_* / CONSOLIX_LOG_* diagnostic macros.
+/// \brief Demonstrates the CONSOLIX_LOG_STREAM / CONSOLIX_LOG_STREAM_EX
+///        multi-target diagnostic macros.
 
 #include <consolix/core.hpp>
 
 /// \class DiagnosticDemo
-/// \brief Demonstrates the five stderr / log diagnostic streams.
+/// \brief Demonstrates the multi-target diagnostic streams.
 ///
 /// The example exercises:
-///   - `CONSOLIX_STDERR_STREAM(level)` — stderr only.
-///   - `CONSOLIX_STDERR_STREAM(level) << color(...)` — stderr with color.
-///   - `CONSOLIX_STDERR_LOG_STREAM(level)` — stderr + `CONSOLIX_LOGIT_DEFAULT_BACKENDS`.
-///   - `CONSOLIX_STDERR_LOG_STREAM_EX(level, ...)` — stderr + explicit backends.
-///   - `CONSOLIX_LOG_STREAM(level)` — file logger + console + `CONSOLIX_LOGIT_DEFAULT_BACKENDS`.
+///   - `CONSOLIX_LOG_STREAM(level)` — file logger + console.
+///   - `CONSOLIX_LOG_STREAM(level) << color(...)` — multi-target with color.
 ///   - `CONSOLIX_LOG_STREAM_EX(level, ...)` — multi-target + explicit backends.
 class DiagnosticDemo final : public consolix::BaseLoopComponent {
 public:
@@ -21,31 +19,17 @@ public:
     /// \brief Called once at the start of the loop.
     /// \return `true` to signal successful initialization.
     bool on_once() override {
-        CONSOLIX_STDERR_STREAM(logit::LogLevel::LOG_LVL_ERROR)
-            << "[plain] hello from stderr (no color)";
-
-        CONSOLIX_STDERR_STREAM(logit::LogLevel::LOG_LVL_ERROR)
-            << consolix::color(consolix::TextColor::Red)
-            << "[error] colored stderr via << color(...)";
-
-#if CONSOLIX_USE_LOGIT == 1
-        CONSOLIX_STDERR_LOG_STREAM(logit::LogLevel::LOG_LVL_INFO)
-            << "[log-stream] default backends (info)";
-
-        CONSOLIX_STDERR_LOG_STREAM_EX(
-                logit::LogLevel::LOG_LVL_WARN,
-                CONSOLIX_LOGIT_LOGGER_INDEX, 0)
-            << "[log-stream-ex] explicit backends (warn)";
+        CONSOLIX_LOG_STREAM(logit::LogLevel::LOG_LVL_INFO)
+            << "[multi] file+console (info)";
 
         CONSOLIX_LOG_STREAM(logit::LogLevel::LOG_LVL_INFO)
-            << "[multi] file+console+default backends (info)";
+            << consolix::color(consolix::TextColor::Red)
+            << "[multi-colored] file+console with color";
 
-        CONSOLIX_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_DEBUG, 0)
-            << "[multi-ex] file+console+explicit backends (debug)";
-#else
-        consolix::StderrStream()
-            << "[fallback] stderr-only — level/backend args are ignored when LogIt is disabled";
-#endif
+        CONSOLIX_LOG_STREAM_EX(
+                logit::LogLevel::LOG_LVL_WARN,
+                CONSOLIX_LOGIT_LOGGER_INDEX, 0)
+            << "[multi-ex] file+console+explicit backends (warn)";
 
         return true;
     }
@@ -61,12 +45,8 @@ public:
     /// \brief Called during application shutdown after a stop request or termination signal.
     /// \param signal The shutdown signal.
     void on_shutdown(int /*signal*/) override {
-#if CONSOLIX_USE_LOGIT == 1
-        CONSOLIX_STDERR_STREAM(logit::LogLevel::LOG_LVL_INFO)
-            << "shutdown: stderr diagnostic demo done";
-#else
-        consolix::StderrStream() << "shutdown: stderr diagnostic demo done";
-#endif
+        CONSOLIX_LOG_STREAM(logit::LogLevel::LOG_LVL_INFO)
+            << "shutdown: multi-target diagnostic demo done";
     }
 
 private:

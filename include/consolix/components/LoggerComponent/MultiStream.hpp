@@ -33,7 +33,7 @@ namespace consolix {
 #if     CONSOLIX_USE_LOGIT == 1
         /// \brief Default constructor for MultiStream with LogIt integration.
         MultiStream()
-            : m_level(logit::LogLevel::LOG_LVL_TRACE), 
+            : m_level(logit::LogLevel::LOG_LVL_TRACE),
               m_file(__FILE__),
               m_line(__LINE__),
               m_function(logit::make_relative(__FILE__, LOGIT_BASE_PATH)) {
@@ -95,7 +95,7 @@ namespace consolix {
 
 #           if CONSOLIX_USE_LOGIT == 1
             if (LOGIT_IS_SINGLE_MODE(CONSOLIX_LOGIT_CONSOLE_INDEX)) {
-                LOGIT_STREAM_TRACE_TO(CONSOLIX_LOGIT_CONSOLE_INDEX) << str;
+                logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_CONSOLE_INDEX) << str;
             }
             logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_LOGGER_INDEX) << str;
             for (int logger_index : m_logger_indices) {
@@ -229,207 +229,6 @@ namespace consolix {
 #       endif
 
     }; // MultiStream
-
-    /// \class StderrStream
-    /// \brief Writes diagnostics directly to stderr and optionally to selected LogIt backends.
-    ///
-    /// StderrStream is intended for logger-backend self diagnostics where routing
-    /// through the common logger fan-out would be unsafe or recursive. When LogIt
-    /// is enabled, caller-provided backend indices are written explicitly.
-    class StderrStream {
-    public:
-#if     CONSOLIX_USE_LOGIT == 1
-        /// \brief Construct stderr-only diagnostic stream.
-        StderrStream()
-            : m_level(logit::LogLevel::LOG_LVL_ERROR),
-              m_file(__FILE__),
-              m_line(__LINE__),
-              m_function(logit::make_relative(__FILE__, LOGIT_BASE_PATH)) {
-        }
-
-        /// \brief Construct stderr diagnostic stream with selected LogIt targets.
-        /// \param level Log level used for targeted LogIt backends.
-        /// \param file Source file path.
-        /// \param line Source line.
-        /// \param function Source function.
-        /// \param logger_indices Explicit LogIt backend indices to duplicate to.
-        StderrStream(
-                logit::LogLevel level,
-                const std::string& file,
-                int line,
-                const std::string& function,
-                std::initializer_list<int> logger_indices)
-            : m_level(level),
-              m_file(file),
-              m_line(line),
-              m_function(function),
-              m_logger_indices(logger_indices) {
-        }
-#else
-        /// \brief Construct stderr-only diagnostic stream.
-        StderrStream() = default;
-#endif
-
-        /// \brief Flush accumulated diagnostic output.
-        ~StderrStream() {
-            flush();
-        }
-
-        /// \brief Append value to the stream.
-        /// \tparam T Value type.
-        /// \param value Value to append.
-        /// \return Reference to this stream.
-        template <typename T>
-        StderrStream& operator<<(const T& value) {
-            m_stream << value;
-            return *this;
-        }
-
-        /// \brief Append stream manipulator.
-        /// \param manip Manipulator function.
-        /// \return Reference to this stream.
-        StderrStream& operator<<(std::ostream& (*manip)(std::ostream&)) {
-            m_stream << manip;
-            return *this;
-        }
-
-    private:
-        std::ostringstream m_stream; ///< Internal stream for accumulated output.
-
-#if     CONSOLIX_USE_LOGIT == 1
-        logit::LogLevel m_level; ///< Log level for targeted LogIt backends.
-        std::string m_file; ///< Source file path.
-        int m_line = 0; ///< Source line.
-        std::string m_function; ///< Source function.
-        std::vector<int> m_logger_indices; ///< Explicit LogIt backend indices.
-#endif
-
-        /// \brief Flush stderr output and selected LogIt backends.
-        void flush() noexcept {
-            try {
-                const std::string message = m_stream.str();
-                if (message.empty()) {
-                    return;
-                }
-
-                flush_to_stderr(message);
-
-#if     CONSOLIX_USE_LOGIT == 1
-                const std::string log_message = strip_ansi_codes(message);
-                for (int logger_index : m_logger_indices) {
-                    logit::LogStream(m_level, m_file, m_line, m_function, logger_index)
-                        << log_message;
-                }
-#endif
-            } catch (...) {
-            }
-        }
-
-        /// \brief Write message directly to stderr.
-        /// \param message UTF-8 message with optional ANSI color codes.
-        static void flush_to_stderr(const std::string& message) {
-#if defined(_WIN32)
-            handle_ansi_colors_windows(utf8_to_cp866(message));
-#else
-            if (!message.empty()) {
-                const bool has_ansi_color = message.find("\033[") != std::string::npos;
-                std::cerr << message;
-                if (has_ansi_color) {
-                    std::cerr << "\033[0m";
-                }
-            }
-#endif
-        }
-
-#if     CONSOLIX_USE_LOGIT == 1
-        /// \brief Remove ANSI color sequences before writing to file loggers.
-        /// \param message Message that may contain ANSI color sequences.
-        /// \return Message without ANSI color sequences.
-        static std::string strip_ansi_codes(const std::string& message) {
-            std::string out;
-            out.reserve(message.size());
-            for (std::size_t i = 0; i < message.size(); ++i) {
-                if (message[i] == '\033' &&
-                    i + 1 < message.size() &&
-                    message[i + 1] == '[') {
-                    i += 2;
-                    while (i < message.size() && message[i] != 'm') {
-                        ++i;
-                    }
-                    continue;
-                }
-                out.push_back(message[i]);
-            }
-            return out;
-        }
-#endif
-
-#if defined(_WIN32)
-        /// \brief Apply ANSI colors and write message to Windows stderr.
-        /// \param message Message encoded for the active console.
-        static void handle_ansi_colors_windows(const std::string& message) {
-            std::string::size_type start = 0;
-            std::string::size_type pos = 0;
-
-            HANDLE handle_stderr = GetStdHandle(STD_ERROR_HANDLE);
-
-            while ((pos = message.find("\033[", start)) != std::string::npos) {
-                if (pos > start) {
-                    std::cerr << message.substr(start, pos - start);
-                }
-
-                std::string::size_type end_pos = message.find('m', pos);
-                if (end_pos != std::string::npos) {
-                    std::string ansi_code = message.substr(pos + 2, end_pos - pos - 2);
-                    apply_color_from_ansi_code(ansi_code, handle_stderr);
-                    start = end_pos + 1;
-                } else {
-                    break;
-                }
-            }
-
-            if (start < message.size()) {
-                std::cerr << message.substr(start);
-            }
-            if (!message.empty() && message.back() != '\n') {
-                std::cerr << std::endl;
-            }
-
-            SetConsoleTextAttribute(handle_stderr, to_windows_color(CONSOLIX_DEFAULT_COLOR));
-        }
-
-        /// \brief Apply parsed ANSI color to a Windows console handle.
-        /// \param ansi_code ANSI color code string.
-        /// \param handle Console handle.
-        static void apply_color_from_ansi_code(
-                const std::string& ansi_code,
-                HANDLE handle) {
-            WORD color_value = to_windows_color(CONSOLIX_DEFAULT_COLOR);
-            const int code = std::stoi(ansi_code);
-            switch (code) {
-                case 30: color_value = to_windows_color(TextColor::Black); break;
-                case 31: color_value = to_windows_color(TextColor::DarkRed); break;
-                case 32: color_value = to_windows_color(TextColor::DarkGreen); break;
-                case 33: color_value = to_windows_color(TextColor::DarkYellow); break;
-                case 34: color_value = to_windows_color(TextColor::DarkBlue); break;
-                case 35: color_value = to_windows_color(TextColor::DarkMagenta); break;
-                case 36: color_value = to_windows_color(TextColor::DarkCyan); break;
-                case 37: color_value = to_windows_color(TextColor::LightGray); break;
-                case 90: color_value = to_windows_color(TextColor::DarkGray); break;
-                case 91: color_value = to_windows_color(TextColor::Red); break;
-                case 92: color_value = to_windows_color(TextColor::Green); break;
-                case 93: color_value = to_windows_color(TextColor::Yellow); break;
-                case 94: color_value = to_windows_color(TextColor::Blue); break;
-                case 95: color_value = to_windows_color(TextColor::Magenta); break;
-                case 96: color_value = to_windows_color(TextColor::Cyan); break;
-                case 97: color_value = to_windows_color(TextColor::White); break;
-                default: break;
-            };
-            SetConsoleTextAttribute(handle, color_value);
-        }
-#endif
-
-    }; // StderrStream
 
 }; // namespace consolix
 

@@ -158,34 +158,28 @@ int main(int argc, char* argv[]) {
 
 ## Diagnostic Streams
 
-Consolix provides five diagnostic macros for stderr-only and multi-target logging:
+Consolix provides two multi-target log macros that route messages through
+LogIt backends. The console backend is configured so that `ERROR` and `FATAL`
+levels go to `std::cerr`, while `TRACE` through `WARN` go to `std::cout`.
 
-| Macro | stderr | File logger | Extra backends | Color |
+| Macro | Console backend | File logger | Extra backends | Color |
 |---|---|---|---|---|
-| `CONSOLIX_STDERR_STREAM(level)` | yes | — | — | via `<< color(...)` |
-| `CONSOLIX_STDERR_LOG_STREAM(level)` | yes | — | `CONSOLIX_LOGIT_DEFAULT_BACKENDS` | via `<< color(...)` |
-| `CONSOLIX_STDERR_LOG_STREAM_EX(level, ...)` | yes | — | inline indices | via `<< color(...)` |
-| `CONSOLIX_LOG_STREAM(level)` | — | yes | `CONSOLIX_LOGIT_DEFAULT_BACKENDS` | via `<< color(...)` |
-| `CONSOLIX_LOG_STREAM_EX(level, ...)` | — | yes | inline indices | via `<< color(...)` |
+| `CONSOLIX_LOG_STREAM(level)` | yes (level-based routing) | yes | — | via `<< color(...)` |
+| `CONSOLIX_LOG_STREAM_EX(level, ...)` | yes (level-based routing) | yes | inline indices | via `<< color(...)` |
 
-The `level` argument is mandatory (`logit::LogLevel::LOG_LVL_ERROR` and so on). Color is applied explicitly by the caller through `<< consolix::color(consolix::TextColor::Red)`.
+The `level` argument is mandatory (`logit::LogLevel::LOG_LVL_INFO`,
+`LOG_LVL_ERROR`, etc.). Color is applied explicitly by the caller through
+`<< consolix::color(consolix::TextColor::Red)`.
 
-**Default backends.** The config macro `CONSOLIX_LOGIT_DEFAULT_BACKENDS` (defined in `include/consolix/config_macros.hpp`) controls the extra LogIt backends that `CONSOLIX_STDERR_LOG_STREAM` and `CONSOLIX_LOG_STREAM` fan out to. It is empty by default. To add backends 8 and 9, define it before including the header:
-
-```cpp
-#define CONSOLIX_LOGIT_DEFAULT_BACKENDS 8, 9
-#include <consolix/core.hpp>
-```
-
-Or via `-DCONSOLIX_LOGIT_DEFAULT_BACKENDS=8,9` in compile flags.
-
-**Inline override.** To specify a backend list at the call site (bypassing the default), use the `_EX` variants:
+**Inline override.** To fan out to additional LogIt backends beyond the
+standard console and file logger, use the `_EX` variant:
 
 ```cpp
-CONSOLIX_STDERR_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_ERROR, 0, 2, 5);
+CONSOLIX_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_ERROR, 0, 2, 5)
+    << "Hello with extra backends" << std::endl;
 ```
 
-See `examples/example_stderr_diagnostics.cpp` for a runnable example that exercises all five macros.
+See `examples/example_stderr_diagnostics.cpp` for a runnable example.
 
 ## Documentation
 
