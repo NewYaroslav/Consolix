@@ -26,6 +26,12 @@ Additional policy:
   * Existing or intended development build directories such as `build-mingw` are not violations of this rule.
   * Do not move, delete, or redefine established development build directories unless the user explicitly asks for that change.
 
+## Git Policy
+
+* Do not merge PRs, push to `main`/`master`, force-push, or delete branches without explicit user confirmation (e.g. "yes", "ok", "push", "merge").
+* "Continue" or "go ahead" in the context of local file edits is NOT automatic approval for push/merge.
+* Force-push to `main`/`master` is never allowed.
+
 ## Header Inclusion Policy
 
 Public entry points for users are the umbrella headers:
