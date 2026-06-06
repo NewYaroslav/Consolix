@@ -94,12 +94,14 @@ namespace consolix {
 #           endif // if defined(_WIN32)
 
 #           if CONSOLIX_USE_LOGIT == 1
-            if (LOGIT_IS_SINGLE_MODE(CONSOLIX_LOGIT_CONSOLE_INDEX)) {
-                logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_CONSOLE_INDEX) << str;
-            }
-            logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_LOGGER_INDEX) << str;
-            for (int logger_index : m_logger_indices) {
-                logit::LogStream(m_level, m_file, m_line, m_function, logger_index) << str;
+            if (m_logger_indices.empty()) {
+                // Broadcast to all multi-mode backends (console, file, and any user-registered).
+                logit::LogStream(m_level, m_file, m_line, m_function, -1) << str;
+            } else {
+                // Targeted fan-out to explicitly listed backends only.
+                for (int logger_index : m_logger_indices) {
+                    logit::LogStream(m_level, m_file, m_line, m_function, logger_index) << str;
+                }
             }
 #           else
 
