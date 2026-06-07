@@ -2,8 +2,8 @@
 //
 // Verifies that CONSOLIX_LOG_STREAM and CONSOLIX_LOG_STREAM_EX keep the
 // Consolix routing contract: display streams target the single-mode console
-// and file logger by default, while plain LogIt broadcasts do not reach the
-// console backend.
+// and broadcast to regular LogIt backends by default, while plain LogIt
+// broadcasts do not reach the console backend.
 
 #include <algorithm>
 #include <iostream>
@@ -44,7 +44,9 @@ void test_log_stream() {
 
 void test_log_stream_ex() {
     try {
-        CONSOLIX_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_WARN, 5)
+        CONSOLIX_LOG_STREAM_EX(
+                logit::LogLevel::LOG_LVL_WARN,
+                CONSOLIX_LOGIT_UNIQUE_FILE_INDEX)
             << "[log-stream-ex] smoke test";
     } catch (const std::exception& e) {
         throw std::runtime_error(
@@ -131,9 +133,50 @@ void test_consolix_log_stream_hits_file_logger() {
     }
 }
 
-void test_consolix_log_stream_ex_keeps_defaults_and_adds_backends() {
-    LOGIT_ADD_MEMORY_LOGGER_DEFAULT_SINGLE_MODE();
+void test_consolix_log_stream_hits_user_regular_backend() {
+    LOGIT_ADD_MEMORY_LOGGER_DEFAULT();
     const int memory_logger_index = static_cast<int>(
+        logit::Logger::get_instance().logger_count() - 1);
+
+    CONSOLIX_LOG_STREAM(logit::LogLevel::LOG_LVL_INFO)
+        << "[consolix-user-regular-backend]";
+    LOGIT_WAIT();
+
+    const auto buffered = LOGIT_GET_BUFFERED_STRINGS(memory_logger_index);
+    if (!contains_message(buffered, "[consolix-user-regular-backend]")) {
+        throw std::runtime_error("CONSOLIX_LOG_STREAM did not reach a user regular backend");
+    }
+}
+
+void test_consolix_log_stream_no_broadcast_skips_user_regular_backend() {
+    LOGIT_ADD_MEMORY_LOGGER_DEFAULT();
+    const int memory_logger_index = static_cast<int>(
+        logit::Logger::get_instance().logger_count() - 1);
+
+    CONSOLIX_LOG_STREAM_NO_BROADCAST(logit::LogLevel::LOG_LVL_INFO)
+        << "[consolix-no-broadcast]";
+    LOGIT_WAIT();
+
+    const auto buffered = LOGIT_GET_BUFFERED_STRINGS(memory_logger_index);
+    if (contains_message(buffered, "[consolix-no-broadcast]")) {
+        throw std::runtime_error("CONSOLIX_LOG_STREAM_NO_BROADCAST reached a user regular backend");
+    }
+
+    const std::string path = LOGIT_GET_LAST_FILE_PATH(CONSOLIX_LOGIT_LOGGER_INDEX);
+    const logit::LogFileReadResult read_result =
+        LOGIT_READ_LOG_FILE(CONSOLIX_LOGIT_LOGGER_INDEX, path);
+    if (!read_result.ok ||
+        !contains_message(read_result.content, "[consolix-no-broadcast]")) {
+        throw std::runtime_error("CONSOLIX_LOG_STREAM_NO_BROADCAST skipped the file fallback");
+    }
+}
+
+void test_consolix_log_stream_ex_keeps_defaults_and_adds_backends() {
+    LOGIT_ADD_MEMORY_LOGGER_DEFAULT();
+    const int skipped_regular_index = static_cast<int>(
+        logit::Logger::get_instance().logger_count() - 1);
+    LOGIT_ADD_MEMORY_LOGGER_DEFAULT();
+    const int explicit_regular_index = static_cast<int>(
         logit::Logger::get_instance().logger_count() - 1);
 
     std::ostringstream captured_cout;
@@ -142,7 +185,7 @@ void test_consolix_log_stream_ex_keeps_defaults_and_adds_backends() {
     try {
         CONSOLIX_LOG_STREAM_EX(
                 logit::LogLevel::LOG_LVL_WARN,
-                memory_logger_index)
+                explicit_regular_index)
             << "[consolix-extra-backend]";
         LOGIT_WAIT();
     } catch (...) {
@@ -156,8 +199,13 @@ void test_consolix_log_stream_ex_keeps_defaults_and_adds_backends() {
         throw std::runtime_error("CONSOLIX_LOG_STREAM_EX skipped the default console");
     }
 
-    const auto buffered = LOGIT_GET_BUFFERED_STRINGS(memory_logger_index);
-    if (!contains_message(buffered, "[consolix-extra-backend]")) {
+    const auto skipped_regular = LOGIT_GET_BUFFERED_STRINGS(skipped_regular_index);
+    if (contains_message(skipped_regular, "[consolix-extra-backend]")) {
+        throw std::runtime_error("CONSOLIX_LOG_STREAM_EX broadcast to an unlisted regular backend");
+    }
+
+    const auto explicit_regular = LOGIT_GET_BUFFERED_STRINGS(explicit_regular_index);
+    if (!contains_message(explicit_regular, "[consolix-extra-backend]")) {
         throw std::runtime_error("CONSOLIX_LOG_STREAM_EX skipped the explicit backend");
     }
 }
@@ -175,6 +223,8 @@ int main() {
         test_general_logit_stream_does_not_hit_console();
         test_consolix_log_stream_hits_console_by_level();
         test_consolix_log_stream_hits_file_logger();
+        test_consolix_log_stream_hits_user_regular_backend();
+        test_consolix_log_stream_no_broadcast_skips_user_regular_backend();
         test_consolix_log_stream_ex_keeps_defaults_and_adds_backends();
         test_log_stream();
         test_log_stream_ex();
@@ -182,6 +232,7 @@ int main() {
         std::cout << "Log stream macro checks passed." << std::endl;
 #else
         CONSOLIX_LOG_STREAM(0) << "[fallback]";
+        CONSOLIX_LOG_STREAM_NO_BROADCAST(0) << "[fallback-no-broadcast]";
         CONSOLIX_LOG_STREAM_EX(0, 0) << "[fallback-ex]";
         std::cout << "Log stream macro compile-time checks passed." << std::endl;
 #endif

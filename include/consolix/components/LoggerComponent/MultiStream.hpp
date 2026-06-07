@@ -36,7 +36,8 @@ namespace consolix {
             : m_level(logit::LogLevel::LOG_LVL_TRACE),
               m_file(__FILE__),
               m_line(__LINE__),
-              m_function(logit::make_relative(__FILE__, LOGIT_BASE_PATH)) {
+              m_function(logit::make_relative(__FILE__, LOGIT_BASE_PATH)),
+              m_broadcast_regular(true) {
         }
 
         /// \brief Parameterized constructor for LogIt integration.
@@ -49,7 +50,11 @@ namespace consolix {
             const std::string& file,
             int line,
             const std::string& function)
-            : m_level(level), m_file(file), m_line(line), m_function(function) {
+            : m_level(level),
+              m_file(file),
+              m_line(line),
+              m_function(function),
+              m_broadcast_regular(true) {
         }
 
         /// \brief Parameterized constructor for LogIt integration with
@@ -59,18 +64,23 @@ namespace consolix {
         /// \param line Line number in the source file.
         /// \param function Function name.
         /// \param logger_indices Extra LogIt backend indices to fan out to
-        ///        in addition to the standard file/console targets.
+        ///        when regular backend broadcast is disabled, or extra
+        ///        single-mode indices when regular backend broadcast is enabled.
+        /// \param broadcast_regular Whether to broadcast to regular
+        ///        non-single LogIt backends.
         MultiStream(
             logit::LogLevel level,
             const std::string& file,
             int line,
             const std::string& function,
-            std::initializer_list<int> logger_indices)
+            std::initializer_list<int> logger_indices,
+            bool broadcast_regular = false)
             : m_level(level),
               m_file(file),
               m_line(line),
               m_function(function),
-              m_logger_indices(logger_indices) {
+              m_logger_indices(logger_indices),
+              m_broadcast_regular(broadcast_regular) {
         }
 
 #       else
@@ -97,10 +107,21 @@ namespace consolix {
             if (LOGIT_IS_SINGLE_MODE(CONSOLIX_LOGIT_CONSOLE_INDEX)) {
                 logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_CONSOLE_INDEX) << str;
             }
-            logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_LOGGER_INDEX) << str;
+            if (m_broadcast_regular) {
+                logit::LogStream(m_level, m_file, m_line, m_function, -1) << str;
+            } else {
+                logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_LOGGER_INDEX) << str;
+            }
             for (int logger_index : m_logger_indices) {
-                if (logger_index == CONSOLIX_LOGIT_CONSOLE_INDEX ||
+                if (logger_index == CONSOLIX_LOGIT_CONSOLE_INDEX) {
+                    continue;
+                }
+                if (!m_broadcast_regular &&
                     logger_index == CONSOLIX_LOGIT_LOGGER_INDEX) {
+                    continue;
+                }
+                if (m_broadcast_regular &&
+                    !LOGIT_IS_SINGLE_MODE(logger_index)) {
                     continue;
                 }
                 logit::LogStream(m_level, m_file, m_line, m_function, logger_index) << str;
@@ -143,6 +164,7 @@ namespace consolix {
         int                 m_line;         ///< Line number.
         std::string         m_function;     ///< Function name.
         std::vector<int>    m_logger_indices; ///< Extra LogIt backend indices for fan-out.
+        bool                m_broadcast_regular; ///< Broadcast to regular non-single backends.
 #       else
         bool                m_use_utf8;     ///< Flag indicating whether UTF-8 encoding should be used.
 #       endif
