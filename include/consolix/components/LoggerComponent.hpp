@@ -39,7 +39,8 @@
 #define CONSOLIX_LOGIT_UNIQUE_FILE_INDEX    4
 
 /// \brief Defines the general log stream for the application.
-/// Redirects logs to the main console backend with detailed context.
+/// Redirects display output to the main console backend and broadcasts the
+/// same record to regular LogIt backends.
 #define CONSOLIX_STREAM()                                \
     consolix::MultiStream(                               \
         logit::LogLevel::LOG_LVL_TRACE,                  \
@@ -47,12 +48,22 @@
         __LINE__,                                        \
         LOGIT_FUNCTION)
 
-/// \brief Defines a multi-target log stream (file logger + console + extra LogIt backends).
+/// \brief Defines a multi-target log stream (console + regular LogIt backends).
 /// \param level LogIt level for the multi-target stream.
-/// \details Routes the message to the standard file logger, the main console
-///          backend, and any explicit inline backend indices supplied via
-///          the `CONSOLIX_LOG_STREAM_EX` variant.
+/// \details Routes the message to the main single-mode console backend and
+///          broadcasts it to regular non-single LogIt backends, including the
+///          standard file logger and user-added regular backends.
 #define CONSOLIX_LOG_STREAM(level)                                 \
+    consolix::MultiStream(                                         \
+        (level),                                                   \
+        logit::make_relative(__FILE__, LOGIT_BASE_PATH),           \
+        __LINE__,                                                  \
+        LOGIT_FUNCTION)
+
+/// \brief Defines a log stream that targets the console and file fallback
+///        without broadcasting to user-added regular LogIt backends.
+/// \param level LogIt level for the stream.
+#define CONSOLIX_LOG_STREAM_NO_BROADCAST(level)                    \
     consolix::MultiStream(                                         \
         (level),                                                   \
         logit::make_relative(__FILE__, LOGIT_BASE_PATH),           \
@@ -60,10 +71,10 @@
         LOGIT_FUNCTION,                                            \
         {})
 
-/// \brief Defines a multi-target log stream with an explicit inline list of
-///        additional LogIt backend indices.
+/// \brief Defines a log stream with an explicit inline list of extra LogIt
+///        backend indices and no regular broadcast.
 /// \param level LogIt level for the multi-target stream.
-/// \param ... Comma-separated LogIt backend indices (e.g. `0,3`).
+/// \param ... Comma-separated extra LogIt backend indices.
 #define CONSOLIX_LOG_STREAM_EX(level, ...)                         \
     consolix::MultiStream(                                         \
         (level),                                                   \
@@ -209,8 +220,10 @@ namespace consolix {
             if (is_once) return;
             is_once = true;
 
-            // Primary console backend with level-based routing:
+            // Primary single-mode console backend with level-based routing:
             // TRACE..WARN -> std::cout, ERROR..FATAL -> std::cerr.
+            // General LogIt broadcasts skip it; Consolix display streams
+            // target it explicitly.
             // The config object's primary stream (std::cout by default) is only
             // used as a fallback when no route matches; our routes cover all
             // levels, so every record is dispatched by level.
@@ -224,7 +237,7 @@ namespace consolix {
                 logit::ConsoleStreamRoute::to_cerr(
                     logit::LogLevel::LOG_LVL_ERROR,
                     logit::LogLevel::LOG_LVL_FATAL));
-            LOGIT_ADD_CONSOLE_CONFIG(console_cfg, console_pattern);
+            LOGIT_ADD_CONSOLE_CONFIG_SINGLE_MODE(console_cfg, console_pattern);
 
             LOGIT_ADD_CONSOLE_SINGLE_MODE("%^%v%$", true); // Logo log stream
             LOGIT_ADD_CONSOLE(m_debug_pattern, true);      // Debug log stream
@@ -260,6 +273,11 @@ namespace consolix {
 /// \brief Fallback multi-target log stream. The `level` argument is
 ///        ignored when LogIt is disabled.
 #define CONSOLIX_LOG_STREAM(level) \
+    consolix::MultiStream()
+
+/// \brief Fallback no-broadcast log stream. The `level` argument is
+///        ignored when LogIt is disabled.
+#define CONSOLIX_LOG_STREAM_NO_BROADCAST(level) \
     consolix::MultiStream()
 
 /// \brief Fallback multi-target log stream with an ignored backend list.

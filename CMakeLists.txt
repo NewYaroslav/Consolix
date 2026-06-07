@@ -140,6 +140,11 @@ if(CONSOLIX_BUILD_TESTS)
 
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_log_stream_macros.cpp")
         consolix_add_test(test_log_stream_macros "tests/test_log_stream_macros.cpp")
+        target_compile_definitions(test_log_stream_macros
+            PRIVATE
+                CONSOLIX_FILE_LOGGER_PATH="tmp/agent-work/test-log-stream-macros"
+                CONSOLIX_UNIQUE_FILE_LOGGER_PATH="tmp/agent-work/test-unique-log-stream-macros"
+        )
     endif()
 
     if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_app_component_manager_shutdown_order.cpp")
