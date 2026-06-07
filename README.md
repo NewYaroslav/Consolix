@@ -185,7 +185,7 @@ CONSOLIX_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_ERROR, 5)
 standard console and file logger, use the `_EX` variant:
 
 ```cpp
-CONSOLIX_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_ERROR, 0, 2, 5)
+CONSOLIX_LOG_STREAM_EX(logit::LogLevel::LOG_LVL_ERROR, 5, 6)
     << "Hello with extra backends" << std::endl;
 ```
 

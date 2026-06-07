@@ -94,11 +94,15 @@ namespace consolix {
 #           endif // if defined(_WIN32)
 
 #           if CONSOLIX_USE_LOGIT == 1
-            // Always write to the console backend and file logger,
-            // then fan-out to any additional backends requested via _EX.
-            logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_CONSOLE_INDEX) << str;
+            if (LOGIT_IS_SINGLE_MODE(CONSOLIX_LOGIT_CONSOLE_INDEX)) {
+                logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_CONSOLE_INDEX) << str;
+            }
             logit::LogStream(m_level, m_file, m_line, m_function, CONSOLIX_LOGIT_LOGGER_INDEX) << str;
             for (int logger_index : m_logger_indices) {
+                if (logger_index == CONSOLIX_LOGIT_CONSOLE_INDEX ||
+                    logger_index == CONSOLIX_LOGIT_LOGGER_INDEX) {
+                    continue;
+                }
                 logit::LogStream(m_level, m_file, m_line, m_function, logger_index) << str;
             }
 #           else
