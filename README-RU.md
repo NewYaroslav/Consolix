@@ -178,6 +178,33 @@ int main() {
 shutdown events запрашивают shutdown на runner thread и ждут ограниченное окно
 для cleanup.
 
+### Порядок shutdown и финальные hooks
+
+`AppComponentManager` завершает компоненты в обратном порядке регистрации. После
+всех component shutdown callbacks runner очищает `ServiceLocator`, а затем
+закрывает LogIt. Это значит, что services и logging еще доступны, пока
+выполняются component `shutdown()` callbacks.
+
+Если приложению нужен финальный cleanup hook после остановки обычных
+компонентов, но до `ServiceLocator::clear_all()`, зарегистрируйте этот hook
+раньше компонентов, которые им пользуются:
+
+```cpp
+consolix::add<consolix::LoopComponent>(
+    []() { return true; },
+    []() {},
+    [](int exit_code) {
+        // Финальный cleanup, пока services и LogIt еще живы.
+    });
+
+consolix::add<RealComponent>();
+```
+
+Так как shutdown идет в LIFO-порядке, `RealComponent` завершится первым, а hook
+выполнится после него. Такой component-level паттерн лучше runner-level
+shutdown hooks: cleanup остается в той же lifecycle-модели, что и остальное
+приложение.
+
 ### Main loop and CPU usage
 
 Consolix выполняет компоненты в polling loop и по умолчанию не делает sleep
@@ -206,4 +233,5 @@ loop. `wake()` прерывает текущее ожидание, а wake reque
 - agent playbook: `guides/header-implementation-guidelines.md`
 - lifecycle example: `examples/example_shutdown_and_resources.cpp`
 - exit-code runner example: `examples/example_exit_code_runner.cpp`
+- loop throttle example: `examples/example_loop_throttle_component.cpp`
 - API docs: https://newyaroslav.github.io/Consolix/

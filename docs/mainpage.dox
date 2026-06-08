@@ -110,6 +110,32 @@ exits the process with the returned code. On Windows, Ctrl+C/Ctrl+Break request
 cooperative shutdown, while close/logoff/shutdown console events request cleanup
 on the runner thread and wait for a bounded timeout.
 
+### Shutdown Ordering and Final Hooks
+
+`AppComponentManager` shuts down components in reverse registration order. After
+all component shutdown callbacks finish, the runner clears `ServiceLocator` and
+then shuts down LogIt. Services and logging are therefore still available while
+component `shutdown()` callbacks run.
+
+If an application needs a final cleanup hook after ordinary components stop, but
+before `ServiceLocator::clear_all()`, register that hook before the components
+that use it:
+
+```cpp
+consolix::add<consolix::LoopComponent>(
+    []() { return true; },
+    []() {},
+    [](int exit_code) {
+        // Final cleanup while services and LogIt are still alive.
+    });
+
+consolix::add<RealComponent>();
+```
+
+Because shutdown is LIFO, `RealComponent` shuts down first and the hook runs
+after it. Prefer this component-level pattern over runner-level shutdown hooks
+so cleanup stays in the same lifecycle model as the rest of the application.
+
 ### Main Loop and CPU Usage
 
 Consolix runs components in a polling loop and does not sleep between iterations

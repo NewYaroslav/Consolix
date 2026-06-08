@@ -177,6 +177,32 @@ internally it uses the same runner and exits with the returned code. On Windows,
 Ctrl+C/Ctrl+Break request cooperative shutdown; close/logoff/shutdown events
 request shutdown on the runner thread and wait for a bounded cleanup window.
 
+### Shutdown Ordering and Final Hooks
+
+`AppComponentManager` shuts down components in reverse registration order. After
+all component shutdown callbacks finish, the runner clears `ServiceLocator` and
+then shuts down LogIt. This means services and logging are still available while
+component `shutdown()` callbacks run.
+
+If an application needs a final cleanup hook after ordinary components stop, but
+before `ServiceLocator::clear_all()`, register that hook before the components
+that use it:
+
+```cpp
+consolix::add<consolix::LoopComponent>(
+    []() { return true; },
+    []() {},
+    [](int exit_code) {
+        // Final cleanup while services and LogIt are still alive.
+    });
+
+consolix::add<RealComponent>();
+```
+
+Because shutdown is LIFO, `RealComponent` shuts down first and the hook runs
+after it. Prefer this component-level pattern over runner-level shutdown hooks
+so cleanup stays in the same lifecycle model as the rest of the application.
+
 ### Main Loop and CPU Usage
 
 Consolix runs components in a polling loop and does not sleep between
@@ -242,6 +268,7 @@ Additional repository guidance:
 - agent playbook: `guides/header-implementation-guidelines.md`
 - lifecycle example: `examples/example_shutdown_and_resources.cpp`
 - exit-code runner example: `examples/example_exit_code_runner.cpp`
+- loop throttle example: `examples/example_loop_throttle_component.cpp`
 - diagnostic streams: `examples/example_stderr_diagnostics.cpp`
 
 API documentation: https://newyaroslav.github.io/Consolix/
