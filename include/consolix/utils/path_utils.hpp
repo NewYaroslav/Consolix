@@ -5,8 +5,8 @@
 /// \file path_utils.hpp
 /// \brief Utilities for working with file and directory paths, including resolving paths relative to the executable.
 
-#include "../core/platform_includes.hpp"
-#include "../core/std_compat.hpp"
+#include "consolix/core/platform_includes.hpp"
+#include "consolix/core/std_compat.hpp"
 #include "encoding_utils.hpp"
 
 #include <string>

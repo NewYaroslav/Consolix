@@ -129,6 +129,12 @@ That approach is appropriate when:
 
 Do not centralize dependencies merely to save a few include lines if the subsystem is designed around standalone leaf headers.
 
+Avoid parent-directory include paths such as `../` in `#include` directives.
+For aggregate-first subsystems, place cross-module prerequisites in the owning
+aggregate header and include leaf headers only after that context is prepared.
+For standalone public leaf headers, use forward project include paths instead of
+walking upward through directories.
+
 ### Implementation-only helpers
 
 Build-mode helpers, implementation macros, and similar infrastructure should stay at the implementation boundary.

@@ -6,8 +6,6 @@
 /// \brief Runs Consolix components and returns an exit code without calling std::exit.
 /// \ingroup Core
 
-#include "../config_macros.hpp"
-#include "../interfaces.hpp"
 #include "platform_includes.hpp"
 
 #include <atomic>
