@@ -31,6 +31,7 @@
 /// - `core/ServiceLocator.hpp`
 /// - `core/service_utils.hpp`
 /// - `core/AppComponentManager.hpp`
+/// - `core/ConsoleApplicationRunner.hpp`
 /// - `core/ConsoleApplication.hpp`
 /// - `core/application_utils.hpp`
 ///
@@ -74,6 +75,7 @@
 #include "core/ServiceLocator.hpp"      ///< Singleton for managing globally accessible services.
 #include "core/service_utils.hpp"       ///< Helper functions for working with services.
 #include "core/AppComponentManager.hpp" ///< Manager for application components and their lifecycle.
+#include "core/ConsoleApplicationRunner.hpp" ///< Runner returning exit codes without std::exit.
 #include "core/ConsoleApplication.hpp"  ///< Singleton managing the console application's lifecycle.
 #include "core/application_utils.hpp"   ///< Helper functions for application setup and execution.
 

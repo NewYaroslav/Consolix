@@ -3,25 +3,26 @@
 #define _CONSOLIX_CONSOLE_APPLICATION_HPP_INCLUDED
 
 /// \file ConsoleApplication.hpp
-/// \brief Manages the lifecycle of a console application.
+/// \brief Singleton facade for the Consolix application lifecycle.
 /// \ingroup Core
 
-#include <csignal>
-#include <cstdlib>
-#include <iostream>
+#include "ConsoleApplicationRunner.hpp"
 
-#if !defined(_WIN32) && !defined(_WIN64)
-#include <signal.h>
-#endif
+#include <chrono>
+#include <cstdlib>
+#include <exception>
+#include <memory>
+#include <thread>
+#include <utility>
 
 namespace consolix {
 
     /// \class ConsoleApplication
-    /// \brief Singleton class to manage the lifecycle of a console application.
+    /// \brief Singleton facade over `ConsoleApplicationRunner`.
     ///
-    /// Provides functionality to initialize, execute, and gracefully shut down components
-    /// in a structured lifecycle. On POSIX systems, signal handlers only request shutdown,
-    /// and the actual component cleanup runs later in the normal execution path.
+    /// The singleton preserves the compact `consolix::add()` / `consolix::run()`
+    /// API. The actual lifecycle, signal handling, shutdown, service cleanup, and
+    /// logger shutdown are owned by `ConsoleApplicationRunner`.
     class ConsoleApplication {
     public:
 
@@ -49,16 +50,8 @@ namespace consolix {
         }
 
         /// \brief Initializes the application and its components.
-        /// This method initializes all components in the manager and ensures readiness
         void init() {
-            try {
-                while (!stop_requested() && !m_manager.initialize()) {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
-                }
-                cleanup_if_stopping();
-            } catch (const std::exception& e) {
-                handle_fatal_exception(e);
-            }
+            initialize_or_exit();
         }
 
         /// \brief Initializes the application with a custom action.
@@ -66,25 +59,23 @@ namespace consolix {
         /// \param init_action The custom action to perform during initialization.
         template <typename InitAction>
         void init(InitAction init_action) {
+            initialize_or_exit();
             try {
-                while (!stop_requested() && !m_manager.initialize()) {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
-                }
-                cleanup_if_stopping();
                 init_action();
-                cleanup_if_stopping();
+                exit_if_stopping();
             } catch (const std::exception& e) {
-                handle_fatal_exception(e);
+                exit_after_fatal_exception(e);
+            } catch (...) {
+                exit_after_unknown_fatal_exception();
             }
         }
 
         /// \brief Runs the application with the registered components.
+        ///
+        /// This legacy entry point preserves process-owning behavior by exiting
+        /// with the code produced by the runner.
         void run() {
-            if (m_running) return;
-            m_running = true;
-            setup_signal_handlers();
-            init();
-            lifecycle_loop();
+            std::exit(run_for_exit_code());
         }
 
         /// \brief Runs the application with a custom loop action.
@@ -92,279 +83,99 @@ namespace consolix {
         /// \param iteration_action The custom action to perform in each loop iteration.
         template <typename IterationAction>
         void run(IterationAction iteration_action) {
-            if (m_running) return;
-            m_running = true;
-            setup_signal_handlers();
-            init();
-            lifecycle_loop(iteration_action);
+            std::exit(run_for_exit_code(iteration_action));
         }
 
-        /// \brief Stops the application's main loop.
+        /// \brief Runs the application and returns an exit code without calling std::exit.
+        /// \return The requested exit code, a signal code, or a non-zero fatal error code.
+        int run_for_exit_code() {
+            return m_runner.run_for_exit_code();
+        }
+
+        /// \brief Runs the application with a custom loop action and returns an exit code.
+        /// \tparam IterationAction A callable type executed within the main loop.
+        /// \param iteration_action The custom action to perform in each loop iteration.
+        /// \return The requested exit code, a signal code, or a non-zero fatal error code.
+        template <typename IterationAction>
+        int run_for_exit_code(IterationAction iteration_action) {
+            return m_runner.run_for_exit_code(iteration_action);
+        }
+
+        /// \brief Stops the application's main loop with exit code 0.
         void stop() {
-            if (m_stopping) return;
-            m_stopping = true;
+            request_stop(0);
         }
 
-        /// \brief
-        void shutdown(int signal) {
-            m_stopping = true;
-            cleanup(signal);
+        /// \brief Stops the application's main loop with an explicit exit code.
+        /// \param exit_code Exit code to pass to shutdown and return from `run_for_exit_code`.
+        void stop(int exit_code) {
+            request_stop(exit_code);
+        }
+
+        /// \brief Requests stop with an explicit exit code.
+        /// \param exit_code Exit code to pass to shutdown and return from `run_for_exit_code`.
+        void request_stop(int exit_code) {
+            m_runner.request_stop(exit_code);
+        }
+
+        /// \brief Legacy shutdown entry point.
+        ///
+        /// If the runner is active, shutdown is deferred to the runner thread.
+        /// If the runner is inactive, this method performs the legacy process-owning
+        /// behavior by running cleanup through the runner and exiting.
+        void shutdown(int exit_code) {
+            request_stop(exit_code);
+            if (!m_runner.is_running()) {
+                std::exit(m_runner.run_for_exit_code());
+            }
         }
 
     private:
-        AppComponentManager m_manager;
-        std::atomic<bool>   m_init{false};
-        std::atomic<bool>   m_running{false};  ///< Flag indicating whether the loop is running.
-        std::atomic<bool>   m_stopping{false};
-        std::atomic<bool>   m_cleanup{false}; ///<
+        AppComponentManager      m_manager;
+        ConsoleApplicationRunner m_runner;
 
-        /// \brief Sets up signal handlers for graceful application termination.
-        void setup_signal_handlers() {
-#           if defined(_WIN32) || defined(_WIN64)
-            SetConsoleCtrlHandler(console_handler, TRUE);
-#           else
-            reset_signal_state();
-
-            struct sigaction action = {};
-            action.sa_handler = signal_handler;
-            sigemptyset(&action.sa_mask);
-            sigaddset(&action.sa_mask, SIGINT);
-            sigaddset(&action.sa_mask, SIGTERM);
-            action.sa_flags = 0;
-
-            sigaction(SIGINT, &action, nullptr);
-            sigaction(SIGTERM, &action, nullptr);
-#           endif
-            std::atexit(on_exit_handler);
+        void initialize_or_exit() {
+            try {
+                while (!m_runner.is_stop_requested() && !m_manager.initialize()) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                }
+                exit_if_stopping();
+            } catch (const std::exception& e) {
+                exit_after_fatal_exception(e);
+            } catch (...) {
+                exit_after_unknown_fatal_exception();
+            }
         }
 
-        /// \brief Cleans up the application and shuts down all components.
-        /// \param exit_code Exit code indicating the reason for cleanup.
-        /// \param wait_for_press Flag indicating if the program should wait for a key press before exiting.
-        void cleanup(int exit_code, bool wait_for_press = false) {
-            bool expected = false;
-            if (!m_cleanup.compare_exchange_strong(expected, true)) return;
-
-            m_stopping = true;
-
-#           if !defined(_WIN32) && !defined(_WIN64)
-            PosixTerminationSignalMaskGuard posix_signal_mask_guard;
-#           endif
-
-#           if CONSOLIX_USE_LOGIT == 1
-            LOGIT_PRINT_INFO("Cleaning up application for exit code: ", exit_code);
-            try {
-                m_manager.shutdown(exit_code);
-            } catch (const std::exception& e) {
-                LOGIT_FATAL(e);
+        void exit_if_stopping() {
+            if (m_runner.is_stop_requested()) {
+                std::exit(m_runner.run_for_exit_code());
             }
-            try {
-                ServiceLocator::get_instance().clear_all();
-            } catch (const std::exception& e) {
-                LOGIT_FATAL(e);
-            }
-            LOGIT_SHUTDOWN();
-#           else
-            try {
-                m_manager.shutdown(exit_code);
-            } catch (...) {}
-            try {
-                ServiceLocator::get_instance().clear_all();
-            } catch (...) {}
-#           endif
-            if (wait_for_press) {
-                CONSOLIX_STREAM() << "Press Enter to exit..." << std::endl;
-                std::cin.get();
-            }
-            std::exit(exit_code);
         }
 
-        /// \brief Handles fatal exceptions by logging the error and terminating the application.
-        /// \param e The exception that caused the fatal error.
-        void handle_fatal_exception(const std::exception& e) {
+        void exit_after_fatal_exception(const std::exception& e) {
 #           if CONSOLIX_USE_LOGIT == 1
             LOGIT_PRINT_FATAL("Unhandled exception: ", e.what());
-#           endif //
-            cleanup(-1, static_cast<bool>(CONSOLIX_WAIT_ON_ERROR));
-        }
-
-        /// \brief The main lifecycle loop with a custom action.
-        /// \tparam IterationAction A callable executed within the loop.
-        /// \param iteration_action The action to execute in each iteration.
-        template <typename IterationAction>
-        void lifecycle_loop(IterationAction iteration_action) {
-            try {
-                while (!stop_requested()) {
-                    m_manager.process();
-                    iteration_action();
-                }
-                cleanup(resolve_stop_exit_code(0));
-            } catch (const std::exception& e) {
-                handle_fatal_exception(e);
-            }
-        }
-
-        /// \brief The main lifecycle loop.
-        void lifecycle_loop() {
-            try {
-                while (!stop_requested()) {
-                    m_manager.process();
-                }
-                cleanup(resolve_stop_exit_code(0));
-            } catch (const std::exception& e) {
-                handle_fatal_exception(e);
-            }
-        }
-
-        /// \brief Called upon normal program termination.
-        static void on_exit_handler() {
-            ConsoleApplication::get_instance().shutdown(0);
-        }
-
-#       if defined(_WIN32) || defined(_WIN64)
-
-        /// \brief Handles Windows console events and triggers application shutdown.
-        /// \param win_event Windows console event code.
-        /// \return FALSE to allow further processing by the system.
-        static BOOL WINAPI console_handler(DWORD win_event) {
-            switch (win_event) {
-            case CTRL_C_EVENT:
-                log_event("CTRL_C_EVENT");
-                break;
-            case CTRL_CLOSE_EVENT:
-                log_event("CTRL_CLOSE_EVENT");
-                break;
-            case CTRL_LOGOFF_EVENT:
-                log_event("CTRL_LOGOFF_EVENT");
-                break;
-            case CTRL_SHUTDOWN_EVENT:
-                log_event("CTRL_SHUTDOWN_EVENT");
-                break;
-            default:
-                log_event("UNKNOWN_EVENT");
-                break;
-            }
-            ConsoleApplication::get_instance().shutdown(event_to_exit_code(win_event));
-            return FALSE;
-        }
-
-        /// \brief Logs a Windows console event.
-        /// \param event_name Name of the console event.
-        static void log_event(const char* event_name) {
-#           if CONSOLIX_USE_LOGIT == 1
-            LOGIT_PRINT_INFO("Console event received: ", event_name);
+#           else
+            (void)e;
 #           endif
+            m_runner.request_stop(-1);
+            std::exit(m_runner.run_for_exit_code());
         }
 
-        /// \brief Maps a Windows console event to a corresponding POSIX exit code.
-        /// \param win_event Windows console event code.
-        /// \return Corresponding POSIX exit code.
-        static int event_to_exit_code(DWORD win_event) {
-            switch (win_event) {
-            case CTRL_C_EVENT:
-                return SIGINT;
-            default:
-                return SIGTERM;
-            };
+        void exit_after_unknown_fatal_exception() {
+#           if CONSOLIX_USE_LOGIT == 1
+            LOGIT_PRINT_FATAL("Unhandled unknown exception");
+#           endif
+            m_runner.request_stop(-1);
+            std::exit(m_runner.run_for_exit_code());
         }
 
-#       else
-
-        class PosixTerminationSignalMaskGuard {
-        public:
-            PosixTerminationSignalMaskGuard() {
-                sigemptyset(&m_mask);
-                sigaddset(&m_mask, SIGINT);
-                sigaddset(&m_mask, SIGTERM);
-
-                if (sigprocmask(SIG_BLOCK, &m_mask, &m_old_mask) == 0) {
-                    m_active = true;
-                }
-            }
-
-            ~PosixTerminationSignalMaskGuard() {
-                if (m_active) {
-                    sigprocmask(SIG_SETMASK, &m_old_mask, nullptr);
-                }
-            }
-
-        private:
-            sigset_t m_mask{};
-            sigset_t m_old_mask{};
-            bool     m_active{false};
-        };
-
-        /// \brief Handles a POSIX signal by recording a deferred shutdown request.
-        /// \param exit_code POSIX signal code.
-        static void signal_handler(int exit_code) {
-            pending_signal_code() = static_cast<std::sig_atomic_t>(exit_code);
-            signal_stop_requested() = 1;
+        ConsoleApplication() :
+            m_runner(m_manager) {
         }
-
-        /// \brief Resets POSIX signal state before installing handlers.
-        static void reset_signal_state() {
-            pending_signal_code() = 0;
-            signal_stop_requested() = 0;
-        }
-
-        /// \brief Checks whether a POSIX signal requested shutdown and synchronizes the runtime state.
-        bool stop_requested() {
-            if (signal_stop_requested() != 0) {
-                m_stopping = true;
-            }
-            return m_stopping.load();
-        }
-
-        /// \brief Resolves the exit code for the active stop request.
-        int resolve_stop_exit_code(int fallback_exit_code) const {
-            const int pending_exit_code = static_cast<int>(pending_signal_code());
-            if (pending_exit_code != 0) {
-                return pending_exit_code;
-            }
-            return fallback_exit_code;
-        }
-
-        /// \brief Executes cleanup immediately if a stop request is already pending.
-        void cleanup_if_stopping() {
-            if (stop_requested()) {
-                cleanup(resolve_stop_exit_code(0));
-            }
-        }
-
-        /// \brief Storage for the last requested POSIX shutdown signal.
-        static volatile std::sig_atomic_t& pending_signal_code() {
-            static volatile std::sig_atomic_t value = 0;
-            return value;
-        }
-
-        /// \brief Storage for the POSIX stop-request flag.
-        static volatile std::sig_atomic_t& signal_stop_requested() {
-            static volatile std::sig_atomic_t value = 0;
-            return value;
-        }
-
-#       endif
-
-#       if defined(_WIN32) || defined(_WIN64)
-        bool stop_requested() {
-            return m_stopping.load();
-        }
-
-        int resolve_stop_exit_code(int fallback_exit_code) const {
-            return fallback_exit_code;
-        }
-
-        void cleanup_if_stopping() {
-            if (m_stopping) {
-                cleanup(0);
-            }
-        }
-#       endif
-
-        ConsoleApplication() = default;
         ~ConsoleApplication() = default;
 
-        // Deleting copy and move constructors and assignment operators to enforce singleton.
         ConsoleApplication(const ConsoleApplication&) = delete;
         ConsoleApplication& operator=(const ConsoleApplication&) = delete;
         ConsoleApplication(ConsoleApplication&&) = delete;

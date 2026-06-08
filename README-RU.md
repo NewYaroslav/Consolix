@@ -156,9 +156,32 @@ int main(int argc, char* argv[]) {
 }
 ```
 
+Если `main()` должен вернуть результат lifecycle, а не завершаться через
+`std::exit` из `ConsoleApplication::run()`, используйте runner с exit code:
+
+```cpp
+int main() {
+    consolix::add<MyComponent>();
+    return consolix::run_for_exit_code();
+}
+```
+
+Компонент может запросить конкретный код через `consolix::stop(code)`;
+`consolix::request_stop(code)` остается доступен как более явная форма.
+Если приложение уже владеет своим `AppComponentManager`, можно создать
+`consolix::ConsoleApplicationRunner runner(manager);` и вернуть
+`runner.run_for_exit_code()`.
+
+`ConsoleApplication::run()` остается совместимым process-owning facade:
+внутри он использует тот же runner и завершает процесс с полученным кодом.
+На Windows Ctrl+C/Ctrl+Break запрашивают cooperative shutdown, а close/logoff/
+shutdown events запрашивают shutdown на runner thread и ждут ограниченное окно
+для cleanup.
+
 ## Documentation
 
 - developer guidelines: `docs/header-implementation-guidelines.md`
 - agent playbook: `guides/header-implementation-guidelines.md`
 - lifecycle example: `examples/example_shutdown_and_resources.cpp`
+- exit-code runner example: `examples/example_exit_code_runner.cpp`
 - API docs: https://newyaroslav.github.io/Consolix/

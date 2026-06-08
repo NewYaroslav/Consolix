@@ -156,6 +156,27 @@ int main(int argc, char* argv[]) {
 }
 ```
 
+When `main()` must return the lifecycle result instead of letting
+`ConsoleApplication::run()` call `std::exit`, use the exit-code runner:
+
+```cpp
+int main() {
+    consolix::add<MyComponent>();
+    return consolix::run_for_exit_code();
+}
+```
+
+Components can request a specific code with `consolix::stop(code)`;
+`consolix::request_stop(code)` is available as the explicit form.
+For applications that already own an `AppComponentManager`, use
+`consolix::ConsoleApplicationRunner runner(manager);` and return
+`runner.run_for_exit_code()`.
+
+`ConsoleApplication::run()` remains the process-owning compatibility facade:
+internally it uses the same runner and exits with the returned code. On Windows,
+Ctrl+C/Ctrl+Break request cooperative shutdown; close/logoff/shutdown events
+request shutdown on the runner thread and wait for a bounded cleanup window.
+
 ## Diagnostic Streams
 
 Consolix provides two multi-target log macros that route messages through
@@ -198,6 +219,7 @@ Additional repository guidance:
 - developer guidelines: `docs/header-implementation-guidelines.md`
 - agent playbook: `guides/header-implementation-guidelines.md`
 - lifecycle example: `examples/example_shutdown_and_resources.cpp`
+- exit-code runner example: `examples/example_exit_code_runner.cpp`
 - diagnostic streams: `examples/example_stderr_diagnostics.cpp`
 
 API documentation: https://newyaroslav.github.io/Consolix/

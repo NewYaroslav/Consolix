@@ -36,7 +36,7 @@ It also targets the recurring runtime concerns of console tools: startup and shu
 
 - **Core**:
   - `ServiceLocator` for global resource management
-  - `AppComponentManager` and `ConsoleApplication` for application lifecycle
+  - `AppComponentManager`, `ConsoleApplication`, and `ConsoleApplicationRunner` for application lifecycle
   - service and application helpers for common setup flows
 
 - **Components**:
@@ -96,6 +96,18 @@ int main(int argc, char* argv[]) {
     });
 }
 ```
+
+Use `consolix::run_for_exit_code()` when `main()` should return the lifecycle
+result instead of using the legacy `ConsoleApplication::run()` path that exits
+the process. Components can request a specific result with
+`consolix::stop(exit_code)`; `consolix::request_stop(exit_code)` is available
+as the explicit form. Applications that own their own `AppComponentManager`
+can run it through `consolix::ConsoleApplicationRunner`.
+
+`ConsoleApplication::run()` is a compatibility facade over the same runner: it
+exits the process with the returned code. On Windows, Ctrl+C/Ctrl+Break request
+cooperative shutdown, while close/logoff/shutdown console events request cleanup
+on the runner thread and wait for a bounded timeout.
 
 ## Documentation Structure
 
