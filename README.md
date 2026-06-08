@@ -177,6 +177,28 @@ internally it uses the same runner and exits with the returned code. On Windows,
 Ctrl+C/Ctrl+Break request cooperative shutdown; close/logoff/shutdown events
 request shutdown on the runner thread and wait for a bounded cleanup window.
 
+### Main Loop and CPU Usage
+
+Consolix runs components in a polling loop and does not sleep between
+iterations by default. If all components return immediately, the process may
+use excessive CPU. For latency-sensitive applications this is intentional:
+the framework does not hide an implicit delay inside the runner.
+
+For ordinary services and tools, add a throttle component near the end of the
+component list:
+
+```cpp
+auto throttle = consolix::add<consolix::LoopThrottleComponent>(
+    std::chrono::milliseconds(1));
+
+// Another thread can end the wait early when it posts new work.
+throttle->wake();
+```
+
+`LoopThrottleComponent` waits at most for the configured delay on every loop
+pass. `wake()` interrupts the current wait, and wake requests made before the
+wait begins are consumed by the next pass.
+
 ## Diagnostic Streams
 
 Consolix provides two multi-target log macros that route messages through

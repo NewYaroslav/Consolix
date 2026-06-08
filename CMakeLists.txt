@@ -156,6 +156,11 @@ if(CONSOLIX_BUILD_TESTS)
         set_tests_properties(test_console_application_runner PROPERTIES TIMEOUT 15)
     endif()
 
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_loop_throttle_component.cpp")
+        consolix_add_test(test_loop_throttle_component "tests/test_loop_throttle_component.cpp")
+        set_tests_properties(test_loop_throttle_component PROPERTIES TIMEOUT 15)
+    endif()
+
     if(UNIX AND NOT WIN32 AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_posix_signal_shutdown.cpp")
         consolix_add_test(test_posix_signal_shutdown "tests/test_posix_signal_shutdown.cpp")
         target_compile_definitions(test_posix_signal_shutdown PRIVATE CONSOLIX_WAIT_ON_ERROR=0)

@@ -46,6 +46,7 @@ It also targets the recurring runtime concerns of console tools: startup and shu
   - `ConfigComponent`: JSON-based configuration with comment support
   - `LogoComponent`: displays a custom ASCII logo in the console
   - `LoopComponent`: customizable application loops
+  - `LoopThrottleComponent`: optional wakeable wait step for polling loops
 
 - **Utilities**:
   - `path_utils.hpp`: path and executable-location helpers
@@ -108,6 +109,28 @@ can run it through `consolix::ConsoleApplicationRunner`.
 exits the process with the returned code. On Windows, Ctrl+C/Ctrl+Break request
 cooperative shutdown, while close/logoff/shutdown console events request cleanup
 on the runner thread and wait for a bounded timeout.
+
+### Main Loop and CPU Usage
+
+Consolix runs components in a polling loop and does not sleep between iterations
+by default. If every component returns immediately, the process may use
+excessive CPU. This keeps the runner explicit and avoids adding hidden latency
+for low-latency applications.
+
+For ordinary services and tools, add `consolix::LoopThrottleComponent` near the
+end of the component list:
+
+```cpp
+auto throttle = consolix::add<consolix::LoopThrottleComponent>(
+    std::chrono::milliseconds(1));
+
+// Producer threads can end the wait early when new work arrives.
+throttle->wake();
+```
+
+The component waits at most for the configured delay on each pass. `wake()`
+interrupts an active wait and preserves wake requests made just before the wait
+begins.
 
 ## Documentation Structure
 

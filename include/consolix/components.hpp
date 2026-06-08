@@ -31,6 +31,7 @@
 /// - **ConfigComponent**: Loads and manages configuration from JSON files.
 /// - **BaseLoopComponent**: A base class for loop-based components.
 /// - **LoopComponent**: A component with customizable execution loops.
+/// - **LoopThrottleComponent**: A wakeable wait step for throttling polling loops.
 /// - **EventHubComponent**: Optional bridge to event-hub-cpp EventBus and TaskManager.
 /// - **ModuleHubComponent**: Optional bridge to event-hub-cpp ModuleHub.
 ///
@@ -57,6 +58,7 @@
 /// - `components/ConfigComponent.hpp`
 /// - `components/BaseLoopComponent.hpp`
 /// - `components/LoopComponent.hpp`
+/// - `components/LoopThrottleComponent.hpp`
 /// - `components/EventHubComponent.hpp` when `CONSOLIX_USE_EVENT_HUB=1`
 /// - `components/ModuleHubComponent.hpp` when `CONSOLIX_USE_EVENT_HUB=1`
 ///
@@ -104,6 +106,7 @@
 #include "components/LogoComponent.hpp"     ///< Component for rendering logos in the console.
 #include "components/BaseLoopComponent.hpp" ///< Base class for implementing loop-based components.
 #include "components/LoopComponent.hpp"     ///< Component with configurable initialization, loop, and shutdown callbacks.
+#include "components/LoopThrottleComponent.hpp" ///< Wakeable throttle component for polling loops.
 
 #if CONSOLIX_USE_EVENT_HUB == 1
 #include "components/EventHubComponent.hpp"  ///< Optional event-hub-cpp EventBus/TaskManager integration component.

@@ -178,6 +178,28 @@ int main() {
 shutdown events запрашивают shutdown на runner thread и ждут ограниченное окно
 для cleanup.
 
+### Main loop and CPU usage
+
+Consolix выполняет компоненты в polling loop и по умолчанию не делает sleep
+между итерациями. Если все компоненты сразу возвращаются из `process()`, процесс
+может тратить слишком много CPU. Для latency-sensitive приложений это
+намеренно: framework не прячет implicit delay внутри runner.
+
+Для обычных сервисов и утилит добавьте throttle component ближе к концу списка
+компонентов:
+
+```cpp
+auto throttle = consolix::add<consolix::LoopThrottleComponent>(
+    std::chrono::milliseconds(1));
+
+// Другой поток может завершить ожидание раньше, когда добавил новую работу.
+throttle->wake();
+```
+
+`LoopThrottleComponent` ждет не дольше настроенного delay на каждом проходе
+loop. `wake()` прерывает текущее ожидание, а wake request, сделанный до начала
+ожидания, будет обработан на следующем проходе.
+
 ## Documentation
 
 - developer guidelines: `docs/header-implementation-guidelines.md`
