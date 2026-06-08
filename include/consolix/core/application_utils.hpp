@@ -74,10 +74,43 @@ namespace consolix {
         ConsoleApplication::get_instance().run(iteration_action);
     }
 
+    /// \brief Runs the application and returns an exit code without calling std::exit.
+    /// \return Exit code requested by the application lifecycle.
+    inline int run_for_exit_code() {
+        return ConsoleApplication::get_instance().run_for_exit_code();
+    }
+
+    /// \brief Runs the application with a custom loop action and returns an exit code.
+    /// \tparam IterationAction A callable type for the custom loop action.
+    /// \param iteration_action The action to execute in the main loop.
+    /// \return Exit code requested by the application lifecycle.
+    template <typename IterationAction>
+    inline int run_for_exit_code(IterationAction iteration_action) {
+        return ConsoleApplication::get_instance().run_for_exit_code(iteration_action);
+    }
+
+    /// \brief Requests application shutdown with an explicit exit code.
+    ///
+    /// If a `ConsoleApplicationRunner` is active on the current lifecycle, the
+    /// request is routed to that runner. Otherwise it targets the singleton
+    /// `ConsoleApplication` compatibility facade.
+    /// \param exit_code Exit code to pass to shutdown and return from exit-code runners.
+    inline void request_stop(int exit_code) {
+        if (!ConsoleApplicationRunner::request_current_stop(exit_code)) {
+            ConsoleApplication::get_instance().request_stop(exit_code);
+        }
+    }
+
     /// \brief Stops the application.
     /// Stops the application's main loop and begins the shutdown process.
     inline void stop() {
-        ConsoleApplication::get_instance().stop();
+        request_stop(0);
+    }
+
+    /// \brief Stops the application with an explicit exit code.
+    /// \param exit_code Exit code to pass to shutdown and return from exit-code runners.
+    inline void stop(int exit_code) {
+        request_stop(exit_code);
     }
 
 }; // namespace consolix

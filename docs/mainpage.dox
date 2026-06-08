@@ -36,7 +36,8 @@ It also targets the recurring runtime concerns of console tools: startup and shu
 
 - **Core**:
   - `ServiceLocator` for global resource management
-  - `AppComponentManager` and `ConsoleApplication` for application lifecycle
+  - `AppComponentManager`, `ConsoleApplication`, and `ConsoleApplicationRunner` for application lifecycle
+  - `LoopWakeService` for waking polling-loop wait components
   - service and application helpers for common setup flows
 
 - **Components**:
@@ -46,6 +47,7 @@ It also targets the recurring runtime concerns of console tools: startup and shu
   - `ConfigComponent`: JSON-based configuration with comment support
   - `LogoComponent`: displays a custom ASCII logo in the console
   - `LoopComponent`: customizable application loops
+  - `LoopThrottleComponent`: optional wakeable wait step for polling loops
 
 - **Utilities**:
   - `path_utils.hpp`: path and executable-location helpers
@@ -96,6 +98,81 @@ int main(int argc, char* argv[]) {
     });
 }
 ```
+
+Use `consolix::run_for_exit_code()` when `main()` should return the lifecycle
+result instead of using the legacy `ConsoleApplication::run()` path that exits
+the process. Components can request a specific result with
+`consolix::stop(exit_code)`; `consolix::request_stop(exit_code)` is available
+as the explicit form. Applications that own their own `AppComponentManager`
+can run it through `consolix::ConsoleApplicationRunner`.
+
+`ConsoleApplicationRunner` instances are single-use. Create a new manager and a
+new runner for another lifecycle. While `run_for_exit_code()` is active, global
+`consolix::stop()` and `consolix::request_stop()` target the active runner;
+otherwise they target the singleton `ConsoleApplication` facade.
+
+`ConsoleApplication::run()` is a compatibility facade over the same runner: it
+exits the process with the returned code. On Windows, Ctrl+C/Ctrl+Break request
+cooperative shutdown, while close/logoff/shutdown console events request cleanup
+on the runner thread and wait for a bounded timeout.
+
+### Shutdown Ordering and Final Hooks
+
+`AppComponentManager` shuts down components in reverse registration order. After
+all component shutdown callbacks finish, the runner clears `ServiceLocator` and
+then shuts down LogIt. Services and logging are therefore still available while
+component `shutdown()` callbacks run.
+
+If an application needs a final cleanup hook after ordinary components stop, but
+before `ServiceLocator::clear_all()`, register that hook before the components
+that use it:
+
+```cpp
+consolix::add<consolix::LoopComponent>(
+    []() { return true; },
+    []() {},
+    [](int exit_code) {
+        // Final cleanup while services and LogIt are still alive.
+    });
+
+consolix::add<RealComponent>();
+```
+
+Because shutdown is LIFO, `RealComponent` shuts down first and the hook runs
+after it. Prefer this component-level pattern over runner-level shutdown hooks
+so cleanup stays in the same lifecycle model as the rest of the application.
+
+### Main Loop and CPU Usage
+
+Consolix runs components in a polling loop and does not sleep between iterations
+by default. If every component returns immediately, the process may use
+excessive CPU. This keeps the runner explicit and avoids adding hidden latency
+for low-latency applications.
+
+For ordinary services and tools, add `consolix::LoopThrottleComponent` near the
+end of the component list:
+
+```cpp
+auto throttle = consolix::add<consolix::LoopThrottleComponent>(
+    std::chrono::milliseconds(1));
+
+// Producer threads can end the wait early when new work arrives.
+throttle->wake();
+```
+
+The component waits at most for the configured delay on each pass. `wake()`
+interrupts an active wait and preserves wake requests made just before the wait
+begins. When the application is run through `ConsoleApplicationRunner`,
+`consolix::stop()` and `consolix::request_stop()` also wake throttle waits
+through the shared `LoopWakeService`, so shutdown does not have to wait for a
+long throttle delay. If you drive `AppComponentManager` directly without the
+runner, keep the delay short or call `wake()` from the same control path that
+requests stop.
+
+On POSIX platforms, signal handlers remain async-signal-safe: they only store a
+pending signal flag. They do not wake C++ condition variables directly, so a
+long blocking `process()` call can delay SIGINT/SIGTERM handling until control
+returns to the runner loop.
 
 ## Documentation Structure
 

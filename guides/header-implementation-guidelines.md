@@ -79,6 +79,12 @@ Otherwise:
 
 - keep dependencies with the leaf header that owns the public contract
 
+Do not use parent-directory paths such as `../` in `#include` directives.
+For aggregate-first subsystems, prepare cross-module dependencies in the owning
+aggregate header before including leaf headers. For standalone public leaf
+headers, use forward project include paths instead of walking upward through
+directories.
+
 Implementation-only helpers such as build-mode macros should stay at the narrowest valid boundary:
 
 - preferably in the `.ipp` that uses them

@@ -89,6 +89,38 @@ namespace consolix {
             return *std::static_pointer_cast<T>(it->second);
         }
 
+        /// \brief Retrieves a shared resource pointer from the locator.
+        /// \tparam T The type of the resource.
+        /// \return Shared pointer to the resource.
+        /// \throws `std::runtime_error` if the resource is not registered.
+        template <typename T>
+        std::shared_ptr<T> get_service_ptr() {
+            compat::shared_lock<compat::shared_mutex> lock(m_mutex);
+            const auto type = std::type_index(typeid(T));
+            auto it = m_services.find(type);
+            if (it == m_services.end()) {
+#               if CONSOLIX_USE_LOGIT == 1
+                LOGIT_PRINT_ERROR("Service not registered: ", std::string(typeid(T).name()));
+#               endif
+                throw std::runtime_error("Service not registered: " + std::string(typeid(T).name()));
+            }
+            return std::static_pointer_cast<T>(it->second);
+        }
+
+        /// \brief Attempts to find a shared resource pointer.
+        /// \tparam T The type of the resource.
+        /// \return Shared pointer to the resource, or `nullptr` when it is not registered.
+        template <typename T>
+        std::shared_ptr<T> find_service() {
+            compat::shared_lock<compat::shared_mutex> lock(m_mutex);
+            const auto type = std::type_index(typeid(T));
+            auto it = m_services.find(type);
+            if (it == m_services.end()) {
+                return std::shared_ptr<T>();
+            }
+            return std::static_pointer_cast<T>(it->second);
+        }
+
         /// \brief Checks if a resource is registered.
         /// \tparam T The type of the resource.
         /// \return `true` if the resource is registered, `false` otherwise.

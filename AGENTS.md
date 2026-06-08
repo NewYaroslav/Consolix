@@ -48,6 +48,11 @@ directly by users.
 Do not include internal leaf headers directly from user code unless the header
 explicitly documents itself as standalone.
 
+Do not use parent-directory paths such as `../` in `#include` directives.
+Aggregate-owned headers should receive their shared dependencies from the
+owning umbrella header. Standalone public leaf headers should use forward
+project include paths instead of walking upward through directories.
+
 When adding a new internal header, prefer one of two clear modes:
 
 1. **Standalone header**: include all direct dependencies explicitly;

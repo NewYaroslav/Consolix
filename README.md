@@ -156,6 +156,90 @@ int main(int argc, char* argv[]) {
 }
 ```
 
+When `main()` must return the lifecycle result instead of letting
+`ConsoleApplication::run()` call `std::exit`, use the exit-code runner:
+
+```cpp
+int main() {
+    consolix::add<MyComponent>();
+    return consolix::run_for_exit_code();
+}
+```
+
+Components can request a specific code with `consolix::stop(code)`;
+`consolix::request_stop(code)` is available as the explicit form.
+For applications that already own an `AppComponentManager`, use
+`consolix::ConsoleApplicationRunner runner(manager);` and return
+`runner.run_for_exit_code()`.
+
+A `ConsoleApplicationRunner` instance is single-use. Create a new manager and a
+new runner for another lifecycle. While `run_for_exit_code()` is active, global
+`consolix::stop()` and `consolix::request_stop()` target the active runner;
+otherwise they target the singleton `ConsoleApplication` facade.
+
+`ConsoleApplication::run()` remains the process-owning compatibility facade:
+internally it uses the same runner and exits with the returned code. On Windows,
+Ctrl+C/Ctrl+Break request cooperative shutdown; close/logoff/shutdown events
+request shutdown on the runner thread and wait for a bounded cleanup window.
+
+### Shutdown Ordering and Final Hooks
+
+`AppComponentManager` shuts down components in reverse registration order. After
+all component shutdown callbacks finish, the runner clears `ServiceLocator` and
+then shuts down LogIt. This means services and logging are still available while
+component `shutdown()` callbacks run.
+
+If an application needs a final cleanup hook after ordinary components stop, but
+before `ServiceLocator::clear_all()`, register that hook before the components
+that use it:
+
+```cpp
+consolix::add<consolix::LoopComponent>(
+    []() { return true; },
+    []() {},
+    [](int exit_code) {
+        // Final cleanup while services and LogIt are still alive.
+    });
+
+consolix::add<RealComponent>();
+```
+
+Because shutdown is LIFO, `RealComponent` shuts down first and the hook runs
+after it. Prefer this component-level pattern over runner-level shutdown hooks
+so cleanup stays in the same lifecycle model as the rest of the application.
+
+### Main Loop and CPU Usage
+
+Consolix runs components in a polling loop and does not sleep between
+iterations by default. If all components return immediately, the process may
+use excessive CPU. For latency-sensitive applications this is intentional:
+the framework does not hide an implicit delay inside the runner.
+
+For ordinary services and tools, add a throttle component near the end of the
+component list:
+
+```cpp
+auto throttle = consolix::add<consolix::LoopThrottleComponent>(
+    std::chrono::milliseconds(1));
+
+// Another thread can end the wait early when it posts new work.
+throttle->wake();
+```
+
+`LoopThrottleComponent` waits at most for the configured delay on every loop
+pass. `wake()` interrupts the current wait, and wake requests made before the
+wait begins are consumed by the next pass. When the application is run through
+`ConsoleApplicationRunner`, `consolix::stop()` and `consolix::request_stop()`
+also wake throttle waits through the shared `LoopWakeService`, so shutdown does
+not have to wait for a long throttle delay. If you drive `AppComponentManager`
+directly without the runner, keep the delay short or call `wake()` from the
+same control path that requests stop.
+
+On POSIX platforms, signal handlers remain async-signal-safe: they only store a
+pending signal flag. They do not wake C++ condition variables directly, so a
+long blocking `process()` call can delay SIGINT/SIGTERM handling until control
+returns to the runner loop.
+
 ## Diagnostic Streams
 
 Consolix provides two multi-target log macros that route messages through
@@ -198,6 +282,8 @@ Additional repository guidance:
 - developer guidelines: `docs/header-implementation-guidelines.md`
 - agent playbook: `guides/header-implementation-guidelines.md`
 - lifecycle example: `examples/example_shutdown_and_resources.cpp`
+- exit-code runner example: `examples/example_exit_code_runner.cpp`
+- loop throttle example: `examples/example_loop_throttle_component.cpp`
 - diagnostic streams: `examples/example_stderr_diagnostics.cpp`
 
 API documentation: https://newyaroslav.github.io/Consolix/

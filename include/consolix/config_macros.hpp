@@ -136,4 +136,14 @@
 #define CONSOLIX_WAIT_ON_ERROR 0
 #endif
 
+/// \def CONSOLIX_FORCED_SHUTDOWN_TIMEOUT_MS
+/// \brief Maximum time a Windows close/logoff/shutdown handler waits for runner cleanup.
+/// \details Used only for forced console-control events where Windows may terminate
+/// the process shortly after handler return. The cleanup itself still runs on the
+/// runner thread.
+/// \default `4000`
+#ifndef CONSOLIX_FORCED_SHUTDOWN_TIMEOUT_MS
+#define CONSOLIX_FORCED_SHUTDOWN_TIMEOUT_MS 4000
+#endif
+
 #endif // _CONSOLIX_CONFIG_MACROS_HPP_INCLUDED

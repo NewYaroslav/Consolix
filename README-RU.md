@@ -156,9 +156,97 @@ int main(int argc, char* argv[]) {
 }
 ```
 
+Если `main()` должен вернуть результат lifecycle, а не завершаться через
+`std::exit` из `ConsoleApplication::run()`, используйте runner с exit code:
+
+```cpp
+int main() {
+    consolix::add<MyComponent>();
+    return consolix::run_for_exit_code();
+}
+```
+
+Компонент может запросить конкретный код через `consolix::stop(code)`;
+`consolix::request_stop(code)` остается доступен как более явная форма.
+Если приложение уже владеет своим `AppComponentManager`, можно создать
+`consolix::ConsoleApplicationRunner runner(manager);` и вернуть
+`runner.run_for_exit_code()`.
+
+Экземпляр `ConsoleApplicationRunner` одноразовый. Для нового lifecycle создайте
+новый manager и новый runner. Пока `run_for_exit_code()` активен, глобальные
+`consolix::stop()` и `consolix::request_stop()` направляются в активный runner;
+иначе они работают с singleton facade `ConsoleApplication`.
+
+`ConsoleApplication::run()` остается совместимым process-owning facade:
+внутри он использует тот же runner и завершает процесс с полученным кодом.
+На Windows Ctrl+C/Ctrl+Break запрашивают cooperative shutdown, а close/logoff/
+shutdown events запрашивают shutdown на runner thread и ждут ограниченное окно
+для cleanup.
+
+### Порядок shutdown и финальные hooks
+
+`AppComponentManager` завершает компоненты в обратном порядке регистрации. После
+всех component shutdown callbacks runner очищает `ServiceLocator`, а затем
+закрывает LogIt. Это значит, что services и logging еще доступны, пока
+выполняются component `shutdown()` callbacks.
+
+Если приложению нужен финальный cleanup hook после остановки обычных
+компонентов, но до `ServiceLocator::clear_all()`, зарегистрируйте этот hook
+раньше компонентов, которые им пользуются:
+
+```cpp
+consolix::add<consolix::LoopComponent>(
+    []() { return true; },
+    []() {},
+    [](int exit_code) {
+        // Финальный cleanup, пока services и LogIt еще живы.
+    });
+
+consolix::add<RealComponent>();
+```
+
+Так как shutdown идет в LIFO-порядке, `RealComponent` завершится первым, а hook
+выполнится после него. Такой component-level паттерн лучше runner-level
+shutdown hooks: cleanup остается в той же lifecycle-модели, что и остальное
+приложение.
+
+### Main loop and CPU usage
+
+Consolix выполняет компоненты в polling loop и по умолчанию не делает sleep
+между итерациями. Если все компоненты сразу возвращаются из `process()`, процесс
+может тратить слишком много CPU. Для latency-sensitive приложений это
+намеренно: framework не прячет implicit delay внутри runner.
+
+Для обычных сервисов и утилит добавьте throttle component ближе к концу списка
+компонентов:
+
+```cpp
+auto throttle = consolix::add<consolix::LoopThrottleComponent>(
+    std::chrono::milliseconds(1));
+
+// Другой поток может завершить ожидание раньше, когда добавил новую работу.
+throttle->wake();
+```
+
+`LoopThrottleComponent` ждет не дольше настроенного delay на каждом проходе
+loop. `wake()` прерывает текущее ожидание, а wake request, сделанный до начала
+ожидания, будет обработан на следующем проходе. Когда приложение запущено через
+`ConsoleApplicationRunner`, `consolix::stop()` и `consolix::request_stop()`
+тоже будят throttle wait через общий `LoopWakeService`, поэтому shutdown не
+ждет длинный throttle delay. Если вы запускаете `AppComponentManager` напрямую
+без runner-а, держите delay коротким или вызывайте `wake()` из того же control
+path, который запрашивает stop.
+
+На POSIX signal handlers остаются async-signal-safe: они только сохраняют флаг
+ожидающего сигнала. Они не будят C++ condition variables напрямую, поэтому
+долгий блокирующий `process()` может отложить обработку SIGINT/SIGTERM до
+возврата управления в runner loop.
+
 ## Documentation
 
 - developer guidelines: `docs/header-implementation-guidelines.md`
 - agent playbook: `guides/header-implementation-guidelines.md`
 - lifecycle example: `examples/example_shutdown_and_resources.cpp`
+- exit-code runner example: `examples/example_exit_code_runner.cpp`
+- loop throttle example: `examples/example_loop_throttle_component.cpp`
 - API docs: https://newyaroslav.github.io/Consolix/
