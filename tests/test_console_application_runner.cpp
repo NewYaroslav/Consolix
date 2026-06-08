@@ -280,6 +280,26 @@ void run_normal_stop_scenario() {
     expect(service_destroyed == 1, "runner must clear services exactly once");
 }
 
+void run_runner_single_use_scenario() {
+    ScenarioState state;
+    consolix::AppComponentManager manager;
+    manager.add<NormalStopComponent>(state);
+
+    consolix::ConsoleApplicationRunner runner(manager);
+    const int exit_code = runner.run_for_exit_code();
+
+    expect(exit_code == 0, "single-use runner first run must return 0");
+
+    bool threw = false;
+    try {
+        (void)runner.run_for_exit_code();
+    } catch (const std::logic_error&) {
+        threw = true;
+    }
+
+    expect(threw, "runner must reject a second run");
+}
+
 void run_component_exit_code_scenario() {
     ScenarioState state;
     consolix::AppComponentManager manager;
@@ -409,6 +429,7 @@ void run_stop_wakes_throttle_scenario() {
 int main() {
     try {
         run_normal_stop_scenario();
+        run_runner_single_use_scenario();
         run_component_exit_code_scenario();
         run_signal_stop_scenario();
         run_exception_scenario();

@@ -90,6 +90,10 @@ namespace consolix {
     }
 
     /// \brief Requests application shutdown with an explicit exit code.
+    ///
+    /// If a `ConsoleApplicationRunner` is active on the current lifecycle, the
+    /// request is routed to that runner. Otherwise it targets the singleton
+    /// `ConsoleApplication` compatibility facade.
     /// \param exit_code Exit code to pass to shutdown and return from exit-code runners.
     inline void request_stop(int exit_code) {
         if (!ConsoleApplicationRunner::request_current_stop(exit_code)) {

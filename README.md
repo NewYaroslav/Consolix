@@ -172,6 +172,11 @@ For applications that already own an `AppComponentManager`, use
 `consolix::ConsoleApplicationRunner runner(manager);` and return
 `runner.run_for_exit_code()`.
 
+A `ConsoleApplicationRunner` instance is single-use. Create a new manager and a
+new runner for another lifecycle. While `run_for_exit_code()` is active, global
+`consolix::stop()` and `consolix::request_stop()` target the active runner;
+otherwise they target the singleton `ConsoleApplication` facade.
+
 `ConsoleApplication::run()` remains the process-owning compatibility facade:
 internally it uses the same runner and exits with the returned code. On Windows,
 Ctrl+C/Ctrl+Break request cooperative shutdown; close/logoff/shutdown events
@@ -229,6 +234,11 @@ also wake throttle waits through the shared `LoopWakeService`, so shutdown does
 not have to wait for a long throttle delay. If you drive `AppComponentManager`
 directly without the runner, keep the delay short or call `wake()` from the
 same control path that requests stop.
+
+On POSIX platforms, signal handlers remain async-signal-safe: they only store a
+pending signal flag. They do not wake C++ condition variables directly, so a
+long blocking `process()` call can delay SIGINT/SIGTERM handling until control
+returns to the runner loop.
 
 ## Diagnostic Streams
 

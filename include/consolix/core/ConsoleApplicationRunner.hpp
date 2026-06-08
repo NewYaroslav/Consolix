@@ -45,6 +45,9 @@ namespace consolix {
     /// On Windows, Ctrl+C/Ctrl+Break only request a cooperative stop. Close, logoff,
     /// and shutdown console events request stop and wait briefly for this runner to
     /// complete cleanup on the runner thread.
+    ///
+    /// A runner instance is single-use. Create a new `AppComponentManager` and
+    /// `ConsoleApplicationRunner` for a new application lifecycle.
     class ConsoleApplicationRunner {
     public:
         /// \brief Constructs a runner over an existing component manager.
@@ -65,8 +68,12 @@ namespace consolix {
         /// \return The requested exit code, a signal code, or a non-zero fatal error code.
         template <typename IterationAction>
         int run_for_exit_code(IterationAction iteration_action) {
+            if (m_has_run.exchange(true)) {
+                throw std::logic_error("ConsoleApplicationRunner is single-use");
+            }
+
             if (m_running.exchange(true)) {
-                return requested_exit_code();
+                throw std::logic_error("ConsoleApplicationRunner is already running");
             }
 
             m_shutdown_complete.store(false);
@@ -190,6 +197,7 @@ namespace consolix {
         };
 
         AppComponentManager& m_manager;
+        std::atomic<bool>   m_has_run{false};
         std::atomic<bool>   m_running{false};
         std::atomic<bool>   m_stopping{false};
         std::atomic<bool>   m_cleanup{false};

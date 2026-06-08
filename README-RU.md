@@ -172,6 +172,11 @@ int main() {
 `consolix::ConsoleApplicationRunner runner(manager);` и вернуть
 `runner.run_for_exit_code()`.
 
+Экземпляр `ConsoleApplicationRunner` одноразовый. Для нового lifecycle создайте
+новый manager и новый runner. Пока `run_for_exit_code()` активен, глобальные
+`consolix::stop()` и `consolix::request_stop()` направляются в активный runner;
+иначе они работают с singleton facade `ConsoleApplication`.
+
 `ConsoleApplication::run()` остается совместимым process-owning facade:
 внутри он использует тот же runner и завершает процесс с полученным кодом.
 На Windows Ctrl+C/Ctrl+Break запрашивают cooperative shutdown, а close/logoff/
@@ -231,6 +236,11 @@ loop. `wake()` прерывает текущее ожидание, а wake reque
 ждет длинный throttle delay. Если вы запускаете `AppComponentManager` напрямую
 без runner-а, держите delay коротким или вызывайте `wake()` из того же control
 path, который запрашивает stop.
+
+На POSIX signal handlers остаются async-signal-safe: они только сохраняют флаг
+ожидающего сигнала. Они не будят C++ condition variables напрямую, поэтому
+долгий блокирующий `process()` может отложить обработку SIGINT/SIGTERM до
+возврата управления в runner loop.
 
 ## Documentation
 

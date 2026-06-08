@@ -22,8 +22,8 @@ namespace consolix {
     /// preferably after active work components, to pause each pass for a bounded time.
     ///
     /// Another thread can call `wake()` to end the wait early when new work arrives.
-    /// When a `ConsoleApplicationRunner` is active, stop requests also wake this
-    /// component through `LoopWakeService`.
+    /// When a `ConsoleApplicationRunner` is active, ordinary stop requests also
+    /// wake this component through `LoopWakeService`.
     class LoopThrottleComponent : public IAppComponent {
     public:
         /// \brief Constructs a throttle component with a short default delay.
@@ -46,13 +46,14 @@ namespace consolix {
         /// the next process pass, so producer threads can signal work without racing
         /// the exact wait window.
         void wake() {
-            if (auto service = loop_wake_service()) {
-                service->wake_all();
-            }
+            auto service = loop_wake_service();
 
             {
                 std::lock_guard<std::mutex> lock(m_mutex);
                 m_wake_requested = true;
+            }
+            if (service) {
+                service->wake_all();
             }
             m_condition.notify_all();
         }
