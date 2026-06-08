@@ -52,6 +52,22 @@ namespace consolix {
         return ServiceLocator::get_instance().get_service<T>();
     }
 
+    /// \brief Retrieves a shared pointer to a globally registered resource.
+    /// \tparam T The type of the resource.
+    /// \return Shared pointer to the resource.
+    template <typename T>
+    inline std::shared_ptr<T> get_service_ptr() {
+        return ServiceLocator::get_instance().get_service_ptr<T>();
+    }
+
+    /// \brief Attempts to find a globally registered resource.
+    /// \tparam T The type of the resource.
+    /// \return Shared pointer to the resource, or `nullptr` when it is not registered.
+    template <typename T>
+    inline std::shared_ptr<T> find_service() {
+        return ServiceLocator::get_instance().find_service<T>();
+    }
+
     /// \brief Checks if a resource is registered globally.
     /// \tparam T The type of the resource.
     /// \return `true` if the resource is registered, `false` otherwise.

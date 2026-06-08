@@ -34,9 +34,6 @@ public:
 
             if (++m_processed >= 5) {
                 CONSOLIX_STREAM() << "All queued items processed; stopping.";
-                if (m_throttle) {
-                    m_throttle->wake();
-                }
                 consolix::stop();
                 return;
             }

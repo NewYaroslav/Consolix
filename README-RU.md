@@ -225,7 +225,12 @@ throttle->wake();
 
 `LoopThrottleComponent` ждет не дольше настроенного delay на каждом проходе
 loop. `wake()` прерывает текущее ожидание, а wake request, сделанный до начала
-ожидания, будет обработан на следующем проходе.
+ожидания, будет обработан на следующем проходе. Когда приложение запущено через
+`ConsoleApplicationRunner`, `consolix::stop()` и `consolix::request_stop()`
+тоже будят throttle wait через общий `LoopWakeService`, поэтому shutdown не
+ждет длинный throttle delay. Если вы запускаете `AppComponentManager` напрямую
+без runner-а, держите delay коротким или вызывайте `wake()` из того же control
+path, который запрашивает stop.
 
 ## Documentation
 

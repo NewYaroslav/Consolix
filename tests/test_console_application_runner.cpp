@@ -35,6 +35,11 @@ void expect(bool condition, const char* message) {
     }
 }
 
+long long elapsed_ms(std::chrono::steady_clock::time_point start) {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::steady_clock::now() - start).count();
+}
+
 class NormalStopComponent final : public consolix::BaseLoopComponent {
 public:
     explicit NormalStopComponent(ScenarioState& state) :
@@ -208,6 +213,48 @@ private:
     std::atomic<bool>& m_release_process;
 };
 
+class ThreadStopComponent final : public consolix::BaseLoopComponent {
+public:
+    ThreadStopComponent(ScenarioState& state, int exit_code) :
+        m_state(state),
+        m_exit_code(exit_code) {
+    }
+
+    virtual ~ThreadStopComponent() override {
+        join_stop_thread();
+    }
+
+    bool on_once() override {
+        ++m_state.initialize_calls;
+        m_stop_thread = std::thread([this]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(20));
+            consolix::stop(m_exit_code);
+        });
+        return true;
+    }
+
+    void on_loop() override {
+        ++m_state.process_calls;
+    }
+
+    void on_shutdown(int signal) override {
+        ++m_state.shutdown_calls;
+        m_state.shutdown_code = signal;
+        join_stop_thread();
+    }
+
+private:
+    void join_stop_thread() {
+        if (m_stop_thread.joinable()) {
+            m_stop_thread.join();
+        }
+    }
+
+    ScenarioState& m_state;
+    int            m_exit_code;
+    std::thread    m_stop_thread;
+};
+
 void run_normal_stop_scenario() {
     ScenarioState state;
     int service_destroyed = 0;
@@ -340,6 +387,23 @@ void run_forced_stop_timeout_scenario() {
     expect(state.shutdown_code == 33, "timed-out forced stop must pass code to shutdown");
 }
 
+void run_stop_wakes_throttle_scenario() {
+    ScenarioState state;
+    consolix::AppComponentManager manager;
+    manager.add<ThreadStopComponent>(state, 77);
+    manager.add<consolix::LoopThrottleComponent>(std::chrono::milliseconds(1000));
+
+    consolix::ConsoleApplicationRunner runner(manager);
+    const auto start = std::chrono::steady_clock::now();
+    const int exit_code = runner.run_for_exit_code();
+
+    expect(exit_code == 77, "thread stop must return requested code");
+    expect(elapsed_ms(start) < 500,
+           "stop request must wake LoopThrottleComponent instead of waiting for delay");
+    expect(state.shutdown_calls == 1, "thread stop must shutdown once");
+    expect(state.shutdown_code == 77, "thread stop must pass code to shutdown");
+}
+
 } // namespace
 
 int main() {
@@ -350,6 +414,7 @@ int main() {
         run_exception_scenario();
         run_forced_stop_scenario();
         run_forced_stop_timeout_scenario();
+        run_stop_wakes_throttle_scenario();
 
         std::cout << "ConsoleApplicationRunner checks passed." << std::endl;
         return 0;

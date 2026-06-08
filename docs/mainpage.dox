@@ -37,6 +37,7 @@ It also targets the recurring runtime concerns of console tools: startup and shu
 - **Core**:
   - `ServiceLocator` for global resource management
   - `AppComponentManager`, `ConsoleApplication`, and `ConsoleApplicationRunner` for application lifecycle
+  - `LoopWakeService` for waking polling-loop wait components
   - service and application helpers for common setup flows
 
 - **Components**:
@@ -156,7 +157,12 @@ throttle->wake();
 
 The component waits at most for the configured delay on each pass. `wake()`
 interrupts an active wait and preserves wake requests made just before the wait
-begins.
+begins. When the application is run through `ConsoleApplicationRunner`,
+`consolix::stop()` and `consolix::request_stop()` also wake throttle waits
+through the shared `LoopWakeService`, so shutdown does not have to wait for a
+long throttle delay. If you drive `AppComponentManager` directly without the
+runner, keep the delay short or call `wake()` from the same control path that
+requests stop.
 
 ## Documentation Structure
 

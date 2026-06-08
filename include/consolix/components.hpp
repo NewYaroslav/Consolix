@@ -99,6 +99,7 @@
 // Service management utilities required by LoggerComponent, CliComponent, ConfigComponent
 #include "core/ServiceLocator.hpp"          ///< Service locator for managing shared resources.
 #include "core/service_utils.hpp"           ///< Utility functions for working with services.
+#include "core/LoopWakeService.hpp"         ///< Shared wake channel for polling-loop waits.
 
 // Core components of the Consolix framework
 #include "components/TitleComponent.hpp"    ///< Component for managing the console window title across platforms.

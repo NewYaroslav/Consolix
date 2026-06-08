@@ -9,6 +9,7 @@
 #include <atomic>
 #include <chrono>
 #include <condition_variable>
+#include <memory>
 #include <mutex>
 
 namespace consolix {
@@ -21,6 +22,8 @@ namespace consolix {
     /// preferably after active work components, to pause each pass for a bounded time.
     ///
     /// Another thread can call `wake()` to end the wait early when new work arrives.
+    /// When a `ConsoleApplicationRunner` is active, stop requests also wake this
+    /// component through `LoopWakeService`.
     class LoopThrottleComponent : public IAppComponent {
     public:
         /// \brief Constructs a throttle component with a short default delay.
@@ -43,6 +46,10 @@ namespace consolix {
         /// the next process pass, so producer threads can signal work without racing
         /// the exact wait window.
         void wake() {
+            if (auto service = loop_wake_service()) {
+                service->wake_all();
+            }
+
             {
                 std::lock_guard<std::mutex> lock(m_mutex);
                 m_wake_requested = true;
@@ -53,10 +60,15 @@ namespace consolix {
         /// \brief Changes the throttle delay and wakes any active wait.
         /// \param delay New maximum wait duration per process pass.
         void set_delay(std::chrono::milliseconds delay) {
+            auto service = loop_wake_service();
+
             {
                 std::lock_guard<std::mutex> lock(m_mutex);
                 m_delay = delay;
                 m_wake_requested = true;
+            }
+            if (service) {
+                service->wake_all();
             }
             m_condition.notify_all();
         }
@@ -70,6 +82,9 @@ namespace consolix {
 
     protected:
         bool initialize() override {
+            if (auto service = loop_wake_service()) {
+                m_observed_generation = service->generation();
+            }
             m_is_initialized.store(true);
             return true;
         }
@@ -79,17 +94,29 @@ namespace consolix {
         }
 
         void process() override {
-            std::unique_lock<std::mutex> lock(m_mutex);
-            if (m_wake_requested) {
-                m_wake_requested = false;
-                return;
+            std::chrono::milliseconds current_delay;
+            {
+                std::unique_lock<std::mutex> lock(m_mutex);
+                if (m_wake_requested) {
+                    m_wake_requested = false;
+                    return;
+                }
+
+                current_delay = m_delay;
             }
 
-            const std::chrono::milliseconds current_delay = m_delay;
             if (current_delay <= std::chrono::milliseconds(0)) {
                 return;
             }
 
+            if (auto service = loop_wake_service()) {
+                service->wait_for_change(m_observed_generation, current_delay);
+                std::lock_guard<std::mutex> lock(m_mutex);
+                m_wake_requested = false;
+                return;
+            }
+
+            std::unique_lock<std::mutex> lock(m_mutex);
             m_condition.wait_for(
                 lock,
                 current_delay,
@@ -100,11 +127,30 @@ namespace consolix {
         }
 
     private:
+        std::shared_ptr<LoopWakeService> loop_wake_service() {
+            {
+                std::lock_guard<std::mutex> lock(m_mutex);
+                auto service = m_loop_wake_service.lock();
+                if (service) {
+                    return service;
+                }
+            }
+
+            auto service = ServiceLocator::get_instance().find_service<LoopWakeService>();
+            if (service) {
+                std::lock_guard<std::mutex> lock(m_mutex);
+                m_loop_wake_service = service;
+            }
+            return service;
+        }
+
         mutable std::mutex          m_mutex;
         std::condition_variable     m_condition;
         std::chrono::milliseconds   m_delay{std::chrono::milliseconds(1)};
         bool                        m_wake_requested{false};
         std::atomic<bool>           m_is_initialized{false};
+        std::weak_ptr<LoopWakeService> m_loop_wake_service;
+        LoopWakeService::Generation m_observed_generation{0};
     }; // LoopThrottleComponent
 
 } // namespace consolix

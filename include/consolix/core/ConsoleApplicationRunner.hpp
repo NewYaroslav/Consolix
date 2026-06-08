@@ -27,6 +27,7 @@
 
 #include "ServiceLocator.hpp"
 #include "AppComponentManager.hpp"
+#include "LoopWakeService.hpp"
 
 #if !defined(_WIN32) && !defined(_WIN64)
 #include <signal.h>
@@ -70,6 +71,7 @@ namespace consolix {
 
             m_shutdown_complete.store(false);
             ActiveRunnerGuard active_runner_guard(*this);
+            setup_loop_wake_service();
             setup_signal_handlers();
 
             int exit_code = 0;
@@ -99,7 +101,7 @@ namespace consolix {
             if (m_stopping.compare_exchange_strong(expected, true)) {
                 m_requested_exit_code.store(exit_code);
             }
-            m_stop_requested_cv.notify_all();
+            wake_loop_waiters();
         }
 
         /// \brief Requests stop and waits for runner-thread cleanup to finish.
@@ -195,7 +197,7 @@ namespace consolix {
         std::atomic<int>    m_requested_exit_code{0};
         std::mutex          m_shutdown_mutex;
         std::condition_variable m_shutdown_complete_cv;
-        std::condition_variable m_stop_requested_cv;
+        std::weak_ptr<LoopWakeService> m_loop_wake_service;
 
         void setup_signal_handlers() {
             reset_signal_state();
@@ -219,6 +221,21 @@ namespace consolix {
         void initialize_components() {
             while (!stop_requested() && !m_manager.initialize()) {
                 std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            }
+        }
+
+        void setup_loop_wake_service() {
+            auto service = ServiceLocator::get_instance().find_service<LoopWakeService>();
+            if (!service) {
+                ServiceLocator::get_instance().register_service<LoopWakeService>();
+                service = ServiceLocator::get_instance().find_service<LoopWakeService>();
+            }
+            m_loop_wake_service = service;
+        }
+
+        void wake_loop_waiters() {
+            if (auto service = m_loop_wake_service.lock()) {
+                service->wake_all();
             }
         }
 
