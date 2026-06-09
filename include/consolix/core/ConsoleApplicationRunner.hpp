@@ -28,6 +28,7 @@
 #include "ServiceLocator.hpp"
 #include "AppComponentManager.hpp"
 #include "LoopWakeService.hpp"
+#include "PosixSignalWakeService.hpp"
 
 #if !defined(_WIN32) && !defined(_WIN64)
 #include <signal.h>
@@ -372,6 +373,7 @@ namespace consolix {
         static void signal_handler(int exit_code) {
             pending_signal_code() = static_cast<std::sig_atomic_t>(exit_code);
             signal_stop_requested() = 1;
+            PosixSignalWakeService::notify_signal_handler();
         }
 
         static void reset_signal_state() {

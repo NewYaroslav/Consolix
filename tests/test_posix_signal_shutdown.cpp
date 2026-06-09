@@ -110,6 +110,11 @@ bool wait_for_exit(pid_t pid, int& status_code, int timeout_ms) {
     return false;
 }
 
+long long elapsed_ms(std::chrono::steady_clock::time_point start) {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::steady_clock::now() - start).count();
+}
+
 class SignalAwareComponent : public consolix::BaseLoopComponent {
 public:
     SignalAwareComponent(int ready_fd, int status_fd) :
@@ -126,14 +131,16 @@ public:
     bool on_once() override {
         m_resource.reset(new ResourceState(m_resource_destroyed));
         m_worker = std::thread(&SignalAwareComponent::worker_loop, this);
-
-        const char ready = 'R';
-        write_all(m_ready_fd, &ready, sizeof(ready));
-        close_fd(m_ready_fd);
         return true;
     }
 
     void on_loop() override {
+        int expected = 0;
+        if (m_ready_sent.compare_exchange_strong(expected, 1)) {
+            const char ready = 'R';
+            write_all(m_ready_fd, &ready, sizeof(ready));
+            close_fd(m_ready_fd);
+        }
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 
@@ -186,11 +193,14 @@ private:
     std::atomic<int>      m_resource_destroyed{0};
     std::atomic<int>      m_worker_started{0};
     std::atomic<int>      m_worker_joined{0};
+    std::atomic<int>      m_ready_sent{0};
 };
 
 int run_child(int ready_fd, int status_fd) {
     try {
+        consolix::add<consolix::PosixSignalWakeComponent>();
         consolix::add<SignalAwareComponent>(ready_fd, status_fd);
+        consolix::add<consolix::LoopThrottleComponent>(std::chrono::milliseconds(5000));
         consolix::run();
         return 0;
     } catch (const std::exception& e) {
@@ -277,6 +287,7 @@ void run_signal_scenario(int signal_value) {
             fail_and_cleanup_child(pid, "Child did not report readiness");
         }
 
+        const auto signal_start = std::chrono::steady_clock::now();
         if (::kill(pid, signal_value) != 0) {
             fail_and_cleanup_child(pid, "kill() failed");
         }
@@ -284,7 +295,10 @@ void run_signal_scenario(int signal_value) {
         ChildStatus status;
         std::memset(&status, 0, sizeof(status));
         if (!read_all_with_timeout(status_pipe[0], &status, sizeof(status), 3000)) {
-            fail_and_cleanup_child(pid, "Did not receive shutdown status from child");
+            fail_and_cleanup_child(pid, "Did not receive shutdown status from child before throttle timeout");
+        }
+        if (elapsed_ms(signal_start) > 2000) {
+            fail_and_cleanup_child(pid, "POSIX signal wake did not interrupt throttle wait quickly");
         }
 
         int wait_status = 0;

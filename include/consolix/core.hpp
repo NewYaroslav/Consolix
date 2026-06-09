@@ -21,6 +21,7 @@
 /// - **AppComponentManager**: A manager for handling application components.
 /// - **ConsoleApplication**: A singleton for managing the console application. It includes `AppComponentManager`.
 /// - **LoopWakeService**: A shared wake channel for polling-loop wait components.
+/// - **PosixSignalWakeService**: An opt-in self-pipe bridge for POSIX signal wake-ups.
 /// - **Utilities**: Functions to simplify working with applications and services.
 ///
 /// ### Key Features:
@@ -33,6 +34,7 @@
 /// - `core/service_utils.hpp`
 /// - `core/AppComponentManager.hpp`
 /// - `core/LoopWakeService.hpp`
+/// - `core/PosixSignalWakeService.hpp`
 /// - `core/ConsoleApplicationRunner.hpp`
 /// - `core/ConsoleApplication.hpp`
 /// - `core/application_utils.hpp`
@@ -78,6 +80,7 @@
 #include "core/service_utils.hpp"       ///< Helper functions for working with services.
 #include "core/AppComponentManager.hpp" ///< Manager for application components and their lifecycle.
 #include "core/LoopWakeService.hpp"     ///< Shared wake channel for polling-loop waits.
+#include "core/PosixSignalWakeService.hpp" ///< Optional self-pipe bridge for POSIX signal wake-ups.
 #include "core/ConsoleApplicationRunner.hpp" ///< Runner returning exit codes without std::exit.
 #include "core/ConsoleApplication.hpp"  ///< Singleton managing the console application's lifecycle.
 #include "core/application_utils.hpp"   ///< Helper functions for application setup and execution.
