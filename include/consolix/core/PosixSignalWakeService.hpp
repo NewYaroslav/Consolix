@@ -270,6 +270,9 @@ namespace consolix {
         }
 
         static volatile std::sig_atomic_t& signal_wake_fd() {
+            // Store the pipe fd as sig_atomic_t so the signal handler can read it
+            // without locks or C++ runtime calls. On supported POSIX targets,
+            // process-local file descriptors fit in this value.
             static volatile std::sig_atomic_t fd = -1;
             return fd;
         }
