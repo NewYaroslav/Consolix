@@ -32,6 +32,7 @@
 /// - **BaseLoopComponent**: A base class for loop-based components.
 /// - **LoopComponent**: A component with customizable execution loops.
 /// - **LoopThrottleComponent**: A wakeable wait step for throttling polling loops.
+/// - **PosixSignalWakeComponent**: Optional POSIX signal wake bridge for throttled loops.
 /// - **EventHubComponent**: Optional bridge to event-hub-cpp EventBus and TaskManager.
 /// - **ModuleHubComponent**: Optional bridge to event-hub-cpp ModuleHub.
 ///
@@ -59,6 +60,7 @@
 /// - `components/BaseLoopComponent.hpp`
 /// - `components/LoopComponent.hpp`
 /// - `components/LoopThrottleComponent.hpp`
+/// - `components/PosixSignalWakeComponent.hpp`
 /// - `components/EventHubComponent.hpp` when `CONSOLIX_USE_EVENT_HUB=1`
 /// - `components/ModuleHubComponent.hpp` when `CONSOLIX_USE_EVENT_HUB=1`
 ///
@@ -100,6 +102,7 @@
 #include "core/ServiceLocator.hpp"          ///< Service locator for managing shared resources.
 #include "core/service_utils.hpp"           ///< Utility functions for working with services.
 #include "core/LoopWakeService.hpp"         ///< Shared wake channel for polling-loop waits.
+#include "core/PosixSignalWakeService.hpp"  ///< Optional self-pipe bridge for POSIX signal wake-ups.
 
 // Core components of the Consolix framework
 #include "components/TitleComponent.hpp"    ///< Component for managing the console window title across platforms.
@@ -108,6 +111,7 @@
 #include "components/BaseLoopComponent.hpp" ///< Base class for implementing loop-based components.
 #include "components/LoopComponent.hpp"     ///< Component with configurable initialization, loop, and shutdown callbacks.
 #include "components/LoopThrottleComponent.hpp" ///< Wakeable throttle component for polling loops.
+#include "components/PosixSignalWakeComponent.hpp" ///< POSIX signal wake component for throttled loops.
 
 #if CONSOLIX_USE_EVENT_HUB == 1
 #include "components/EventHubComponent.hpp"  ///< Optional event-hub-cpp EventBus/TaskManager integration component.

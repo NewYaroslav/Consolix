@@ -240,6 +240,21 @@ pending signal flag. They do not wake C++ condition variables directly, so a
 long blocking `process()` call can delay SIGINT/SIGTERM handling until control
 returns to the runner loop.
 
+For POSIX applications that use long throttle delays, add the opt-in self-pipe
+wake component before components that may block the loop:
+
+```cpp
+consolix::add<consolix::PosixSignalWakeComponent>();
+consolix::add<MyWorkerComponent>();
+consolix::add<consolix::LoopThrottleComponent>(
+    std::chrono::seconds(10));
+```
+
+The POSIX handler still only records the signal and writes one byte to a pipe.
+A watcher thread wakes `LoopWakeService` from normal C++ code, so
+SIGINT/SIGTERM can interrupt `LoopThrottleComponent` waits without doing
+mutex/CV work inside the signal handler. On Windows this component is a no-op.
+
 ## Diagnostic Streams
 
 Consolix provides two multi-target log macros that route messages through
