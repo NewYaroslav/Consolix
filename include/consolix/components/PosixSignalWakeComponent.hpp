@@ -66,8 +66,11 @@ namespace consolix {
 
     private:
         void stop_service() {
-            if (m_service) {
-                m_service->stop();
+            auto service = m_service;
+            m_service.reset();
+
+            if (service) {
+                service->stop();
             }
             m_initialized.store(false);
         }

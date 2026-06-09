@@ -242,8 +242,8 @@ path, который запрашивает stop.
 долгий блокирующий `process()` может отложить обработку SIGINT/SIGTERM до
 возврата управления в runner loop.
 
-Для POSIX-приложений с длинными throttle delays добавьте opt-in self-pipe
-component до компонентов, которые могут блокировать loop:
+Для POSIX-приложений с длинными задержками throttle добавьте опциональный
+компонент self-pipe wake до компонентов, которые могут блокировать цикл:
 
 ```cpp
 consolix::add<consolix::PosixSignalWakeComponent>();
@@ -252,10 +252,10 @@ consolix::add<consolix::LoopThrottleComponent>(
     std::chrono::seconds(10));
 ```
 
-POSIX handler по-прежнему только сохраняет сигнал и пишет один байт в pipe.
-Watcher thread будит `LoopWakeService` уже из обычного C++ кода, поэтому
+POSIX-обработчик по-прежнему только сохраняет сигнал и пишет один байт в pipe.
+Поток-наблюдатель будит `LoopWakeService` уже из обычного C++-кода, поэтому
 SIGINT/SIGTERM может прервать ожидание `LoopThrottleComponent` без mutex/CV
-работы внутри signal handler. На Windows этот component является no-op.
+работы внутри signal handler. На Windows этот компонент является no-op.
 
 ## Documentation
 
